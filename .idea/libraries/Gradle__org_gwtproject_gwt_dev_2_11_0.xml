@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: org.gwtproject:gwt-dev:2.11.0" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="org.gwtproject" artifactId="gwt-dev" version="2.11.0" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.gwtproject/gwt-dev/2.11.0/9832889f3ba33ea6127df852fe9b558bb4d30c80/gwt-dev-2.11.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.gwtproject/gwt-dev/2.11.0/6f30e00c13d6aa3c9e23fb2d6bed2fb18ef9bf4f/gwt-dev-2.11.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mini2Dx:universal-tween-engine:6.3.3" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="org.mini2Dx" artifactId="universal-tween-engine" version="6.3.3" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mini2Dx/universal-tween-engine/6.3.3/a65cd6d5c8c26adca5ddf8b4482238a422b33b18/universal-tween-engine-6.3.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mini2Dx/universal-tween-engine/6.3.3/747faf681a3a380cc95716d92ca3089a5ba0d4aa/universal-tween-engine-6.3.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

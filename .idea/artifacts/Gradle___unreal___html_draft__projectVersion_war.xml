@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" external-system-id="GRADLE" name="Gradle : unreal : html-draft-$projectVersion.war">
+    <output-path>$PROJECT_DIR$/html/build/libs</output-path>
+    <properties id="gradle-properties">
+      <options external-project-path="$PROJECT_DIR$">
+        <buildTaskPath>:html:war</buildTaskPath>
+        <cleanTaskPath>:html:cleanWar</cleanTaskPath>
+      </options>
+    </properties>
+    <root id="archive" name="html-draft-$projectVersion.war">
+      <element id="artifact" artifact-name="Gradle : unreal : html-draft-$projectVersion.war (exploded)" />
+    </root>
+  </artifact>
+</component>
