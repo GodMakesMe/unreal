@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -32,9 +33,10 @@ public class Main extends ApplicationAdapter {
         stage = new Stage();
         buttonImage = new TextureRegion(new Texture("StartButton.png"));
         imageButton = new ImageButton(new TextureRegionDrawable(buttonImage));
-        imageButton.setSize(100, 100);
-        imageButton.setSize(buttonImage.getRegionWidth(), buttonImage.getRegionHeight());
-        imageButton.setPosition(Gdx.graphics.getWidth() / 2 - imageButton.getWidth() / 2,Gdx.graphics.getHeight() / 2 - imageButton.getHeight() / 2);
+        imageButton.setSize(buttonImage.getRegionWidth()/4, buttonImage.getRegionHeight()/4);
+//        imageButton.setPosition(Gdx.graphics.getWidth() / 2 - imageButton.getWidth() / 2,Gdx.graphics.getHeight() / 2 - imageButton.getHeight() / 2);
+        imageButton.setPosition(522,720-466);
+        imageButton.addListener(new ClickListener() {});
         stage.addActor(imageButton);
         Gdx.input.setInputProcessor(stage);
 //        imageButton.setSize(buttonImage.getWidth(), buttonImage.getHeight());
