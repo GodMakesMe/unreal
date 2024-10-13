@@ -14,9 +14,9 @@ class block{
 	int health;
 	int damage;
 }
-class gui{
-	
-}
+//class gui{
+//
+//}
 
 
 public class Main {
