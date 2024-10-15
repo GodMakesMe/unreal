@@ -24,8 +24,11 @@ public class HomePage implements Screen {
     private SpriteBatch batch;
     private Sprite sprite;
     private ImageButton Startbutton;
+    private ImageButton Settingsbutton;
     private Texture Start;
     private Texture HoverStart;
+    private Texture Settings;
+    private Texture HoverSettings;
 
     public HomePage(Main game) {
         this.Game = game;
@@ -45,14 +48,26 @@ public class HomePage implements Screen {
         Start = new Texture("assets/start.png");
         HoverStart = new Texture("assets/hoverStart.png");
 
-        ImageButton.ImageButtonStyle style = new ImageButton.ImageButtonStyle();
-        style.up = new TextureRegionDrawable(new TextureRegion(Start));
-        style.over = new TextureRegionDrawable(new TextureRegion(HoverStart));
+        Settings = new Texture("assets/Settings.png");
+        HoverSettings = new Texture("assets/HoverSettings.png");
 
-        Startbutton = new ImageButton(style);
+        ImageButton.ImageButtonStyle SettingsStyle = new ImageButton.ImageButtonStyle();
+        SettingsStyle.up = new TextureRegionDrawable(new TextureRegion(Settings));
+        SettingsStyle.over = new TextureRegionDrawable(new TextureRegion(HoverSettings));
+
+        ImageButton.ImageButtonStyle Startstyle = new ImageButton.ImageButtonStyle();
+        Startstyle.up = new TextureRegionDrawable(new TextureRegion(Start));
+        Startstyle.over = new TextureRegionDrawable(new TextureRegion(HoverStart));
+
+        Startbutton = new ImageButton(Startstyle);
         Startbutton.setPosition(522,720-466-72);
         Startbutton.setSize(202,72);
         stage.addActor(Startbutton);
+
+        Settingsbutton = new ImageButton(SettingsStyle);
+        Settingsbutton.setPosition(29,720-27-55);
+        Settingsbutton.setSize(55,55);
+        stage.addActor(Settingsbutton);
 
         Startbutton.addListener(new InputListener(){
             @Override
@@ -60,6 +75,15 @@ public class HomePage implements Screen {
                 System.out.println("Button is clicked!!!!!!!!!");
                 System.out.println("Button position: " + Startbutton.getX() + ", " + Startbutton.getY());
                 Game.setScreen(new SeasonPage(Game));
+                return true;
+            }
+        });
+
+        Settingsbutton.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("Button is clicked!!!!!!!!!");
+//                Game.setScreen(new SeasonPage(Game));
                 return true;
             }
         });
