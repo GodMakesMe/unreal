@@ -17,7 +17,7 @@
   <inherits name="com.badlogic.gdx.backends.gdx_backends_gwt" />
   <inherits name="aurelienribon.tweenengine" />
   <inherits name="com.badlogic.gdx.physics.box2d.box2d-gwt" />
-  <inherits name="com.unreal.angrybirds.Main" />
+  <inherits name="com.unreal.angrybirds.Main_old" />
 
   <!-- You must change this if you rename packages later, or rename GwtLauncher. -->
   <entry-point class="com.unreal.angrybirds.gwt.GwtLauncher" />

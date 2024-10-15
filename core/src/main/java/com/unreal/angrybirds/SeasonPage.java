@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -27,14 +28,17 @@ public class SeasonPage implements Screen {
 
     private ImageButton Settingsbutton;
     private Texture Settings;
+    private Pixmap settingsButtonPixmap;
     private Texture HoverSettings;
 
     private ImageButton SpaceButton;
     private Texture Space;
+    private Pixmap spaceButtonPixmap;
     private Texture HoverSpace;
 
     private ImageButton EarthButton;
     private Texture Earth;
+    private Pixmap earthButtonPixmap;
     private Texture HoverEarth;
 
     public SeasonPage(Main game) {
@@ -54,6 +58,7 @@ public class SeasonPage implements Screen {
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         Settings = new Texture("assets/Settings.png");
+        settingsButtonPixmap = new Pixmap(Gdx.files.internal("assets/Settings.png"));
         HoverSettings = new Texture("assets/HoverSettings.png");
         ImageButton.ImageButtonStyle SettingsStyle = new ImageButton.ImageButtonStyle();
         SettingsStyle.up = new TextureRegionDrawable(new TextureRegion(Settings));
@@ -62,16 +67,18 @@ public class SeasonPage implements Screen {
         Settingsbutton.setPosition(29,720-27-55);
         Settingsbutton.setSize(55,55);
         stage.addActor(Settingsbutton);
-        Settingsbutton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-//                Game.setScreen(new SeasonPage(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(Settingsbutton, settingsButtonPixmap, null);
+//        Settingsbutton.addListener(new InputListener(){
+//            @Override
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                System.out.println("Button is clicked!!!!!!!!!");
+////                Game.setScreen(new SeasonPage(Game));
+//                return true;
+//            }
+//        });
 
         Space = new Texture("assets/Space.png");
+        spaceButtonPixmap = new Pixmap(Gdx.files.internal("assets/Space.png"));
         HoverSpace = new Texture("assets/HoverSpace.png");
         ImageButton.ImageButtonStyle SpaceStyle = new ImageButton.ImageButtonStyle();
         SpaceStyle.up = new TextureRegionDrawable(new TextureRegion(Space));
@@ -80,16 +87,18 @@ public class SeasonPage implements Screen {
         SpaceButton.setPosition(664,720-205-275);
         SpaceButton.setSize(285,275);
         stage.addActor(SpaceButton);
-        SpaceButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-//                Game.setScreen(new SeasonPage(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(SpaceButton, spaceButtonPixmap, null);
+//        SpaceButton.addListener(new InputListener(){
+//            @Override
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                System.out.println("Button is clicked!!!!!!!!!");
+////                Game.setScreen(new SeasonPage(Game));
+//                return true;
+//            }
+//        });
 
         Earth = new Texture("assets/Earth.png");
+        earthButtonPixmap = new Pixmap(Gdx.files.internal("assets/Earth.png"));
         HoverEarth = new Texture("assets/HoverEarth.png");
         ImageButton.ImageButtonStyle EarthStyle = new ImageButton.ImageButtonStyle();
         EarthStyle.up = new TextureRegionDrawable(new TextureRegion(Earth));
@@ -98,14 +107,15 @@ public class SeasonPage implements Screen {
         EarthButton.setPosition(362,720-205-275);
         EarthButton.setSize(285,275);
         stage.addActor(EarthButton);
-        EarthButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-//                Game.setScreen(new SeasonPage(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(EarthButton, earthButtonPixmap, null);
+//        EarthButton.addListener(new InputListener(){
+//            @Override
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                System.out.println("Button is clicked!!!!!!!!!");
+////                Game.setScreen(new SeasonPage(Game));
+//                return true;
+//            }
+//        });
 
 
 //        Startbutton.addListener(new InputListener(){

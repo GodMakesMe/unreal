@@ -4,15 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -29,7 +32,8 @@ public class HomePage implements Screen {
     private Texture HoverStart;
     private Texture Settings;
     private Texture HoverSettings;
-
+    private Pixmap startButtonPixmap;
+    private Pixmap settingsButtonPixmap;
     public HomePage(Main game) {
         this.Game = game;
     }
@@ -46,9 +50,11 @@ public class HomePage implements Screen {
         sprite.setPosition(0, 0);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Start = new Texture("assets/start.png");
+        startButtonPixmap = new Pixmap(Gdx.files.internal("assets/start.png"));
         HoverStart = new Texture("assets/hoverStart.png");
 
         Settings = new Texture("assets/Settings.png");
+        settingsButtonPixmap = new Pixmap(Gdx.files.internal("assets/Settings.png"));
         HoverSettings = new Texture("assets/HoverSettings.png");
 
         ImageButton.ImageButtonStyle SettingsStyle = new ImageButton.ImageButtonStyle();
@@ -61,7 +67,7 @@ public class HomePage implements Screen {
 
         Startbutton = new ImageButton(Startstyle);
         Startbutton.setPosition(522,720-466-72);
-        Startbutton.setSize(202,72);
+        Startbutton.setSize(Start.getWidth()/4,Start.getHeight()/4);
         stage.addActor(Startbutton);
 
         Settingsbutton = new ImageButton(SettingsStyle);
@@ -69,25 +75,43 @@ public class HomePage implements Screen {
         Settingsbutton.setSize(55,55);
         stage.addActor(Settingsbutton);
 
-        Startbutton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                System.out.println("Button position: " + Startbutton.getX() + ", " + Startbutton.getY());
-                Game.setScreen(new SeasonPage(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(Startbutton, startButtonPixmap, new SeasonPage(Game));
+        Game.clickHandling(Settingsbutton, settingsButtonPixmap, new SeasonPage(Game));
 
-        Settingsbutton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-//                Game.setScreen(new SeasonPage(Game));
-                return true;
-            }
-        });
+//        Startbutton.addListener(new ClickListener() {
+//            final ImageButton ButtonCopy = Startbutton;
+//            final Pixmap PixmapCopy = startButtonPixmap;
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                Vector2 localCoords = new Vector2();
+//                ButtonCopy.localToStageCoordinates(localCoords.set(x, y));
+//                float scaleX = 1.0f;
+//                float scaleY = 1.0f;
+//                if ((float) ButtonCopy.getHeight() != (float) PixmapCopy.getHeight()) {
+//                    scaleY = (float) ButtonCopy.getHeight() / (float) PixmapCopy.getHeight();
+//                    Gdx.app.log("scaleY", scaleY + "");
+//                }
+//                if ((float) ButtonCopy.getWidth() != (float) PixmapCopy.getWidth()) {
+//                    scaleX = (float) ButtonCopy.getWidth() / (float) PixmapCopy.getWidth();
+//                    Gdx.app.log("scaleY", scaleX + "");
+//                }
+//
+//                float buttonX = ButtonCopy.getX();  float buttonY = ButtonCopy.getY();
+//                float localX = -(buttonX - localCoords.x);  float localY = -(buttonY - localCoords.y);
+//
+//                Gdx.app.log("Click", "Local Coordinates: (" + localX + ", " + localY + ")");
+//                // Check if the pixel is opaque
+//                if (isPixelOpaque((int) (localX/scaleX), (int) (localY/scaleY), PixmapCopy)) {
+//                    Gdx.app.log("Click", "Button clicked inside shape!");
+//                    Game.setScreen(new SeasonPage(Game));
+//                } else {
+//                    Gdx.app.log("Click", "Clicked outside the button shape");
+//                }
+//            }
+//        });
+
     }
+
 
     @Override
     public void render(float delta) {
