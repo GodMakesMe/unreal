@@ -53,8 +53,8 @@ public class HomePage implements Screen {
         startButtonPixmap = new Pixmap(Gdx.files.internal("assets/start.png"));
         HoverStart = new Texture("assets/hoverStart.png");
 
-        Settings = new Texture("assets/Settings.png");
-        settingsButtonPixmap = new Pixmap(Gdx.files.internal("assets/Settings.png"));
+        Settings = new Texture("assets/SettingsButton.png");
+        settingsButtonPixmap = new Pixmap(Gdx.files.internal("assets/SettingsButton.png"));
         HoverSettings = new Texture("assets/HoverSettings.png");
 
         ImageButton.ImageButtonStyle SettingsStyle = new ImageButton.ImageButtonStyle();

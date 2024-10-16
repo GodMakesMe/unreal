@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,7 +25,9 @@ public class MercuryIntroduction implements Screen {
     private Sprite sprite;
 
     private ImageButton Backbutton;
+    private Pixmap backButtonPixmap;
     private ImageButton PlayButton;
+    private Pixmap playButtonPixmap;
 
     public MercuryIntroduction(Main game) {
         this.Game = game;
@@ -54,26 +57,14 @@ public class MercuryIntroduction implements Screen {
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         Backbutton = createButton("assets/Back.png","assets/HoverBack.png",47,720-635-55,55,55);
+        backButtonPixmap = new Pixmap(Gdx.files.internal("assets/Back.png"));
         stage.addActor(Backbutton);
-        Backbutton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                Game.setScreen(new SpaceLevelScreen(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(Backbutton, backButtonPixmap, new SpaceLevelScreen(Game));
 
         PlayButton = createButton("assets/Play.png","assets/HoverPlay.png",680,720-420-159,159,159);
+        playButtonPixmap = new Pixmap(Gdx.files.internal("assets/Play.png"));
         stage.addActor(PlayButton);
-        PlayButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                Game.setScreen(new MercuryLevel(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(PlayButton, playButtonPixmap, new MercuryLevel(Game));
     }
 
     @Override

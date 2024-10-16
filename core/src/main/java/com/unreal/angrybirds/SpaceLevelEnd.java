@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,8 +25,11 @@ public class SpaceLevelEnd  implements Screen {
     private Sprite sprite;
 
     private ImageButton ReplayButton;
+    private Pixmap replayButtonPixmap;
     private ImageButton HomeButton;
+    private Pixmap homeButtonPixmap;
     private ImageButton NextLevelButton;
+    private Pixmap nextLevelButtonPixmap;
 
     public SpaceLevelEnd(Main Game) {
         this.Game = Game;
@@ -55,37 +59,19 @@ public class SpaceLevelEnd  implements Screen {
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         ReplayButton = createButton("assets/Retry.png","assets/HoverRetry.png",506, 720 -572-67, 70, 67);
+        replayButtonPixmap = new Pixmap(Gdx.files.internal("assets/Retry.png"));
         stage.addActor(ReplayButton);
-        ReplayButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                Game.setScreen(new SpaceLevelScreen(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(ReplayButton, replayButtonPixmap, new SpaceLevelScreen(Game));
 
         HomeButton = createButton("assets/BacktoHome.png","assets/HoverBacktoHome.png",601, 720 -572-67, 70, 67);
+        homeButtonPixmap = new Pixmap(Gdx.files.internal("assets/BacktoHome.png"));
         stage.addActor(HomeButton);
-        HomeButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                Game.setScreen(new SpaceLevelScreen(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(HomeButton, homeButtonPixmap, new SpaceLevelScreen(Game));
 
         NextLevelButton = createButton("assets/NextLevel.png","assets/HoverNextLevel.png",701, 720 -572-67, 70, 67);
+        nextLevelButtonPixmap = new Pixmap(Gdx.files.internal("assets/NextLevel.png"));
         stage.addActor(NextLevelButton);
-        NextLevelButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                Game.setScreen(new SpaceLevelScreen(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(NextLevelButton, nextLevelButtonPixmap, new SpaceLevelScreen(Game));
     }
     @Override
     public void render(float delta) {

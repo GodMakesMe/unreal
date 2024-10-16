@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class NeptuneLevel  implements Screen {
+public class NormalLevel  implements Screen {
     private Main Game;
     private OrthographicCamera camera;
     private Stage stage;
@@ -40,7 +40,7 @@ public class NeptuneLevel  implements Screen {
     private ImageButton WhiteBirdButton;
     private Pixmap whiteBirdButtonPixmap;
 
-    public NeptuneLevel(Main game) {
+    public NormalLevel(Main game) {
         this.Game = game;
     }
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
@@ -62,7 +62,7 @@ public class NeptuneLevel  implements Screen {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0); // Set camera position to center
         camera.update();
-        sprite = new Sprite(new Texture("assets/NeptuneLevel.png"));
+        sprite = new Sprite(new Texture("assets/NormalLevel.png"));
         batch = new SpriteBatch();
 
         sprite.setPosition(0, 0);
@@ -71,12 +71,12 @@ public class NeptuneLevel  implements Screen {
         Nextbutton = createButton("assets/Next.png","assets/HoverNext.png",1167, (int) (720 -612-78.3), (int) 78.3, (int) 78.3);
         nextButtonPixmap = new Pixmap(Gdx.files.internal("assets/Next.png"));
         stage.addActor(Nextbutton);
-        Game.clickHandling(Nextbutton, nextButtonPixmap, new SpaceLevelEnd(Game));
+        Game.clickHandling(Nextbutton, nextButtonPixmap, new NormalLevelEnd(Game));
 
         PauseButton = createButton("assets/Pause.png","assets/HoverPause.png",47, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
         pauseButtonPixmap = new Pixmap(Gdx.files.internal("assets/Pause.png"));
         stage.addActor(PauseButton);
-        Game.clickHandling(PauseButton, pauseButtonPixmap, new SpacePauseScreen(Game, "assets/NeptuneBig.png","Neptune"));
+        Game.clickHandling(PauseButton, pauseButtonPixmap, new NormalPauseScreen(Game, this));
 
         RedBirdButton= createButton("assets/RedBird.png","assets/HoverRedBird.png",141, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
         redBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/RedBird.png"));

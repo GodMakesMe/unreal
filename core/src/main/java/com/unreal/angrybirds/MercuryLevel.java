@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,13 +25,20 @@ public class MercuryLevel implements Screen {
     private Sprite sprite;
 
     private ImageButton Nextbutton;
+    private Pixmap nextButtonPixmap;
     private ImageButton PauseButton;
+    private Pixmap pauseButtonPixmap;
 
     private ImageButton RedBirdButton;
+    private Pixmap redBirdButtonPixmap;
     private ImageButton YellowBirdButton;
+    private Pixmap yellowBirdButtonPixmap;
     private ImageButton BlueBirdButton;
+    private Pixmap blueBirdButtonPixmap;
     private ImageButton BombBirdButton;
+    private Pixmap bombBirdButtonPixmap;
     private ImageButton WhiteBirdButton;
+    private Pixmap whiteBirdButtonPixmap;
 
     public MercuryLevel(Main game) {
         this.Game = game;
@@ -61,81 +69,39 @@ public class MercuryLevel implements Screen {
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         Nextbutton = createButton("assets/Next.png","assets/HoverNext.png",1167, (int) (720 -612-78.3), (int) 78.3, (int) 78.3);
+        nextButtonPixmap = new Pixmap(Gdx.files.internal("assets/Next.png"));
         stage.addActor(Nextbutton);
-        Nextbutton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                Game.setScreen(new SpaceLevelEnd(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(Nextbutton, nextButtonPixmap, new SpaceLevelEnd(Game));
 
         PauseButton = createButton("assets/Pause.png","assets/HoverPause.png",47, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+        pauseButtonPixmap = new Pixmap(Gdx.files.internal("assets/Pause.png"));
         stage.addActor(PauseButton);
-        PauseButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                Game.setScreen(new SpacePauseScreen(Game,"assets/MercuryBig.png","Mercury"));
-                return true;
-            }
-        });
+        Game.clickHandling(PauseButton, pauseButtonPixmap, new SpacePauseScreen(Game, "assets/MercuryBig.png","Mercury"));
 
         RedBirdButton= createButton("assets/RedBird.png","assets/HoverRedBird.png",141, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+        redBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/RedBird.png"));
         stage.addActor(RedBirdButton);
-        RedBirdButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-//                Game.setScreen(new SpaceLevelScreen(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(RedBirdButton, redBirdButtonPixmap, null);
 
         YellowBirdButton= createButton("assets/YellowBird.png","assets/HoverYellowBird.png",220, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+        yellowBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/YellowBird.png"));
         stage.addActor(YellowBirdButton);
-        YellowBirdButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-//                Game.setScreen(new SpaceLevelScreen(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(YellowBirdButton, yellowBirdButtonPixmap, null);
 
         BlueBirdButton= createButton("assets/BlueBird.png","assets/HoverBlueBird.png",299, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+        blueBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/BlueBird.png"));
         stage.addActor(BlueBirdButton);
-        BlueBirdButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-//                Game.setScreen(new SpaceLevelScreen(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(BlueBirdButton, blueBirdButtonPixmap, null);
 
         BombBirdButton= createButton("assets/BombBird.png","assets/HoverBombBird.png",377, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+        bombBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/BombBird.png"));
         stage.addActor(BombBirdButton);
-        BombBirdButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-//                Game.setScreen(new SpaceLevelScreen(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(BombBirdButton, bombBirdButtonPixmap, null);
 
         WhiteBirdButton= createButton("assets/WhiteBird.png","assets/HoverWhiteBird.png",454, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+        whiteBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/WhiteBird.png"));
         stage.addActor(WhiteBirdButton);
-        WhiteBirdButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-//                Game.setScreen(new SpaceLevelScreen(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(WhiteBirdButton, whiteBirdButtonPixmap, null);
     }
 
     @Override

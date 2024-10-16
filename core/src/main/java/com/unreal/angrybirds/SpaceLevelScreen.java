@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -33,6 +34,16 @@ public class SpaceLevelScreen implements Screen {
     private ImageButton UranusButton;
     private ImageButton NeptuneButton;
     private ImageButton MoonButton;
+    private Pixmap PixmapBackbutton;
+    private Pixmap PixmapMercuryButton;
+    private Pixmap PixmapVenusButton;
+    private Pixmap PixmapEarthButton;
+    private Pixmap PixmapMarsButton;
+    private Pixmap PixmapJupiterButton;
+    private Pixmap PixmapSaturnButton;
+    private Pixmap PixmapUranusButton;
+    private Pixmap PixmapNeptuneButton;
+    private Pixmap PixmapMoonButton;
 
     public SpaceLevelScreen(Main game) {
         this.Game = game;
@@ -62,114 +73,54 @@ public class SpaceLevelScreen implements Screen {
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         Backbutton = createButton("assets/Back.png","assets/HoverBack.png",47,720-635-55,55,55);
+        PixmapBackbutton = new Pixmap(Gdx.files.internal("assets/Back.png"));
         stage.addActor(Backbutton);
-        Backbutton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                Game.setScreen(new SeasonPage(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(Backbutton, PixmapBackbutton, new SeasonPage(Game));
 
         MercuryButton = createButton("assets/Mercury.png","assets/HoverMercury.png",148,720-167-78,78,78);
+        PixmapMercuryButton = new Pixmap(Gdx.files.internal("assets/Mercury.png"));
         stage.addActor(MercuryButton);
-        MercuryButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                Game.setScreen(new MercuryIntroduction(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(MercuryButton, PixmapMercuryButton, new MercuryIntroduction(Game));
 
         VenusButton = createButton("assets/Venus.png","assets/HoverVenus.png",158,720-590-80,80,80);
+        PixmapVenusButton = new Pixmap(Gdx.files.internal("assets/Venus.png"));
         stage.addActor(VenusButton);
-        VenusButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                Game.setScreen(new VenusIntroduction(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(VenusButton, PixmapVenusButton, new VenusIntroduction(Game));
 
         EarthButton = createButton("assets/EarthP.png","assets/HoverEarthP.png",381,720-240-99,100,99);
+        PixmapEarthButton = new Pixmap(Gdx.files.internal("assets/EarthP.png"));
         stage.addActor(EarthButton);
-        EarthButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                Game.setScreen(new EarthIntroduction(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(EarthButton, PixmapEarthButton, new EarthIntroduction(Game));
 
         MarsButton = createButton("assets/Mars.png","assets/HoverMars.png",433,720-590-89,91,89);
+        PixmapMarsButton = new Pixmap(Gdx.files.internal("assets/Mars.png"));
         stage.addActor(MarsButton);
-        MarsButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                Game.setScreen(new MarsIntroduction(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(MarsButton, PixmapMarsButton, new MarsIntroduction(Game));
 
         JupiterButton = createButton("assets/Jupiter.png","assets/HoverJupiter.png",600,720-366-196,198,196);
+        PixmapJupiterButton = new Pixmap(Gdx.files.internal("assets/Jupiter.png"));
         stage.addActor(JupiterButton);
-        JupiterButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                Game.setScreen(new JupiterIntroduction(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(JupiterButton, PixmapJupiterButton, new JupiterIntroduction(Game));
 
         SaturnButton = createButton("assets/Saturn.png","assets/HoverSaturn.png", (int) 703.57F, (int) (720-(-26.42)-266.72), (int) 328.65F, (int) 266.72F);
+        PixmapSaturnButton = new Pixmap(Gdx.files.internal("assets/Saturn.png"));
         stage.addActor(SaturnButton);
-        SaturnButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                Game.setScreen(new SaturnIntroduction(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(SaturnButton, PixmapSaturnButton, new SaturnIntroduction(Game));
 
         UranusButton = createButton("assets/Uranus.png","assets/HoverUranus.png", 963, 720-481-218,218,218);
+        PixmapUranusButton = new Pixmap(Gdx.files.internal("assets/Uranus.png"));
         stage.addActor(UranusButton);
-        UranusButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                Game.setScreen(new UranusIntroduction(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(UranusButton, PixmapUranusButton, new UranusIntroduction(Game));
 
         NeptuneButton = createButton("assets/Neptune.png","assets/HoverNeptune.png", 1129, 720-9-151,151,151);
+        PixmapNeptuneButton = new Pixmap(Gdx.files.internal("assets/Neptune.png"));
         stage.addActor(NeptuneButton);
-        NeptuneButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                Game.setScreen(new NeptuneIntroduction(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(NeptuneButton, PixmapNeptuneButton, new NeptuneIntroduction(Game));
 
         MoonButton = createButton("assets/Moon.png","assets/HoverMoon.png", 441, 720-174-64,47,64);
+        PixmapMoonButton = new Pixmap(Gdx.files.internal("assets/Moon.png"));
         stage.addActor(MoonButton);
-        MoonButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button is clicked!!!!!!!!!");
-                Game.setScreen(new MoonIntroduction(Game));
-                return true;
-            }
-        });
+        Game.clickHandling(MoonButton, PixmapMoonButton, new MoonIntroduction(Game));
     }
 
     @Override

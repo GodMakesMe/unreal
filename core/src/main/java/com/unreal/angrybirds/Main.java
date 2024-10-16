@@ -11,11 +11,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends Game {
+    SpaceStorage spaceLevelsStorage = new SpaceStorage();
+
     @Override
     public void create() {
         setScreen(new HomePage(this));
     }
-    protected void clickHandling(ImageButton ButtonData, Pixmap buttonMap, Screen toGo){
+    protected void clickHandling(final ImageButton ButtonData, final Pixmap buttonMap, final Screen toGo){
         ButtonData.addListener(new ClickListener() {
             final ImageButton ButtonCopy = ButtonData;
             final Pixmap PixmapCopy = buttonMap;
@@ -35,7 +37,7 @@ public class Main extends Game {
                 }
 
                 float buttonX = ButtonCopy.getX();  float buttonY = ButtonCopy.getY();
-                float localX = -(buttonX - localCoords.x);  float localY = -(buttonY - localCoords.y);
+                float localX = -(buttonX - localCoords.x);  float localY = ButtonCopy.getHeight() + (buttonY - localCoords.y);
 
                 Gdx.app.log("Click", "Local Coordinates: (" + localX + ", " + localY + ")");
                 // Check if the pixel is opaque

@@ -17,16 +17,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class SpacePauseScreen  implements Screen {
+public class NormalPauseScreen  implements Screen {
     private Main Game;
     private OrthographicCamera camera;
     private Stage stage;
     private SpriteBatch batch;
     private Sprite sprite;
-    private Sprite planetSprite;
 
-    private String PlanetPath;
-    private String Planet;
 
     private ImageButton ResumeButton;
     private Pixmap resumeButtonPixmap;
@@ -35,10 +32,11 @@ public class SpacePauseScreen  implements Screen {
     private ImageButton BacktoMenuButton;
     private Pixmap backtoMenuPixmap;
 
-    public SpacePauseScreen(Main game,String PlanetPath,String Planet) {
+    private Screen PreviousScreen;
+
+    public NormalPauseScreen(Main game, Screen PreviousScreen) {
         this.Game = game;
-        this.PlanetPath = PlanetPath;
-        this.Planet = Planet;
+        this.PreviousScreen = PreviousScreen;
     }
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
         Texture ButtonTexture = new Texture(Path);
@@ -58,40 +56,18 @@ public class SpacePauseScreen  implements Screen {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0); // Set camera position to center
         camera.update();
-        sprite = new Sprite(new Texture("assets/SpacePause.png"));
+        sprite = new Sprite(new Texture("assets/NormalPause.png"));
         batch = new SpriteBatch();
 
         sprite.setPosition(0, 0);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        planetSprite = new Sprite(new Texture(PlanetPath));
-        planetSprite.setPosition(752, 720-180-363);
-        planetSprite.setSize(363, 363);
 
         ResumeButton = createButton("assets/Resume.png","assets/HoverResume.png",234, 720 -217-67, 268, 67);
         resumeButtonPixmap = new Pixmap(Gdx.files.internal("assets/Resume.png"));
         stage.addActor(ResumeButton);
-        Screen screen = null;
-        if(Planet.equals("Mercury")){
-            screen = new MercuryLevel(Game);
-        } else if (Planet.equals("Venus")) {
-            screen = new VenusLevel(Game);
-        }else if (Planet.equals("Earth")) {
-            screen = new EarthLevel(Game);
-        }else if (Planet.equals("Mars")) {
-            screen = new MarsLevel(Game);
-        }else if (Planet.equals("Jupiter")) {
-            screen = new JupiterLevel(Game);
-        }else if (Planet.equals("Saturn")) {
-            screen = new SaturnLevel(Game);
-        }else if (Planet.equals("Uranus")) {
-            screen = new UranusLevel(Game);
-        }else if (Planet.equals("Neptune")) {
-            screen = new NeptuneLevel(Game);
-        }else if (Planet.equals("Moon")) {
-            screen = new MoonLevel(Game);
-        }
-        Game.clickHandling(ResumeButton, resumeButtonPixmap, screen);
+        Game.clickHandling(ResumeButton, resumeButtonPixmap, PreviousScreen);
+        Screen screen = new EarthLevelPage(Game);
 
         SettingsButton = createButton("assets/Settings1.png","assets/HoverSettings1.png",235, 720 -299-67, 268, 67);
         settingsButtonPixmap = new Pixmap(Gdx.files.internal("assets/Settings1.png"));
@@ -111,7 +87,6 @@ public class SpacePauseScreen  implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         sprite.draw(batch);
-        planetSprite.draw(batch);
         batch.end();
 
         stage.act(delta);

@@ -17,28 +17,22 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class SpacePauseScreen  implements Screen {
+public class NormalLevelEnd  implements Screen {
     private Main Game;
     private OrthographicCamera camera;
     private Stage stage;
     private SpriteBatch batch;
     private Sprite sprite;
-    private Sprite planetSprite;
 
-    private String PlanetPath;
-    private String Planet;
+    private ImageButton ReplayButton;
+    private Pixmap replayButtonPixmap;
+    private ImageButton HomeButton;
+    private Pixmap homeButtonPixmap;
+    private ImageButton NextLevelButton;
+    private Pixmap nextLevelButtonPixmap;
 
-    private ImageButton ResumeButton;
-    private Pixmap resumeButtonPixmap;
-    private ImageButton SettingsButton;
-    private Pixmap settingsButtonPixmap;
-    private ImageButton BacktoMenuButton;
-    private Pixmap backtoMenuPixmap;
-
-    public SpacePauseScreen(Main game,String PlanetPath,String Planet) {
-        this.Game = game;
-        this.PlanetPath = PlanetPath;
-        this.Planet = Planet;
+    public NormalLevelEnd(Main Game) {
+        this.Game = Game;
     }
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
         Texture ButtonTexture = new Texture(Path);
@@ -58,52 +52,27 @@ public class SpacePauseScreen  implements Screen {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0); // Set camera position to center
         camera.update();
-        sprite = new Sprite(new Texture("assets/SpacePause.png"));
+        sprite = new Sprite(new Texture("assets/NormalLevelUp.png"));
         batch = new SpriteBatch();
 
         sprite.setPosition(0, 0);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        planetSprite = new Sprite(new Texture(PlanetPath));
-        planetSprite.setPosition(752, 720-180-363);
-        planetSprite.setSize(363, 363);
+        ReplayButton = createButton("assets/Retry.png","assets/HoverRetry.png",506, 720 -572-67, 70, 67);
+        replayButtonPixmap = new Pixmap(Gdx.files.internal("assets/Retry.png"));
+        stage.addActor(ReplayButton);
+        Game.clickHandling(ReplayButton, replayButtonPixmap, new EarthLevelPage(Game));
 
-        ResumeButton = createButton("assets/Resume.png","assets/HoverResume.png",234, 720 -217-67, 268, 67);
-        resumeButtonPixmap = new Pixmap(Gdx.files.internal("assets/Resume.png"));
-        stage.addActor(ResumeButton);
-        Screen screen = null;
-        if(Planet.equals("Mercury")){
-            screen = new MercuryLevel(Game);
-        } else if (Planet.equals("Venus")) {
-            screen = new VenusLevel(Game);
-        }else if (Planet.equals("Earth")) {
-            screen = new EarthLevel(Game);
-        }else if (Planet.equals("Mars")) {
-            screen = new MarsLevel(Game);
-        }else if (Planet.equals("Jupiter")) {
-            screen = new JupiterLevel(Game);
-        }else if (Planet.equals("Saturn")) {
-            screen = new SaturnLevel(Game);
-        }else if (Planet.equals("Uranus")) {
-            screen = new UranusLevel(Game);
-        }else if (Planet.equals("Neptune")) {
-            screen = new NeptuneLevel(Game);
-        }else if (Planet.equals("Moon")) {
-            screen = new MoonLevel(Game);
-        }
-        Game.clickHandling(ResumeButton, resumeButtonPixmap, screen);
+        HomeButton = createButton("assets/BacktoHome.png","assets/HoverBacktoHome.png",601, 720 -572-67, 70, 67);
+        homeButtonPixmap = new Pixmap(Gdx.files.internal("assets/BacktoHome.png"));
+        stage.addActor(HomeButton);
+        Game.clickHandling(HomeButton, homeButtonPixmap, new SeasonPage(Game));
 
-        SettingsButton = createButton("assets/Settings1.png","assets/HoverSettings1.png",235, 720 -299-67, 268, 67);
-        settingsButtonPixmap = new Pixmap(Gdx.files.internal("assets/Settings1.png"));
-        stage.addActor(SettingsButton);
-        Game.clickHandling(SettingsButton, settingsButtonPixmap, null);
-
-        BacktoMenuButton = createButton("assets/BacktoMenu.png","assets/HoverBacktoMenu.png",234, 720 -381-67, 268, 67);
-        backtoMenuPixmap = new Pixmap(Gdx.files.internal("assets/BacktoMenu.png"));
-        stage.addActor(BacktoMenuButton);
-        Game.clickHandling(BacktoMenuButton, backtoMenuPixmap, screen);
+        NextLevelButton = createButton("assets/NextLevel.png","assets/HoverNextLevel.png",701, 720 -572-67, 70, 67);
+        nextLevelButtonPixmap = new Pixmap(Gdx.files.internal("assets/NextLevel.png"));
+        stage.addActor(NextLevelButton);
+        Game.clickHandling(NextLevelButton, nextLevelButtonPixmap, new EarthLevelPage(Game));
     }
-
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -111,7 +80,6 @@ public class SpacePauseScreen  implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         sprite.draw(batch);
-        planetSprite.draw(batch);
         batch.end();
 
         stage.act(delta);
@@ -140,7 +108,8 @@ public class SpacePauseScreen  implements Screen {
 
     @Override
     public void dispose() {
-
+        batch.dispose();
+        stage.dispose();
+        sprite.getTexture().dispose();
     }
 }
-
