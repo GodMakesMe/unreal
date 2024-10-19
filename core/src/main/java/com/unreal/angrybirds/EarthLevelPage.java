@@ -79,7 +79,6 @@ public class  EarthLevelPage implements Screen {
         sprite.setPosition(0, 0);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-
         Settings = new Texture("assets/SettingsButton.png");
         settingsButtonPixmap = new Pixmap(Gdx.files.internal("assets/SettingsButton.png"));
         HoverSettings = new Texture("assets/HoverSettings.png");
@@ -90,9 +89,7 @@ public class  EarthLevelPage implements Screen {
         Settingsbutton.setPosition(29,720-27-55);
         Settingsbutton.setSize(55,55);
         stage.addActor(Settingsbutton);
-        Game.clickHandling(Settingsbutton, settingsButtonPixmap, new NormalLevel(Game));
-
-
+        Game.clickHandling(Settingsbutton, settingsButtonPixmap, new SettingsPage(Game, "assets/EarthLevelsPage.png",this));
 
         for (int i = 0; i < 6; i++) {
             Level1 = new Texture("assets/Level.png");

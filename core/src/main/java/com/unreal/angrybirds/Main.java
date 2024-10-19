@@ -9,6 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import static com.badlogic.gdx.scenes.scene2d.InputEvent.Type.exit;
+import static java.lang.System.exit;
+
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends Game {
     SpaceStorage spaceLevelsStorage = new SpaceStorage();
@@ -35,7 +38,6 @@ public class Main extends Game {
                     scaleX = (float) ButtonCopy.getWidth() / (float) PixmapCopy.getWidth();
                     Gdx.app.log("scaleY", scaleX + "");
                 }
-
                 float buttonX = ButtonCopy.getX();  float buttonY = ButtonCopy.getY();
                 float localX = -(buttonX - localCoords.x);  float localY = ButtonCopy.getHeight() + (buttonY - localCoords.y);
 
@@ -50,8 +52,10 @@ public class Main extends Game {
                     Gdx.app.log("Click", "Clicked outside the button shape");
                 }
             }
+
         });
     }
+
 
     protected boolean isPixelOpaque(int x, int y, Pixmap a) {
 //        Gdx.app.log("getWidth, getHeight", "(" + a.getWidth() + ", " + a.getHeight() + ")");

@@ -68,17 +68,17 @@ public class NormalLevel  implements Screen {
         sprite.setPosition(0, 0);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        Nextbutton = createButton("assets/Next.png","assets/HoverNext.png",1167, (int) (720 -612-78.3), (int) 78.3, (int) 78.3);
+        Nextbutton = createButton("assets/Next.png","assets/HoverNext.png",1167, (int) (720 -612-78.3), (int) 78.4, (int) 78.4);
         nextButtonPixmap = new Pixmap(Gdx.files.internal("assets/Next.png"));
         stage.addActor(Nextbutton);
         Game.clickHandling(Nextbutton, nextButtonPixmap, new NormalLevelEnd(Game));
 
-        PauseButton = createButton("assets/Pause.png","assets/HoverPause.png",47, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+        PauseButton = createButton("assets/Pause.png","assets/HoverPause.png",47, (int) (720 -39-78.3), (int) 78.4, (int) 78.4);
         pauseButtonPixmap = new Pixmap(Gdx.files.internal("assets/Pause.png"));
         stage.addActor(PauseButton);
         Game.clickHandling(PauseButton, pauseButtonPixmap, new NormalPauseScreen(Game, this));
 
-        RedBirdButton= createButton("assets/RedBird.png","assets/HoverRedBird.png",141, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+        RedBirdButton= createButton("assets/RedBird.png","assets/HoverRedBird.png",141, (int) (720 -39-78.3), (int) 78.4, (int) 78.4);
         redBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/RedBird.png"));
         stage.addActor(RedBirdButton);
         Game.clickHandling(RedBirdButton, redBirdButtonPixmap, null);

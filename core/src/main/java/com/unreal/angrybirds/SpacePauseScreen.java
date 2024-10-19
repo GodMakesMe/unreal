@@ -96,7 +96,7 @@ public class SpacePauseScreen  implements Screen {
         SettingsButton = createButton("assets/Settings1.png","assets/HoverSettings1.png",235, 720 -299-67, 268, 67);
         settingsButtonPixmap = new Pixmap(Gdx.files.internal("assets/Settings1.png"));
         stage.addActor(SettingsButton);
-        Game.clickHandling(SettingsButton, settingsButtonPixmap, null);
+        Game.clickHandling(SettingsButton, settingsButtonPixmap, new SettingsPage(Game, "assets/SpacePause.png", this));
 
         BacktoMenuButton = createButton("assets/BacktoMenu.png","assets/HoverBacktoMenu.png",234, 720 -381-67, 268, 67);
         backtoMenuPixmap = new Pixmap(Gdx.files.internal("assets/BacktoMenu.png"));

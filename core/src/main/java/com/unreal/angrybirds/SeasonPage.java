@@ -69,7 +69,7 @@ public class SeasonPage implements Screen {
         Settingsbutton.setPosition(29,720-27-55);
         Settingsbutton.setSize(55,55);
         stage.addActor(Settingsbutton);
-        Game.clickHandling(Settingsbutton, settingsButtonPixmap, null);
+        Game.clickHandling(Settingsbutton, settingsButtonPixmap, new SettingsPage(Game, "assets/SeasonPage.png",this));
 
         Space = new Texture("assets/Space.png");
         spaceButtonPixmap = new Pixmap(Gdx.files.internal("assets/Space.png"));

@@ -76,7 +76,7 @@ public class HomePage implements Screen {
         stage.addActor(Settingsbutton);
 
         Game.clickHandling(Startbutton, startButtonPixmap, new SeasonPage(Game));
-        Game.clickHandling(Settingsbutton, settingsButtonPixmap, new SeasonPage(Game));
+        Game.clickHandling(Settingsbutton, settingsButtonPixmap, new SettingsPage(Game, "assets/HomePagewithoutbutton.png", this));
 
 //        Startbutton.addListener(new ClickListener() {
 //            final ImageButton ButtonCopy = Startbutton;

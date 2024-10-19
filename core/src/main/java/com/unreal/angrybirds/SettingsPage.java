@@ -9,35 +9,46 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class NormalPauseScreen  implements Screen {
+public class SettingsPage implements Screen {
     private Main Game;
+    private Screen previousScreen;
+    private Texture BackgroundImage;
     private OrthographicCamera camera;
-    private Stage stage;
     private SpriteBatch batch;
     private Sprite sprite;
+    private Stage stage;
 
-
-    private ImageButton ResumeButton;
-    private Pixmap resumeButtonPixmap;
-    private ImageButton SettingsButton;
-    private Pixmap settingsButtonPixmap;
-    private ImageButton BacktoMenuButton;
-    private Pixmap backtoMenuPixmap;
-
-    private Screen PreviousScreen;
-
-    public NormalPauseScreen(Main game, Screen PreviousScreen) {
-        this.Game = game;
-        this.PreviousScreen = PreviousScreen;
+    SettingsPage(Main Game, String BackgroundImageDir, Screen previousScreen){
+        this.Game = Game;
+        BackgroundImage = new Texture(BackgroundImageDir);
+        this.previousScreen = previousScreen;
     }
+
+    SettingsPage(Main Game, Screen previousScreen){
+        this.Game = Game;
+        this.previousScreen = previousScreen;
+        this.BackgroundImage = null;
+    }
+
+    private ImageButton ExitButton;
+    private Pixmap exitButtonPixmap;
+
+    private ImageButton GoBackButton;
+    private Pixmap goBackButtonPixmap;
+
+    private ImageButton MuteButton;
+    private Pixmap muteButtonPixmap;
+
+    private ImageButton RestartButton;
+    private Pixmap restartButtonPixmap;
+
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
         Texture ButtonTexture = new Texture(Path);
         Texture HoverButtonTexture = new Texture(HoverPath);
@@ -49,6 +60,7 @@ public class NormalPauseScreen  implements Screen {
         button.setSize(W,H);
         return button;
     }
+
     @Override
     public void show() {
         stage = new Stage(new ScreenViewport());
@@ -56,28 +68,24 @@ public class NormalPauseScreen  implements Screen {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0); // Set camera position to center
         camera.update();
-        sprite = new Sprite(new Texture("assets/NormalPause.png"));
+        sprite = new Sprite(new Texture("UpperBackSettings.png"));
         batch = new SpriteBatch();
-
         sprite.setPosition(0, 0);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
+        GoBackButton = createButton("assets/GoBackButton.png", "assets/HoverGoBackButton.png", 554, 720 -312 - 67, 268, 67);
+        goBackButtonPixmap = new Pixmap(Gdx.files.internal("assets/GoBackButton.png"));
+        RestartButton = createButton("assets/RestartButton.png", "assets/HoverRestartButton.png", 554, 720-394-67, 268, 67);
+        restartButtonPixmap = new Pixmap(Gdx.files.internal("assets/GoBackButton.png"));
+        ExitButton = createButton("assets/ExitButton.png", "assets/HoverExitButton.png", 554, 720-476-67, 268, 67);
+        exitButtonPixmap = new Pixmap(Gdx.files.internal("assets/GoBackButton.png"));
+        stage.addActor(GoBackButton);
+        stage.addActor(RestartButton);
+        stage.addActor(ExitButton);
+        Game.clickHandling(ExitButton, exitButtonPixmap, new Exit(Game));
+        Game.clickHandling(RestartButton, restartButtonPixmap, new HomePage(Game));
+        Game.clickHandling(GoBackButton, goBackButtonPixmap, previousScreen);
 
-        ResumeButton = createButton("assets/ResumeEarth.png","assets/HoverResumeEarth.png",234, 720 -217-67, 268, 67);
-        resumeButtonPixmap = new Pixmap(Gdx.files.internal("assets/ResumeEarth.png"));
-        stage.addActor(ResumeButton);
-        Game.clickHandling(ResumeButton, resumeButtonPixmap, PreviousScreen);
-        Screen screen = new EarthLevelPage(Game);
-
-        SettingsButton = createButton("assets/Settings1Earth.png","assets/HoverSettings1Earth.png",235, 720 -299-67, 268, 67);
-        settingsButtonPixmap = new Pixmap(Gdx.files.internal("assets/Settings1Earth.png"));
-        stage.addActor(SettingsButton);
-        Game.clickHandling(SettingsButton, settingsButtonPixmap, new SettingsPage(Game, "assets/NormalPause.png", this));
-
-        BacktoMenuButton = createButton("assets/BacktoMenuEarth.png","assets/HoverBacktoMenuEarth.png",234, 720 -381-67, 268, 67);
-        backtoMenuPixmap = new Pixmap(Gdx.files.internal("assets/BacktoMenuEarth.png"));
-        stage.addActor(BacktoMenuButton);
-        Game.clickHandling(BacktoMenuButton, backtoMenuPixmap, screen);
     }
 
     @Override
@@ -86,16 +94,16 @@ public class NormalPauseScreen  implements Screen {
         ScreenUtils.clear(1, 1, 1, 1);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+        if (BackgroundImage != null) batch.draw(BackgroundImage, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         sprite.draw(batch);
         batch.end();
-
         stage.act(delta);
         stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -118,4 +126,3 @@ public class NormalPauseScreen  implements Screen {
 
     }
 }
-
