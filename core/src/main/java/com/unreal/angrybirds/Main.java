@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import static com.badlogic.gdx.scenes.scene2d.InputEvent.Type.exit;
 import static java.lang.System.exit;
 
@@ -20,7 +22,8 @@ public class Main extends Game {
     public void create() {
         setScreen(new HomePage(this));
     }
-    protected void clickHandling(final ImageButton ButtonData, final Pixmap buttonMap, final Screen toGo){
+    protected boolean clickHandling(final ImageButton ButtonData, final Pixmap buttonMap, final Screen toGo){
+        AtomicBoolean pressed = new AtomicBoolean(false);
         ButtonData.addListener(new ClickListener() {
             final ImageButton ButtonCopy = ButtonData;
             final Pixmap PixmapCopy = buttonMap;
@@ -44,6 +47,7 @@ public class Main extends Game {
                 Gdx.app.log("Click", "Local Coordinates: (" + localX + ", " + localY + ")");
                 // Check if the pixel is opaque
                 if (isPixelOpaque((int) (localX/scaleX), (int) (localY/scaleY), PixmapCopy)) {
+                    pressed.set(true);
                     Gdx.app.log("Click", "Button clicked inside shape!");
                     if (toGo != null){
                         setScreen(toGo);
@@ -54,6 +58,7 @@ public class Main extends Game {
             }
 
         });
+        return pressed.get();
     }
 
 
