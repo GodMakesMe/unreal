@@ -225,11 +225,15 @@ public class MarsLevel  implements Screen {
         debugRenderer.render(world,camera.combined);
         if (SpaceBird != null) {
             SpaceBird.updateSprite();
+
         }
         batch.begin();
         sprite.draw(batch);
         batch.end();
         if (SpaceBird != null) {
+            if(!SpaceBird.isIslaunched() && SpaceBird.notInOrigin()){
+                SpaceBird.DrawTrajectory();
+            }
             batch.begin();
             SpaceBird.getBirdSprite().draw(batch);
             batch.end();

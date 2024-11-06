@@ -2,8 +2,10 @@ package com.unreal.angrybirds;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -24,7 +26,9 @@ public class Bird {
     private boolean islaunched;
     private World worldInstance;
     private String Planet;
-
+    private float velocity;
+    private float angle;
+    private Vector2[] trajectoryPoints;
     public Bird(String Name, int Mass, Ability BirdAbility,String BirdPath,World world,String Planet) {
         this.Name = Name;
         this.Mass = Mass;
@@ -59,6 +63,7 @@ public class Bird {
         this.BirdBody.createFixture(fixtureDef);
         BirdShape.dispose();
         this.Planet = Planet;
+
     }
     public String getName() {
         return Name;
@@ -111,7 +116,11 @@ public class Bird {
         return BirdBody;
     }
 
-//    public void Move(){
+    public boolean isIslaunched() {
+        return islaunched;
+    }
+
+    //    public void Move(){
 //        if(Gdx.input.isKeyJustPressed(Input.Keys.W)){
 //            this.BirdBodydef.position.y+=10;
 //        }
@@ -126,7 +135,35 @@ public class Bird {
 //        }
 //        this.BirdSprite.setPosition(this.BirdBodydef.position.x, this.BirdBodydef.position.y);
 //    }
+    public void CreateTrajectory(Vector2 StartPos,float Velocity,float Angle,float Gravity,int points){
+        this.trajectoryPoints = new Vector2[points];
+        for(int i = 0;  i<100;i++){
+            float t = i * 0.1f;
+            float x = StartPos.x + Velocity * t * (float) Math.cos(Angle);
+            float y = StartPos.y + Velocity*t*(float)Math.sin(Angle) + 0.5f * Gravity * t * t;
+            trajectoryPoints[i] = new Vector2(x, y);
+        }
+    }
 
+    public Vector2[] getTrajectoryPoints() {
+        return trajectoryPoints;
+    }
+    public boolean notInOrigin(){
+        return !(BirdBody.getPosition().x==x && BirdBody.getPosition().y==y);
+    }
+
+    public void DrawTrajectory(){
+        ShapeRenderer ShapeRenderer =  new ShapeRenderer();
+        ShapeRenderer.begin(com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType.Line);
+        ShapeRenderer.setColor(Color.WHITE);
+        Vector2[] TrajectoryPoints = this.getTrajectoryPoints();
+        for(int i = 0;  i<TrajectoryPoints.length;i++){
+            if (TrajectoryPoints[i] != null) {
+                ShapeRenderer.circle(TrajectoryPoints[i].x, TrajectoryPoints[i].y, 1f);
+            }
+        }
+        ShapeRenderer.end();
+    }
     public void updateSprite(){
         float posX=0,posY=0;
 //        && !(posX*posX+posY*posY<=1,681)
@@ -147,7 +184,7 @@ public class Bird {
                 posX-= 0.5f;
                 GlobalX-=0.5f;
             }
-            System.out.println("GlobalX  "+GlobalX+"\tGlobalX  "+GlobalY);
+//            System.out.println("GlobalX  "+GlobalX+"\tGlobalX  "+GlobalY);
         }else if (GlobalY*GlobalY+GlobalX*GlobalX>=1681){
             float angle = MathUtils.atan2(GlobalY,GlobalX);
             float y = GlobalY > 0 ? -0.8f*Math.abs(MathUtils.sin(angle)) : 0.8f*Math.abs(MathUtils.sin(angle));
@@ -159,18 +196,19 @@ public class Bird {
         }
         BirdBody.setTransform(BirdBody.getPosition().x+posX,BirdBody.getPosition().y+posY,BirdBody.getAngle());
         getBirdSprite().setPosition(BirdBody.getPosition().x-BirdSprite.getWidth()/2, BirdBody.getPosition().y-BirdSprite.getHeight()/2);
-
+        float gravity = 0;
+        if(Planet.equals("Mars")){
+            gravity = -3.73f;
+        }
         float changeX = -BirdBody.getPosition().x+x;
         float changeY = -BirdBody.getPosition().y+y;
         float angle = (float) Math.atan2(changeY, changeX);
         float dist = (float)  Math.sqrt(changeX*changeX+changeY*changeY);
         float velocity = dist*2f;
-
+//        if (!islaunched) {
+        CreateTrajectory(new Vector2(BirdBody.getPosition().x, BirdBody.getPosition().y), velocity, angle, gravity, 100);
+//        }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && !islaunched){
-            float gravity = 0;
-            if(Planet.equals("Mars")){
-                gravity = -3.73f;
-            }
             worldInstance.setGravity(new Vector2(0, gravity));
             System.out.println(Math.pow(changeX,2)+"\t"+Math.pow(changeY,2)+"\t"+dist);
             System.out.println("Launching with impulse: X=" + MathUtils.cos(angle)*velocity + ", Y=" + MathUtils.sin(angle)*velocity);
