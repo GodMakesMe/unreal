@@ -103,7 +103,7 @@ public class EarthLevel  implements Screen {
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                SpaceBird = new Bird("Red Bird", 5, null, "assets/RedBirdMain.png", world);
+                SpaceBird = new Bird("Red Bird", 5, null, "assets/RedBirdMain.png", world, "Earth");
                 BirdX = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
                 return true;
@@ -120,7 +120,7 @@ public class EarthLevel  implements Screen {
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                SpaceBird = new Bird("Yellow Bird", 4, null, "assets/YellowBirdMain.png", world);
+                SpaceBird = new Bird("Yellow Bird", 4, null, "assets/YellowBirdMain.png", world, "Earth");
                 BirdX = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
                 return true;
@@ -137,7 +137,7 @@ public class EarthLevel  implements Screen {
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                SpaceBird = new Bird("Blue Bird", 2, null, "assets/BlueBirdMain.png", world);
+                SpaceBird = new Bird("Blue Bird", 2, null, "assets/BlueBirdMain.png", world, "Earth");
                 BirdX = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
                 return true;
@@ -154,7 +154,7 @@ public class EarthLevel  implements Screen {
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                SpaceBird = new Bird("Bomb Bird", 8, null, "assets/BombBirdMain.png", world);
+                SpaceBird = new Bird("Bomb Bird", 8, null, "assets/BombBirdMain.png", world, "Earth");
                 BirdX = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
                 return true;
@@ -171,7 +171,7 @@ public class EarthLevel  implements Screen {
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                SpaceBird = new Bird("White Bird", 6, null, "assets/WhiteBirdMain.png", world);
+                SpaceBird = new Bird("White Bird", 6, null, "assets/WhiteBirdMain.png", world, "Earth");
                 BirdX = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
                 return true;

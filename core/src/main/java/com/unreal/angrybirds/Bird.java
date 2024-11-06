@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 public class Bird {
@@ -16,28 +17,35 @@ public class Bird {
     private Texture BirdTexture;
     private float x;
     private float y;
+    private float GlobalX;
+    private float GlobalY;
     private Body BirdBody;
     private BodyDef BirdBodydef;
     private boolean islaunched;
+    private World worldInstance;
+    private String Planet;
 
-    public Bird(String Name, int Mass, Ability BirdAbility,String BirdPath,World world) {
+    public Bird(String Name, int Mass, Ability BirdAbility,String BirdPath,World world,String Planet) {
         this.Name = Name;
         this.Mass = Mass;
         this.BirdAbility = BirdAbility;
         this.Health = 100;
+        this.worldInstance = world;
+        world.setGravity(new Vector2(0, 0f));
         BirdTexture = new Texture(BirdPath);
         BirdSprite = new Sprite(BirdTexture);
-        BirdSprite.setSize(54, 52);
+        BirdSprite.setSize(39, 38);
         BirdSprite.setOrigin(0, 0);
-        this.x = 237;
-        this.y = 720-BirdSprite.getHeight()-321;
+        this.x = 268;
+        this.y = 720-BirdSprite.getHeight()-320;
         this.BirdBodydef = new BodyDef();
         this.BirdBodydef.type = BodyDef.BodyType.DynamicBody;
         this.BirdBodydef.position.x = x;
         this.BirdBodydef.position.y =y;
         this.BirdBody = world.createBody(BirdBodydef);
         BirdSprite.setPosition(x, y);
-
+        this.GlobalX = 0;
+        this.GlobalY = 0;
         PolygonShape BirdShape = new PolygonShape();
         BirdShape.setAsBox(BirdSprite.getWidth()/2,BirdSprite.getHeight()/2);
 
@@ -50,6 +58,7 @@ public class Bird {
         this.BirdBody.setGravityScale(1f);
         this.BirdBody.createFixture(fixtureDef);
         BirdShape.dispose();
+        this.Planet = Planet;
     }
     public String getName() {
         return Name;
@@ -120,30 +129,49 @@ public class Bird {
 
     public void updateSprite(){
         float posX=0,posY=0;
-        if(!islaunched){
+//        && !(posX*posX+posY*posY<=1,681)
+        if(!islaunched && !(GlobalY*GlobalY+GlobalX*GlobalX>=1681)){
             if(Gdx.input.isKeyPressed(Input.Keys.W)){
                 posY+=0.5f;
+                GlobalY+=0.5f;
             }
             if(Gdx.input.isKeyPressed(Input.Keys.S)){
                 posY-=0.5f;
+                GlobalY-=0.5f;
             }
             if(Gdx.input.isKeyPressed(Input.Keys.D)){
                 posX+=0.5f;
+                GlobalX+=0.5f;
             }
             if(Gdx.input.isKeyPressed(Input.Keys.A)){
                 posX-= 0.5f;
+                GlobalX-=0.5f;
             }
+            System.out.println("GlobalX  "+GlobalX+"\tGlobalX  "+GlobalY);
+        }else if (GlobalY*GlobalY+GlobalX*GlobalX>=1681){
+            float angle = MathUtils.atan2(GlobalY,GlobalX);
+            float y = GlobalY > 0 ? -0.8f*Math.abs(MathUtils.sin(angle)) : 0.8f*Math.abs(MathUtils.sin(angle));
+            float x = GlobalX > 0 ? -0.8f*Math.abs(MathUtils.cos(angle)) : 0.8f*Math.abs(MathUtils.cos(angle));
+            GlobalX += x;
+            GlobalY += y;
+            posX += x;
+            posY += y;
         }
         BirdBody.setTransform(BirdBody.getPosition().x+posX,BirdBody.getPosition().y+posY,BirdBody.getAngle());
         getBirdSprite().setPosition(BirdBody.getPosition().x-BirdSprite.getWidth()/2, BirdBody.getPosition().y-BirdSprite.getHeight()/2);
 
-        float changeX = BirdBody.getPosition().x+posX;
-        float changeY = BirdBody.getPosition().y-posY;
+        float changeX = -BirdBody.getPosition().x+x;
+        float changeY = -BirdBody.getPosition().y+y;
         float angle = (float) Math.atan2(changeY, changeX);
         float dist = (float)  Math.sqrt(changeX*changeX+changeY*changeY);
-        float velocity = dist*0.15f;
+        float velocity = dist*2f;
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && !islaunched){
+            float gravity = 0;
+            if(Planet.equals("Mars")){
+                gravity = -3.73f;
+            }
+            worldInstance.setGravity(new Vector2(0, gravity));
             System.out.println(Math.pow(changeX,2)+"\t"+Math.pow(changeY,2)+"\t"+dist);
             System.out.println("Launching with impulse: X=" + MathUtils.cos(angle)*velocity + ", Y=" + MathUtils.sin(angle)*velocity);
 //            BirdBody.applyLinearImpulse( MathUtils.cos(angle)*velocity, MathUtils.sin(angle)*velocity,BirdBody.getWorldCenter().x,BirdBody.getWorldCenter().y,true);

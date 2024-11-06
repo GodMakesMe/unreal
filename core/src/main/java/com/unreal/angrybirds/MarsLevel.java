@@ -42,6 +42,8 @@ public class MarsLevel  implements Screen {
     private ImageButton WhiteBirdButton;
     private Pixmap whiteBirdButtonPixmap;
 
+    private Sprite SlingShotFront;
+
     private Bird SpaceBird;
     private float BirdX;
     private float BirdY;
@@ -77,10 +79,12 @@ public class MarsLevel  implements Screen {
         sprite = new Sprite(new Texture("assets/MarsLevel.png"));
         batch = new SpriteBatch();
 
-        world = new World(new Vector2(0, -3.73f), true);
+        world = new World(new Vector2(0, 0f), false);
         debugRenderer = new Box2DDebugRenderer();
 
-
+        SlingShotFront = new Sprite(new Texture("assets/SlingShotFront.png"));
+        SlingShotFront.setPosition(257, 720-333-99);
+        SlingShotFront.setSize(32, 99);
 
         sprite.setPosition(0, 0);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -104,7 +108,7 @@ public class MarsLevel  implements Screen {
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                SpaceBird = new Bird("Red Bird", 5, null, "assets/RedBirdMain.png",world);
+                SpaceBird = new Bird("Red Bird", 5, null, "assets/RedBirdMain.png",world,"Mars");
                 BirdX  = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
                 return true;
@@ -121,7 +125,7 @@ public class MarsLevel  implements Screen {
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                SpaceBird = new Bird("Yellow Bird", 4, null, "assets/YellowBirdMain.png",world);
+                SpaceBird = new Bird("Yellow Bird", 4, null, "assets/YellowBirdMain.png",world,"Mars");
                 BirdX  = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
                 return true;
@@ -138,7 +142,7 @@ public class MarsLevel  implements Screen {
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                SpaceBird = new Bird("Blue Bird", 2, null, "assets/BlueBirdMain.png",world);
+                SpaceBird = new Bird("Blue Bird", 2, null, "assets/BlueBirdMain.png",world,"Mars");
                 BirdX  = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
                 return true;
@@ -154,8 +158,9 @@ public class MarsLevel  implements Screen {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
+
                 }
-                SpaceBird = new Bird("Bomb Bird", 8, null, "assets/BombBirdMain.png",world);
+                SpaceBird = new Bird("Bomb Bird", 8, null, "assets/BombBirdMain.png",world,"Mars");
                 BirdX  = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
                 return true;
@@ -172,7 +177,7 @@ public class MarsLevel  implements Screen {
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                SpaceBird = new Bird("White Bird", 6, null, "assets/WhiteBirdMain.png",world);
+                SpaceBird = new Bird("White Bird", 6, null, "assets/WhiteBirdMain.png",world,"Mars");
                 BirdX  = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
                 return true;
@@ -196,6 +201,19 @@ public class MarsLevel  implements Screen {
         world.createBody(bodyDef).createFixture(FixtureDef);
         GroundShape.dispose();
 
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        bodyDef.position.set(0,0);
+
+        ChainShape GroundShape1 = new ChainShape();
+        GroundShape1.createChain(new Vector2[] {new Vector2(271,325),new Vector2(280,325)});
+
+        FixtureDef.shape = GroundShape1;
+        FixtureDef.friction = 0.5f;
+        FixtureDef.restitution = 0.0f;
+
+        world.createBody(bodyDef).createFixture(FixtureDef);
+        GroundShape1.dispose();
+
     }
 
     @Override
@@ -216,6 +234,9 @@ public class MarsLevel  implements Screen {
             SpaceBird.getBirdSprite().draw(batch);
             batch.end();
         }
+        batch.begin();
+        SlingShotFront.draw(batch);
+        batch.end();
 
         stage.act(delta);
         stage.draw();
