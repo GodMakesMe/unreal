@@ -16,7 +16,6 @@ import static java.lang.System.exit;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends Game {
-    SpaceStorage spaceLevelsStorage = new SpaceStorage();
 
     @Override
     public void create() {
