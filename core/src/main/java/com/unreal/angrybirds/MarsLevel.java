@@ -54,6 +54,12 @@ public class MarsLevel  implements Screen {
     private BodyDef bodyDef;
     private FixtureDef FixtureDef;
 
+    private Piggy FirstPiggy;
+    private Piggy SecondPiggy;
+    private Piggy ThirdPiggy;
+    private Piggy FourthPiggy;
+    private Piggy FifthPiggy;
+
     public MarsLevel(Main game) {
         this.Game = game;
     }
@@ -79,9 +85,16 @@ public class MarsLevel  implements Screen {
         sprite = new Sprite(new Texture("assets/MarsLevel.png"));
         batch = new SpriteBatch();
 
-        world = new World(new Vector2(0, 0f), false);
+        world = new World(new Vector2(0, -3.73f), false);
         debugRenderer = new Box2DDebugRenderer();
 
+        FirstPiggy = new Piggy("First Piggy",1,null,"assets/MushPig.png",world,"Mars",1000,100,47,47);
+        SecondPiggy = new Piggy("Second Piggy",1,null,"assets/ProfPig.png",world,"Mars",1000,50,47,47);
+        ThirdPiggy = new Piggy("Third Piggy",1,null,"assets/KingPig.png",world,"Mars",1100,50,47,57);
+        FourthPiggy = new Piggy("Fourth Piggy",1,null,"assets/CorpPig.png",world,"Mars",1100,100,47,43);
+        FifthPiggy = new Piggy("Fifth Piggy",1,null,"assets/FirstPiggy.png",world,"Mars",1050,150,47,40);
+
+        world.setGravity(new Vector2(0, 0f));
         SlingShotFront = new Sprite(new Texture("assets/SlingShotFront.png"));
         SlingShotFront.setPosition(257, 720-333-99);
         SlingShotFront.setSize(32, 99);
@@ -185,6 +198,8 @@ public class MarsLevel  implements Screen {
 
         });
 
+//        world = SpaceBird.getWorldInstance();
+
         bodyDef = new BodyDef();
         FixtureDef = new FixtureDef();
 
@@ -214,6 +229,38 @@ public class MarsLevel  implements Screen {
         world.createBody(bodyDef).createFixture(FixtureDef);
         GroundShape1.dispose();
 
+//        world.setContactListener(new ContactListener() {
+//            @Override
+//            public void beginContact(Contact contact) {
+//                Fixture fixtureA = contact.getFixtureA();
+//                Fixture fixtureB = contact.getFixtureB();
+//
+//                Body piggyBody = null;
+//
+//                if (fixtureA.getBody().getUserData() instanceof Piggy) {
+//                    piggyBody = fixtureA.getBody();
+//                } else if (fixtureB.getBody().getUserData() instanceof Piggy) {
+//                    piggyBody = fixtureB.getBody();
+//                }
+//
+//                if (piggyBody != null) {
+//                    piggyBody.applyTorque(20f, true);
+//                    Piggy piggy = (Piggy) piggyBody.getUserData();
+//                    piggy.setHealth(piggy.getHealth() - 50);
+//                }
+//            }
+//
+//            @Override
+//            public void endContact(Contact contact) {}
+//
+//            @Override
+//            public void preSolve(Contact contact, Manifold oldManifold) {}
+//
+//            @Override
+//            public void postSolve(Contact contact, ContactImpulse impulse) {}
+//        });
+
+
     }
 
     @Override
@@ -227,8 +274,21 @@ public class MarsLevel  implements Screen {
             SpaceBird.updateSprite();
 
         }
+        FirstPiggy.updateSprite();
+        SecondPiggy.updateSprite();
+        ThirdPiggy.updateSprite();
+        FourthPiggy.updateSprite();
+        FifthPiggy.updateSprite();
+
         batch.begin();
         sprite.draw(batch);
+        batch.end();
+        batch.begin();
+        FirstPiggy.getPiggySprite().draw(batch);
+        SecondPiggy.getPiggySprite().draw(batch);
+        ThirdPiggy.getPiggySprite().draw(batch);
+        FourthPiggy.getPiggySprite().draw(batch);
+        FifthPiggy.getPiggySprite().draw(batch);
         batch.end();
         if (SpaceBird != null) {
             if(!SpaceBird.isIslaunched() && SpaceBird.notInOrigin()){

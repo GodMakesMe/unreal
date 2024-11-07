@@ -55,7 +55,8 @@ public class Bird {
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = BirdShape;
-        fixtureDef.density = (float) this.getMass() /2;
+//        fixtureDef.density = (float) this.getMass() /2;
+        fixtureDef.density = 10f;
         fixtureDef.friction = 0.05f;
         fixtureDef.restitution = 0.5f;
         this.islaunched = false;
@@ -218,5 +219,9 @@ public class Bird {
             this.islaunched = true;
         }
 
+    }
+
+    public World getWorldInstance() {
+        return worldInstance;
     }
 }
