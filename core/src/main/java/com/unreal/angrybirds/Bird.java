@@ -52,16 +52,18 @@ public class Bird {
         this.GlobalY = 0;
         PolygonShape BirdShape = new PolygonShape();
         BirdShape.setAsBox(BirdSprite.getWidth()/2,BirdSprite.getHeight()/2);
-
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = BirdShape;
-//        fixtureDef.density = (float) this.getMass() /2;
-        fixtureDef.density = 10f;
+        fixtureDef.density = 2;
+        System.out.println("Density of the Bird: "+fixtureDef.density);
+//        fixtureDef.density = f;
         fixtureDef.friction = 0.05f;
-        fixtureDef.restitution = 0.5f;
+        fixtureDef.restitution = 0.05f;
         this.islaunched = false;
         this.BirdBody.setGravityScale(1f);
-        this.BirdBody.createFixture(fixtureDef);
+        Fixture fixture = this.BirdBody.createFixture(fixtureDef);
+        this.BirdBody.setUserData(this);
+        fixture.setUserData(this);
         BirdShape.dispose();
         this.Planet = Planet;
 
@@ -119,6 +121,14 @@ public class Bird {
 
     public boolean isIslaunched() {
         return islaunched;
+    }
+
+    public static float pixelstometers(float pixels) {
+        return pixels / 100;
+    }
+
+    public static float meterstopixels(float meters) {
+        return meters * 100;
     }
 
     //    public void Move(){
@@ -205,7 +215,7 @@ public class Bird {
         float changeY = -BirdBody.getPosition().y+y;
         float angle = (float) Math.atan2(changeY, changeX);
         float dist = (float)  Math.sqrt(changeX*changeX+changeY*changeY);
-        float velocity = dist*2f;
+        float velocity = dist*3f;
 //        if (!islaunched) {
         CreateTrajectory(new Vector2(BirdBody.getPosition().x, BirdBody.getPosition().y), velocity, angle, gravity, 100);
 //        }

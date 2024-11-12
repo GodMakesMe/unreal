@@ -19,12 +19,14 @@ public class Piggy {
     private BodyDef PiggyBodydef;
     private World worldInstance;
     private boolean isRemoved = false;
-    public Piggy(String Name, int Mass,Ability PiggyAbility,String PiggyPath,World world,String Planet,int x,int y,int width,int height) {
+    private int score;
+    public Piggy(String Name, int Mass,Ability PiggyAbility,String PiggyPath,World world,String Planet,int x,int y,int width,int height,int score) {
         this.Name = Name;
         this.Mass = Mass;
         this.PiggyAbility = PiggyAbility;
         this.Health = 100;
         this.worldInstance = world;
+        this.score = score;
         PiggyTexture = new Texture(PiggyPath);
         PiggySprite = new Sprite(PiggyTexture);
         PiggySprite.setSize(width, height);
@@ -44,13 +46,14 @@ public class Piggy {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = PiggyShape;
 //        fixtureDef.density = (float) this.getMass() /2;
-        fixtureDef.density = 5f;
+        fixtureDef.density = 1f;
         fixtureDef.friction = 0.05f;
         fixtureDef.restitution = 0.1f;
         this.PiggyBody.setGravityScale(1f);
-        this.PiggyBody.createFixture(fixtureDef);
-        PiggyBody.setFixedRotation(false);
-        PiggyBody.setUserData(this);
+        Fixture fixture = this.PiggyBody.createFixture(fixtureDef);
+        this.PiggyBody.setFixedRotation(false);
+        this.PiggyBody.setUserData(this);
+        fixture.setUserData(this);
 //        this.PiggyBody.applyAngularImpulse(500,true);
 //        this.PiggyBody.applyTorque(100f, true);
         PiggyShape.dispose();
@@ -61,6 +64,11 @@ public class Piggy {
     public int getMass() {
         return Mass;
     }
+
+    public int getScore() {
+        return score;
+    }
+
     public Ability getPiggyAbility() {
         return PiggyAbility;
     }
@@ -79,6 +87,13 @@ public class Piggy {
     public void setPiggyAbility(Ability PiggyAbility) {
         PiggyAbility = PiggyAbility;
     }
+    public static float pixelstometers(float pixels) {
+        return pixels / 100;
+    }
+
+    public static float meterstopixels(float meters) {
+        return meters * 100;
+    }
     public float getX() {
         return x;
     }
@@ -94,15 +109,23 @@ public class Piggy {
         return isRemoved;
     }
 
+    public void pigdied(){
+
+    }
+
+    public void setPiggyTexture(Texture piggyTexture) {
+        PiggyTexture = piggyTexture;
+    }
+
     public void updateSprite() {
-        if (Health <= 0 && !isRemoved) {
-            worldInstance.destroyBody(PiggyBody);
-            isRemoved = true;
-            return;
+        if(PiggyBody != null) {
+            PiggyBody.setTransform(PiggyBody.getPosition().x, PiggyBody.getPosition().y, PiggyBody.getAngle());
+            getPiggySprite().setPosition(PiggyBody.getPosition().x - PiggySprite.getWidth() / 2, PiggyBody.getPosition().y - PiggySprite.getHeight() / 2);
+            PiggySprite.setRotation((float) Math.toDegrees(PiggyBody.getAngle()));
         }
-        PiggyBody.setTransform(PiggyBody.getPosition().x,PiggyBody.getPosition().y,PiggyBody.getAngle());
-        getPiggySprite().setPosition(PiggyBody.getPosition().x-PiggySprite.getWidth()/2, PiggyBody.getPosition().y-PiggySprite.getHeight()/2);
-        PiggySprite.setRotation((float) Math.toDegrees(PiggyBody.getAngle()));
+        else{
+            getPiggySprite().getTexture().dispose();
+        }
 //        if (PiggyBody.getLinearVelocity().y < -1) {
 //            this.PiggyBody.applyTorque(5f, true);
 //        }
@@ -114,7 +137,15 @@ public class Piggy {
 //        }
 //    }
 
+    public void markForRemoval(){
+        isRemoved = true;
+    }
     public World getWorldInstance() {
         return worldInstance;
+    }
+    public void selfdestroy(){
+        getPiggyBody().setUserData(null);
+        worldInstance.destroyBody(PiggyBody);
+//        this.PiggyBody = null;
     }
 }

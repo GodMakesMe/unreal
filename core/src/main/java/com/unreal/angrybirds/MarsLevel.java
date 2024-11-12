@@ -2,13 +2,9 @@ package com.unreal.angrybirds;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -16,8 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class MarsLevel  implements Screen {
     private Main Game;
@@ -25,7 +25,7 @@ public class MarsLevel  implements Screen {
     private Stage stage;
     private SpriteBatch batch;
     private Sprite sprite;
-
+    private Player player;
     private ImageButton Nextbutton;
     private Pixmap nextButtonPixmap;
     private ImageButton PauseButton;
@@ -54,14 +54,59 @@ public class MarsLevel  implements Screen {
     private BodyDef bodyDef;
     private FixtureDef FixtureDef;
 
-    private Piggy FirstPiggy;
-    private Piggy SecondPiggy;
-    private Piggy ThirdPiggy;
-    private Piggy FourthPiggy;
-    private Piggy FifthPiggy;
+    private ArrayList<Piggy> PigList;
+    private ArrayList<Piggy> bodiesToDestroy = new ArrayList<>();
+
+    BitmapFont Scorefont;
+
+    private int birdsAvailable;
+
 
     public MarsLevel(Main game) {
         this.Game = game;
+        Scorefont = new BitmapFont(Gdx.files.internal("angrybirds.fnt"));
+        Scorefont.setColor(Color.BLACK);
+//        Scorefont.getData().setScale(1.2f);
+        player = new Player();
+        birdsAvailable = 3;
+    }
+//    public static float (float pixels) {
+//        return pixels / 100;
+//    }
+
+    public void markForRemoval(Piggy pig) {
+        if (pig != null && !bodiesToDestroy.contains(pig)) {
+            bodiesToDestroy.add(pig);
+        }
+    }
+
+    public void cleanupDestroyedBodies() {
+        if (!world.isLocked() && !bodiesToDestroy.isEmpty()) {
+            synchronized (bodiesToDestroy) {
+                Iterator<Piggy> iterator = bodiesToDestroy.iterator();
+                while (iterator.hasNext()) {
+                    Piggy pig = iterator.next();
+                    //pig.getPiggySprite().getTexture().dispose();
+                    if (pig.getPiggyBody() != null && pig.getPiggyBody().getUserData() != null) {
+                        // Remove all fixtures first
+                        Array<Fixture> fixtures = pig.getPiggyBody().getFixtureList();
+                        while (fixtures.size > 0) {
+                            pig.getPiggyBody().destroyFixture(fixtures.first());
+                            player.setScore(player.getScore() + pig.getScore());
+                            if(player.getScore()>=50000){
+                                Game.setScreen(new SpaceLevelEnd(Game,player));
+                            }
+                        }
+                        world.destroyBody(pig.getPiggyBody());
+                        iterator.remove();
+                    }
+                }
+            }
+        }
+    }
+
+    public static float meterstopixels(float meters) {
+        return meters * 100;
     }
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
         Texture ButtonTexture = new Texture(Path);
@@ -86,13 +131,17 @@ public class MarsLevel  implements Screen {
         batch = new SpriteBatch();
 
         world = new World(new Vector2(0, -3.73f), false);
+        world.setContactListener(new CollisionDetector());
+
         debugRenderer = new Box2DDebugRenderer();
 
-        FirstPiggy = new Piggy("First Piggy",1,null,"assets/MushPig.png",world,"Mars",1000,100,47,47);
-        SecondPiggy = new Piggy("Second Piggy",1,null,"assets/ProfPig.png",world,"Mars",1000,50,47,47);
-        ThirdPiggy = new Piggy("Third Piggy",1,null,"assets/KingPig.png",world,"Mars",1100,50,47,57);
-        FourthPiggy = new Piggy("Fourth Piggy",1,null,"assets/CorpPig.png",world,"Mars",1100,100,47,43);
-        FifthPiggy = new Piggy("Fifth Piggy",1,null,"assets/FirstPiggy.png",world,"Mars",1050,150,47,40);
+        PigList = new ArrayList<>();
+
+        PigList.add(new Piggy("First Piggy",1,null,"assets/MushPig.png",world,"Mars",1000,100,47,47,10000));
+        PigList.add(new Piggy("Second Piggy",1,null,"assets/ProfPig.png",world,"Mars",1000,50,47,47,10000));
+        PigList.add(new Piggy("Third Piggy",1,null,"assets/KingPig.png",world,"Mars",1100,50,47,57,10000));
+        PigList.add(new Piggy("Fourth Piggy",1,null,"assets/CorpPig.png",world,"Mars",1100,100,47,43,10000));
+        PigList.add(new Piggy("Fifth Piggy",1,null,"assets/FirstPiggy.png",world,"Mars",1050,150,47,40,10000));
 
         world.setGravity(new Vector2(0, 0f));
         SlingShotFront = new Sprite(new Texture("assets/SlingShotFront.png"));
@@ -102,10 +151,12 @@ public class MarsLevel  implements Screen {
         sprite.setPosition(0, 0);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        Nextbutton = createButton("assets/Next.png","assets/HoverNext.png",1167, (int) (720 -612-78.3), (int) 78.3, (int) 78.3);
-        nextButtonPixmap = new Pixmap(Gdx.files.internal("assets/Next.png"));
-        stage.addActor(Nextbutton);
-        Game.clickHandling(Nextbutton, nextButtonPixmap, new SpaceLevelEnd(Game));
+//        Nextbutton = createButton("assets/Next.png","assets/HoverNext.png",1167, (int) (720 -612-78.3), (int) 78.3, (int) 78.3);
+//        nextButtonPixmap = new Pixmap(Gdx.files.internal("assets/Next.png"));
+//        stage.addActor(Nextbutton);
+//        Game.clickHandling(Nextbutton, nextButtonPixmap, new SpaceLevelEnd(Game));
+
+
 
         PauseButton = createButton("assets/Pause.png","assets/HoverPause.png",47, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
         pauseButtonPixmap = new Pixmap(Gdx.files.internal("assets/Pause.png"));
@@ -121,7 +172,8 @@ public class MarsLevel  implements Screen {
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                SpaceBird = new Bird("Red Bird", 5, null, "assets/RedBirdMain.png",world,"Mars");
+                SpaceBird = new Bird("Red Bird", 8, null, "assets/RedBirdMain.png",world,"Mars");
+                birdsAvailable--;
                 BirdX  = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
                 return true;
@@ -139,6 +191,7 @@ public class MarsLevel  implements Screen {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
                 SpaceBird = new Bird("Yellow Bird", 4, null, "assets/YellowBirdMain.png",world,"Mars");
+                birdsAvailable--;
                 BirdX  = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
                 return true;
@@ -156,6 +209,7 @@ public class MarsLevel  implements Screen {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
                 SpaceBird = new Bird("Blue Bird", 2, null, "assets/BlueBirdMain.png",world,"Mars");
+                birdsAvailable--;
                 BirdX  = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
                 return true;
@@ -163,40 +217,46 @@ public class MarsLevel  implements Screen {
 
         });
 
-        BombBirdButton= createButton("assets/BombBird.png","assets/HoverBombBird.png",377, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
-        bombBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/BombBird.png"));
+        BombBirdButton= createButton("assets/BombBirdNotAvailable.png","assets/BombBirdNotAvailable.png",377, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
         stage.addActor(BombBirdButton);
-        Game.clickHandling(BombBirdButton, bombBirdButtonPixmap, null);
-        BombBirdButton.addListener(new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null) {
-                    world.destroyBody(SpaceBird.getBirdBody());
-
-                }
-                SpaceBird = new Bird("Bomb Bird", 8, null, "assets/BombBirdMain.png",world,"Mars");
-                BirdX  = SpaceBird.getX();
-                BirdY = SpaceBird.getY();
-                return true;
-            }
-
-        });
-
-        WhiteBirdButton= createButton("assets/WhiteBird.png","assets/HoverWhiteBird.png",454, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
-        whiteBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/WhiteBird.png"));
+        WhiteBirdButton= createButton("assets/WhiteBirdNotAvailable.png","assets/WhiteBirdNotAvailable.png",454, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
         stage.addActor(WhiteBirdButton);
-        Game.clickHandling(WhiteBirdButton, whiteBirdButtonPixmap, null);
-        WhiteBirdButton.addListener(new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null) {
-                    world.destroyBody(SpaceBird.getBirdBody());
-                }
-                SpaceBird = new Bird("White Bird", 6, null, "assets/WhiteBirdMain.png",world,"Mars");
-                BirdX  = SpaceBird.getX();
-                BirdY = SpaceBird.getY();
-                return true;
-            }
-
-        });
+//        BombBirdButton= createButton("assets/BombBird.png","assets/HoverBombBird.png",377, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+//        bombBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/BombBird.png"));
+//        stage.addActor(BombBirdButton);
+//        Game.clickHandling(BombBirdButton, bombBirdButtonPixmap, null);
+//        BombBirdButton.addListener(new InputListener() {
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                if (SpaceBird != null) {
+//                    world.destroyBody(SpaceBird.getBirdBody());
+//
+//                }
+//                SpaceBird = new Bird("Bomb Bird", 8, null, "assets/BombBirdMain.png",world,"Mars");
+//                birdsAvailable--;
+//                BirdX  = SpaceBird.getX();
+//                BirdY = SpaceBird.getY();
+//                return true;
+//            }
+//
+//        });
+//
+//        WhiteBirdButton= createButton("assets/WhiteBird.png","assets/HoverWhiteBird.png",454, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+//        whiteBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/WhiteBird.png"));
+//        stage.addActor(WhiteBirdButton);
+//        Game.clickHandling(WhiteBirdButton, whiteBirdButtonPixmap, null);
+//        WhiteBirdButton.addListener(new InputListener() {
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                if (SpaceBird != null) {
+//                    world.destroyBody(SpaceBird.getBirdBody());
+//                }
+//                SpaceBird = new Bird("White Bird", 6, null, "assets/WhiteBirdMain.png",world,"Mars");
+//                birdsAvailable--;
+//                BirdX  = SpaceBird.getX();
+//                BirdY = SpaceBird.getY();
+//                return true;
+//            }
+//
+//        });
 
 //        world = SpaceBird.getWorldInstance();
 
@@ -207,7 +267,7 @@ public class MarsLevel  implements Screen {
         bodyDef.position.set(0,0);
 
         ChainShape GroundShape = new ChainShape();
-        GroundShape.createChain(new Vector2[] {new Vector2(835,0),new Vector2(1280,0)});
+        GroundShape.createChain(new Vector2[] {new Vector2((835),0),new Vector2((1280),0),new Vector2((1280),(527))});
 
         FixtureDef.shape = GroundShape;
         FixtureDef.friction = 0.5f;
@@ -220,7 +280,7 @@ public class MarsLevel  implements Screen {
         bodyDef.position.set(0,0);
 
         ChainShape GroundShape1 = new ChainShape();
-        GroundShape1.createChain(new Vector2[] {new Vector2(271,325),new Vector2(280,325)});
+        GroundShape1.createChain(new Vector2[] {new Vector2((271),(325)),new Vector2((280),(325))});
 
         FixtureDef.shape = GroundShape1;
         FixtureDef.friction = 0.5f;
@@ -228,38 +288,6 @@ public class MarsLevel  implements Screen {
 
         world.createBody(bodyDef).createFixture(FixtureDef);
         GroundShape1.dispose();
-
-//        world.setContactListener(new ContactListener() {
-//            @Override
-//            public void beginContact(Contact contact) {
-//                Fixture fixtureA = contact.getFixtureA();
-//                Fixture fixtureB = contact.getFixtureB();
-//
-//                Body piggyBody = null;
-//
-//                if (fixtureA.getBody().getUserData() instanceof Piggy) {
-//                    piggyBody = fixtureA.getBody();
-//                } else if (fixtureB.getBody().getUserData() instanceof Piggy) {
-//                    piggyBody = fixtureB.getBody();
-//                }
-//
-//                if (piggyBody != null) {
-//                    piggyBody.applyTorque(20f, true);
-//                    Piggy piggy = (Piggy) piggyBody.getUserData();
-//                    piggy.setHealth(piggy.getHealth() - 50);
-//                }
-//            }
-//
-//            @Override
-//            public void endContact(Contact contact) {}
-//
-//            @Override
-//            public void preSolve(Contact contact, Manifold oldManifold) {}
-//
-//            @Override
-//            public void postSolve(Contact contact, ContactImpulse impulse) {}
-//        });
-
 
     }
 
@@ -269,26 +297,39 @@ public class MarsLevel  implements Screen {
         ScreenUtils.clear(1, 1, 1, 1);
         batch.setProjectionMatrix(camera.combined);
         world.step(1 / 60f, 6, 2);
+        for (Piggy pig : bodiesToDestroy) {
+            pig.getPiggyBody().setActive(false);
+        }
+        if(birdsAvailable<=0){
+            Game.setScreen(new SpaceLevelEnd(Game,player));
+        }
+        cleanupDestroyedBodies();
+
+        for (Piggy pig : PigList) {
+            if (pig != null && pig.isRemoved()) {
+                markForRemoval(pig);
+            }
+        }
         debugRenderer.render(world,camera.combined);
         if (SpaceBird != null) {
             SpaceBird.updateSprite();
 
         }
-        FirstPiggy.updateSprite();
-        SecondPiggy.updateSprite();
-        ThirdPiggy.updateSprite();
-        FourthPiggy.updateSprite();
-        FifthPiggy.updateSprite();
+        for(Piggy pig: PigList){
+            if(pig != null  && !pig.isRemoved()) {
+                pig.updateSprite();
+            }
+        }
 
         batch.begin();
         sprite.draw(batch);
         batch.end();
         batch.begin();
-        FirstPiggy.getPiggySprite().draw(batch);
-        SecondPiggy.getPiggySprite().draw(batch);
-        ThirdPiggy.getPiggySprite().draw(batch);
-        FourthPiggy.getPiggySprite().draw(batch);
-        FifthPiggy.getPiggySprite().draw(batch);
+        for(Piggy pig: PigList){
+            if(pig != null && !pig.isRemoved()) {
+                pig.getPiggySprite().draw(batch);
+            }
+        }
         batch.end();
         if (SpaceBird != null) {
             if(!SpaceBird.isIslaunched() && SpaceBird.notInOrigin()){
@@ -301,7 +342,10 @@ public class MarsLevel  implements Screen {
         batch.begin();
         SlingShotFront.draw(batch);
         batch.end();
-
+        batch.begin();
+        GlyphLayout ScoreLayout = new GlyphLayout(Scorefont,String.format("%08d", player.getScore()));
+        Scorefont.draw(batch,ScoreLayout,990,780-62-55);
+        batch.end();
         stage.act(delta);
         stage.draw();
     }
@@ -331,5 +375,6 @@ public class MarsLevel  implements Screen {
         batch.dispose();
         stage.dispose();
         sprite.getTexture().dispose();
+        SpaceBird.getBirdSprite().getTexture().dispose();
     }
 }

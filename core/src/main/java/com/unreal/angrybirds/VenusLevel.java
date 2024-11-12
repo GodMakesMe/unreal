@@ -68,10 +68,10 @@ public class VenusLevel  implements Screen {
         sprite.setPosition(0, 0);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        Nextbutton = createButton("assets/Next.png","assets/HoverNext.png",1167, (int) (720 -612-78.3), (int) 78.3, (int) 78.3);
-        nextButtonPixmap = new Pixmap(Gdx.files.internal("assets/Next.png"));
-        stage.addActor(Nextbutton);
-        Game.clickHandling(Nextbutton, nextButtonPixmap, new SpaceLevelEnd(Game));
+//        Nextbutton = createButton("assets/Next.png","assets/HoverNext.png",1167, (int) (720 -612-78.3), (int) 78.3, (int) 78.3);
+//        nextButtonPixmap = new Pixmap(Gdx.files.internal("assets/Next.png"));
+//        stage.addActor(Nextbutton);
+//        Game.clickHandling(Nextbutton, nextButtonPixmap, new SpaceLevelEnd(Game));
 
         PauseButton = createButton("assets/Pause.png","assets/HoverPause.png",47, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
         pauseButtonPixmap = new Pixmap(Gdx.files.internal("assets/Pause.png"));
