@@ -129,23 +129,25 @@ public class MarsLevel  implements Screen {
         camera.update();
         sprite = new Sprite(new Texture("assets/MarsLevel.png"));
         batch = new SpriteBatch();
+
         if (world == null) {
             world = new World(new Vector2(0, -3.73f), false);
+            world.setContactListener(new CollisionDetector());
+            if (PigList == null) {
+                PigList = new ArrayList<Piggy>();
+                PigList.add(new Piggy("First Piggy",10,null,"assets/MushPig.png",world,"Mars",1000,100,47,47,10000));
+                PigList.add(new Piggy("Second Piggy",5,null,"assets/ProfPig.png",world,"Mars",1000,50,47,47,10000));
+                PigList.add(new Piggy("Third Piggy",5,null,"assets/KingPig.png",world,"Mars",1100,50,47,57,10000));
+                PigList.add(new Piggy("Fourth Piggy",10,null,"assets/CorpPig.png",world,"Mars",1100,100,47,43,10000));
+                PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Mars",1050,150,47,40,10000));
+            }
+            world.setGravity(new Vector2(0, 0f));
         }
-        world.setContactListener(new CollisionDetector());
+
 
         debugRenderer = new Box2DDebugRenderer();
 
-        if (PigList == null) {
-            PigList = new ArrayList<Piggy>();
-            PigList.add(new Piggy("First Piggy",10,null,"assets/MushPig.png",world,"Mars",1000,100,47,47,10000));
-            PigList.add(new Piggy("Second Piggy",5,null,"assets/ProfPig.png",world,"Mars",1000,50,47,47,10000));
-            PigList.add(new Piggy("Third Piggy",5,null,"assets/KingPig.png",world,"Mars",1100,50,47,57,10000));
-            PigList.add(new Piggy("Fourth Piggy",10,null,"assets/CorpPig.png",world,"Mars",1100,100,47,43,10000));
-            PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Mars",1050,150,47,40,10000));
-        }
 
-        world.setGravity(new Vector2(0, 0f));
         SlingShotFront = new Sprite(new Texture("assets/SlingShotFront.png"));
         SlingShotFront.setPosition(257, 720-333-99);
         SlingShotFront.setSize(32, 99);
