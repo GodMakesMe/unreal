@@ -119,9 +119,10 @@ public class Piggy {
 
     public void updateSprite() {
         if(PiggyBody != null) {
-            PiggyBody.setTransform(PiggyBody.getPosition().x, PiggyBody.getPosition().y, PiggyBody.getAngle());
             getPiggySprite().setPosition(PiggyBody.getPosition().x - PiggySprite.getWidth() / 2, PiggyBody.getPosition().y - PiggySprite.getHeight() / 2);
+            PiggyBody.setTransform(PiggyBody.getPosition().x, PiggyBody.getPosition().y, PiggyBody.getAngle());
             PiggySprite.setRotation((float) Math.toDegrees(PiggyBody.getAngle()));
+            PiggySprite.setOrigin(PiggySprite.getWidth()/2, PiggySprite.getHeight()/2);
         }
         else{
             getPiggySprite().getTexture().dispose();
@@ -131,11 +132,11 @@ public class Piggy {
 //        }
     }
 
-//    public void applyTorqueOnImpact(float angleOfImpact) {
-//        if (angleOfImpact > 45 && angleOfImpact < 135) {
-//            this.PiggyBody.applyTorque(10f, true);
-//        }
-//    }
+    public void applyTorqueOnImpact(float angleOfImpact) {
+        if (angleOfImpact > 45 && angleOfImpact < 135) {
+            this.PiggyBody.applyTorque(10f, true);
+        }
+    }
 
     public void markForRemoval(){
         isRemoved = true;

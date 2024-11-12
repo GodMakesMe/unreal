@@ -26,8 +26,8 @@ public class MarsLevel  implements Screen {
     private SpriteBatch batch;
     private Sprite sprite;
     private Player player;
-    private ImageButton Nextbutton;
-    private Pixmap nextButtonPixmap;
+//    private ImageButton Nextbutton;
+//    private Pixmap nextButtonPixmap;
     private ImageButton PauseButton;
     private Pixmap pauseButtonPixmap;
 
@@ -125,7 +125,7 @@ public class MarsLevel  implements Screen {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0); // Set camera position to center
+        camera.position.set((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2, 0); // Set camera position to center
         camera.update();
         sprite = new Sprite(new Texture("assets/MarsLevel.png"));
         batch = new SpriteBatch();
@@ -325,6 +325,7 @@ public class MarsLevel  implements Screen {
         sprite.draw(batch);
         batch.end();
         batch.begin();
+
         for(Piggy pig: PigList){
             if(pig != null && !pig.isRemoved()) {
                 pig.getPiggySprite().draw(batch);
