@@ -55,7 +55,7 @@ public class MarsLevel  implements Screen {
     private FixtureDef FixtureDef;
 
     private ArrayList<Piggy> PigList;
-    private ArrayList<Piggy> bodiesToDestroy = new ArrayList<>();
+    private ArrayList<Piggy> bodiesToDestroy = new ArrayList<Piggy>();
 
     BitmapFont Scorefont;
 
@@ -129,19 +129,21 @@ public class MarsLevel  implements Screen {
         camera.update();
         sprite = new Sprite(new Texture("assets/MarsLevel.png"));
         batch = new SpriteBatch();
-
-        world = new World(new Vector2(0, -3.73f), false);
+        if (world == null) {
+            world = new World(new Vector2(0, -3.73f), false);
+        }
         world.setContactListener(new CollisionDetector());
 
         debugRenderer = new Box2DDebugRenderer();
 
-        PigList = new ArrayList<>();
-
-        PigList.add(new Piggy("First Piggy",1,null,"assets/MushPig.png",world,"Mars",1000,100,47,47,10000));
-        PigList.add(new Piggy("Second Piggy",1,null,"assets/ProfPig.png",world,"Mars",1000,50,47,47,10000));
-        PigList.add(new Piggy("Third Piggy",1,null,"assets/KingPig.png",world,"Mars",1100,50,47,57,10000));
-        PigList.add(new Piggy("Fourth Piggy",1,null,"assets/CorpPig.png",world,"Mars",1100,100,47,43,10000));
-        PigList.add(new Piggy("Fifth Piggy",1,null,"assets/FirstPiggy.png",world,"Mars",1050,150,47,40,10000));
+        if (PigList == null) {
+            PigList = new ArrayList<Piggy>();
+            PigList.add(new Piggy("First Piggy",10,null,"assets/MushPig.png",world,"Mars",1000,100,47,47,10000));
+            PigList.add(new Piggy("Second Piggy",5,null,"assets/ProfPig.png",world,"Mars",1000,50,47,47,10000));
+            PigList.add(new Piggy("Third Piggy",5,null,"assets/KingPig.png",world,"Mars",1100,50,47,57,10000));
+            PigList.add(new Piggy("Fourth Piggy",10,null,"assets/CorpPig.png",world,"Mars",1100,100,47,43,10000));
+            PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Mars",1050,150,47,40,10000));
+        }
 
         world.setGravity(new Vector2(0, 0f));
         SlingShotFront = new Sprite(new Texture("assets/SlingShotFront.png"));
@@ -161,7 +163,7 @@ public class MarsLevel  implements Screen {
         PauseButton = createButton("assets/Pause.png","assets/HoverPause.png",47, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
         pauseButtonPixmap = new Pixmap(Gdx.files.internal("assets/Pause.png"));
         stage.addActor(PauseButton);
-        Game.clickHandling(PauseButton, pauseButtonPixmap, new SpacePauseScreen(Game, "assets/MarsBig.png","Mars"));
+        Game.clickHandling(PauseButton, pauseButtonPixmap, new SpacePauseScreen(Game, "assets/MarsBig.png","Mars", this));
 
         RedBirdButton= createButton("assets/RedBird.png","assets/HoverRedBird.png",141, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
         redBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/RedBird.png"));
@@ -260,8 +262,8 @@ public class MarsLevel  implements Screen {
 
 //        world = SpaceBird.getWorldInstance();
 
-        bodyDef = new BodyDef();
-        FixtureDef = new FixtureDef();
+        if (bodyDef == null) bodyDef = new BodyDef();
+        if (FixtureDef == null) FixtureDef = new FixtureDef();
 
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(0,0);

@@ -92,7 +92,7 @@ public class EarthLevel  implements Screen {
         PauseButton = createButton("assets/Pause.png", "assets/HoverPause.png", 47, (int) (720 - 39 - 78.3), (int) 78.3, (int) 78.3);
         pauseButtonPixmap = new Pixmap(Gdx.files.internal("assets/Pause.png"));
         stage.addActor(PauseButton);
-        Game.clickHandling(PauseButton, pauseButtonPixmap, new SpacePauseScreen(Game, "assets/EarthBig.png", "Earth"));
+        Game.clickHandling(PauseButton, pauseButtonPixmap, new SpacePauseScreen(Game, "assets/EarthBig.png", "Earth", this));
 
         RedBirdButton = createButton("assets/RedBird.png", "assets/HoverRedBird.png", 141, (int) (720 - 39 - 78.3), (int) 78.3, (int) 78.3);
         redBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/RedBird.png"));

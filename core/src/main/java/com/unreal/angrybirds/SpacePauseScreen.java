@@ -27,7 +27,7 @@ public class SpacePauseScreen  implements Screen {
 
     private String PlanetPath;
     private String Planet;
-
+    private Screen previousScreen;
     private ImageButton ResumeButton;
     private Pixmap resumeButtonPixmap;
     private ImageButton SettingsButton;
@@ -35,10 +35,11 @@ public class SpacePauseScreen  implements Screen {
     private ImageButton BacktoMenuButton;
     private Pixmap backtoMenuPixmap;
 
-    public SpacePauseScreen(Main game,String PlanetPath,String Planet) {
+    public SpacePauseScreen(Main game,String PlanetPath,String Planet, Screen prevScreen) {
         this.Game = game;
         this.PlanetPath = PlanetPath;
         this.Planet = Planet;
+        this.previousScreen = prevScreen;
     }
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
         Texture ButtonTexture = new Texture(Path);
@@ -91,7 +92,7 @@ public class SpacePauseScreen  implements Screen {
         }else if (Planet.equals("Moon")) {
             screen = new MoonLevel(Game);
         }
-        Game.clickHandling(ResumeButton, resumeButtonPixmap, screen);
+        Game.clickHandling(ResumeButton, resumeButtonPixmap, previousScreen);
 
         SettingsButton = createButton("assets/Settings1.png","assets/HoverSettings1.png",235, 720 -299-67, 268, 67);
         settingsButtonPixmap = new Pixmap(Gdx.files.internal("assets/Settings1.png"));
