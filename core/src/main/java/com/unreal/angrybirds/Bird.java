@@ -22,6 +22,8 @@ public class Bird implements Serializable {
     private transient Texture BirdTexture;
     private float x;
     private float y;
+    private float iniX;
+    private float iniY;
     private float GlobalX;
     private float GlobalY;
     private transient Body BirdBody;
@@ -52,6 +54,7 @@ public class Bird implements Serializable {
         this.BirdBodydef.type = BodyDef.BodyType.DynamicBody;
         this.BirdBodydef.position.x = x;
         this.BirdBodydef.position.y =y;
+        this.iniX = x; this.iniY = y;
         this.BirdBody = world.createBody(BirdBodydef);
         BirdSprite.setPosition(x, y);
         this.GlobalX = 0;
@@ -132,22 +135,7 @@ public class Bird implements Serializable {
     public void setBirdAbility(Ability birdAbility) {
         BirdAbility = birdAbility;
     }
-    public void MoveUp(){
-        y+=10;
-        this.BirdSprite.setPosition(x, y);
-    }
-    public void MoveDown(){
-        y-=10;
-        this.BirdSprite.setPosition(x, y);
-    }
-    public void MoveLeft(){
-        x-=10;
-        this.BirdSprite.setPosition(x, y);
-    }
-    public void MoveRight(){
-        x+=10;
-        this.BirdSprite.setPosition(x, y);
-    }
+
     public float getX() {
         return x;
     }
@@ -190,9 +178,9 @@ public class Bird implements Serializable {
         this.trajectoryPoints = new Vector2[points];
         for(int i = 0;  i<100;i++){
             float t = i * 0.1f;
-            float x = StartPos.x + Velocity * t * (float) Math.cos(Angle);
-            float y = StartPos.y + Velocity*t*(float)Math.sin(Angle) + 0.5f * Gravity * t * t;
-            trajectoryPoints[i] = new Vector2(x, y);
+            float x_t = StartPos.x + Velocity * t * (float) Math.cos(Angle);
+            float y_t = StartPos.y + Velocity*t*(float)Math.sin(Angle) + 0.5f * Gravity * t * t;
+            trajectoryPoints[i] = new Vector2(x_t, y_t);
         }
     }
 
@@ -200,7 +188,7 @@ public class Bird implements Serializable {
         return trajectoryPoints;
     }
     public boolean notInOrigin(){
-        return !(BirdBody.getPosition().x==x && BirdBody.getPosition().y==y);
+        return !(BirdBody.getPosition().x==iniX && BirdBody.getPosition().y==iniY);
     }
 
     public void DrawTrajectory(){
@@ -247,8 +235,10 @@ public class Bird implements Serializable {
         }
         BirdBody.setTransform(BirdBody.getPosition().x+posX,BirdBody.getPosition().y+posY,BirdBody.getAngle());
         getBirdSprite().setPosition(BirdBody.getPosition().x-BirdSprite.getWidth()/2, BirdBody.getPosition().y-BirdSprite.getHeight()/2);
-        x = BirdBody.getPosition().x - BirdSprite.getWidth()/2;
-        y = BirdBody.getPosition().y - BirdSprite.getHeight()/2;
+//        x = BirdBody.getPosition().x - BirdSprite.getWidth()/2;
+//        y = BirdBody.getPosition().y - BirdSprite.getHeight()/2;
+        x = BirdBody.getPosition().x;
+        y = BirdBody.getPosition().y;
         float gravity = -3.73f;
         if(Planet.equals("Mars")){
             gravity = -3.73f;

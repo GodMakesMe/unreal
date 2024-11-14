@@ -25,6 +25,7 @@ public class Piggy implements Serializable {
     private boolean isRemoved = false;
     private int score;
     private float angle;
+    protected boolean dead = false;
     private String pigPath;
     public Piggy(String Name, int Mass,Ability PiggyAbility,String PiggyPath,World world,String Planet,int x,int y,int width,int height,int score) {
         this.Name = Name;

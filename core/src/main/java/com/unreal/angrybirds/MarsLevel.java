@@ -57,9 +57,11 @@ public class MarsLevel  implements Screen, Serializable {
 
     private transient BodyDef bodyDef;
     private transient FixtureDef FixtureDef;
+    private int initialPiggyCount;
 
     private ArrayList<Piggy> PigList;
     private ArrayList<Piggy> bodiesToDestroy = new ArrayList<Piggy>();
+    private ArrayList<Piggy> deadPiggyList = new ArrayList<Piggy>();
 
     transient BitmapFont Scorefont;
 
@@ -88,6 +90,8 @@ public class MarsLevel  implements Screen, Serializable {
             birdsAvailable = level.birdsAvailable;
             isSerialized = level.isSerialized;
             PigList = level.PigList;
+            deadPiggyList = level.deadPiggyList;
+            initialPiggyCount = level.initialPiggyCount;
             bodiesToDestroy = level.bodiesToDestroy;
             isSerialized = true;
 //            Game.removeFile("MarsLevel");
@@ -105,7 +109,7 @@ public class MarsLevel  implements Screen, Serializable {
 //    }
 
     public void markForRemoval(Piggy pig) {
-        if (pig != null && !bodiesToDestroy.contains(pig)) {
+        if (pig != null && !bodiesToDestroy.contains(pig) && !pig.dead) {
             bodiesToDestroy.add(pig);
         }
     }
@@ -119,15 +123,12 @@ public class MarsLevel  implements Screen, Serializable {
                     //pig.getPiggySprite().getTexture().dispose();
                     if (pig.getPiggyBody() != null && pig.getPiggyBody().getUserData() != null) {
                         // Remove all fixtures first
+                        pig.dead = true;
+                        deadPiggyList.add(pig);
                         Array<Fixture> fixtures = pig.getPiggyBody().getFixtureList();
                         while (fixtures.size > 0) {
                             pig.getPiggyBody().destroyFixture(fixtures.first());
-                            player.setScore(pig.getScore()+player.getScore());
-                            if(player.getScore()>=50000){
-//                                Game.saveGameScore(player, "MarsLevelScore");
-                                Game.setScreen(new SpaceLevelEnd(Game,player));
-                                Game.removeFile("MarsLevel");
-                            }
+
                         }
                         world.destroyBody(pig.getPiggyBody());
                         iterator.remove();
@@ -135,7 +136,47 @@ public class MarsLevel  implements Screen, Serializable {
                 }
             }
         }
+        bodiesToDestroy.clear();
     }
+
+
+//    // Flag to indicate loading state
+//    public void cleanupDestroyedBodies() {
+//        if (!world.isLocked() && !bodiesToDestroy.isEmpty()) {
+//            synchronized (bodiesToDestroy) {
+//                Iterator<Piggy> iterator = bodiesToDestroy.iterator();
+//                while (iterator.hasNext()) {
+//                    Piggy pig = iterator.next();
+//
+//                    // Ensure body is eligible for cleanup
+//                    if (pig.getPiggyBody() != null && pig.getPiggyBody().getUserData() != null) {
+//                        deadPiggyList.add(pig);
+//                        pig.dead = true;
+//                        Array<Fixture> fixtures = pig.getPiggyBody().getFixtureList();
+//                        while (fixtures.size > 0) {
+//                            pig.getPiggyBody().destroyFixture(fixtures.first());
+//                        }
+//
+//                        // Score updates only upon actual destruction
+//                        iterator.remove();
+//                        world.destroyBody(pig.getPiggyBody());
+//                        // If score reaches threshold, trigger level end
+//
+//                    }
+//                }
+//            }
+//        }
+//        bodiesToDestroy.clear();
+//    }
+    public void updateScore(){
+        int scoreToAdd = 0;
+        for (Piggy i : deadPiggyList){
+            scoreToAdd += i.getScore();
+        }
+        player.setScore(scoreToAdd);
+    }
+
+
 
     public static float meterstopixels(float meters) {
         return meters * 100;
@@ -173,6 +214,7 @@ public class MarsLevel  implements Screen, Serializable {
                 PigList.add(new Piggy("Third Piggy",5,null,"assets/KingPig.png",world,"Mars",1100,50,47,57,10000));
                 PigList.add(new Piggy("Fourth Piggy",10,null,"assets/CorpPig.png",world,"Mars",1100,100,47,43,10000));
                 PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Mars",1050,150,47,40,10000));
+                initialPiggyCount = PigList.size();
             }
 //            world.setGravity(new Vector2(0, 0f));
         }
@@ -180,7 +222,7 @@ public class MarsLevel  implements Screen, Serializable {
             if (SpaceBird != null) SpaceBird.processSerialization(null, world);
             assert PigList != null;
             for (Piggy pig : PigList) {
-                if (pig != null) pig.processSerialization(null, world);
+                if (pig != null && !pig.dead) pig.processSerialization(null, world);
             }
             isSerialized = false;
         }
@@ -346,11 +388,12 @@ public class MarsLevel  implements Screen, Serializable {
             pig.getPiggyBody().setActive(false);
         }
         if(birdsAvailable<=0){
-            Game.setScreen(new SpaceLevelEnd(Game,player));
             Game.removeFile("MarsLevel");
-            Game.removeFile("MarsLevelScore");
+//            Game.removeFile("MarsLevelScore");
+            Game.setScreen(new SpaceLevelEnd(Game,player));
         }
-        cleanupDestroyedBodies();
+        if (!isSerialized) cleanupDestroyedBodies();
+        updateScore();
 
         for (Piggy pig : PigList) {
             if (pig != null && pig.isRemoved()) {
@@ -368,9 +411,9 @@ public class MarsLevel  implements Screen, Serializable {
             }
         }
 
-//        batch.begin();
-//        sprite.draw(batch);
-//        batch.end();
+        batch.begin();
+        sprite.draw(batch);
+        batch.end();
         batch.begin();
 
         for(Piggy pig: PigList){
@@ -424,5 +467,13 @@ public class MarsLevel  implements Screen, Serializable {
         stage.dispose();
         sprite.getTexture().dispose();
         SpaceBird.getBirdSprite().getTexture().dispose();
+    }
+
+    public ArrayList<Piggy> getDeadPiggyList() {
+        return deadPiggyList;
+    }
+
+    public void setDeadPiggyList(ArrayList<Piggy> deadPiggyList) {
+        this.deadPiggyList = deadPiggyList;
     }
 }
