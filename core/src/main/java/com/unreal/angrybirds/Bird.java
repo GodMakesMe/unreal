@@ -275,7 +275,7 @@ public class Bird implements Serializable {
             System.out.println("Launching with impulse: X=" + MathUtils.cos(angle)*velocity + ", Y=" + MathUtils.sin(angle)*velocity);
             BirdBody.setLinearVelocity(MathUtils.cos(angle)*velocity, MathUtils.sin(angle)*velocity);
             this.islaunched = true;
-            BirdBody.setGravityScale(1f);
+            BirdBody.setGravityScale(3f);
         }
 
     }
