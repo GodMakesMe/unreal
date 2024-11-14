@@ -16,50 +16,55 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class MarsLevel  implements Screen {
+public class MarsLevel  implements Screen, Serializable {
     private Main Game;
-    private OrthographicCamera camera;
-    private Stage stage;
-    private SpriteBatch batch;
-    private Sprite sprite;
-    private Player player;
+    private transient OrthographicCamera camera;
+    private transient Stage stage;
+    private transient SpriteBatch batch;
+    private transient Sprite sprite;
+    protected Player player;
 //    private ImageButton Nextbutton;
 //    private Pixmap nextButtonPixmap;
-    private ImageButton PauseButton;
-    private Pixmap pauseButtonPixmap;
+    private transient ImageButton PauseButton;
+    private transient Pixmap pauseButtonPixmap;
 
-    private ImageButton RedBirdButton;
-    private Pixmap redBirdButtonPixmap;
-    private ImageButton YellowBirdButton;
-    private Pixmap yellowBirdButtonPixmap;
-    private ImageButton BlueBirdButton;
-    private Pixmap blueBirdButtonPixmap;
-    private ImageButton BombBirdButton;
-    private Pixmap bombBirdButtonPixmap;
-    private ImageButton WhiteBirdButton;
-    private Pixmap whiteBirdButtonPixmap;
+    private transient ImageButton RedBirdButton;
+    private transient Pixmap redBirdButtonPixmap;
+    private transient ImageButton YellowBirdButton;
+    private transient Pixmap yellowBirdButtonPixmap;
+    private transient ImageButton BlueBirdButton;
+    private transient Pixmap blueBirdButtonPixmap;
+    private transient ImageButton BombBirdButton;
+    private transient Pixmap bombBirdButtonPixmap;
+    private transient ImageButton WhiteBirdButton;
+    private transient Pixmap whiteBirdButtonPixmap;
 
-    private Sprite SlingShotFront;
-
+    private transient Sprite SlingShotFront;
+    protected boolean isFirstLaunched;
     private Bird SpaceBird;
     private float BirdX;
     private float BirdY;
 
-    private World world;
-    private Box2DDebugRenderer debugRenderer;
+    private transient World world;
+    private transient Box2DDebugRenderer debugRenderer;
 
-    private BodyDef bodyDef;
-    private FixtureDef FixtureDef;
+    private transient BodyDef bodyDef;
+    private transient FixtureDef FixtureDef;
 
     private ArrayList<Piggy> PigList;
     private ArrayList<Piggy> bodiesToDestroy = new ArrayList<Piggy>();
 
-    BitmapFont Scorefont;
+    transient BitmapFont Scorefont;
 
     private int birdsAvailable;
+    boolean isSerialized = false;
 
 
     public MarsLevel(Main game) {
@@ -67,8 +72,27 @@ public class MarsLevel  implements Screen {
         Scorefont = new BitmapFont(Gdx.files.internal("angrybirds.fnt"));
         Scorefont.setColor(Color.BLACK);
 //        Scorefont.getData().setScale(1.2f);
-        player = new Player();
-        birdsAvailable = 3;
+        Screen serializedLevel = Game.loadGameScreen("MarsLevel");
+        if (serializedLevel instanceof MarsLevel) {
+            MarsLevel level = (MarsLevel) serializedLevel;
+            player = level.player;
+            birdsAvailable = level.birdsAvailable;
+            BirdX = level.BirdX;
+            BirdY = level.BirdY;
+            SpaceBird = level.SpaceBird;
+            birdsAvailable = level.birdsAvailable;
+            isSerialized = level.isSerialized;
+            PigList = level.PigList;
+            bodiesToDestroy = level.bodiesToDestroy;
+            isSerialized = true;
+//            SpaceBird.processSerialization(null, world);
+        }else {
+            player = new Player();
+            birdsAvailable = 3;
+        }
+    }
+
+    public MarsLevel() {
     }
 //    public static float (float pixels) {
 //        return pixels / 100;
@@ -92,9 +116,12 @@ public class MarsLevel  implements Screen {
                         Array<Fixture> fixtures = pig.getPiggyBody().getFixtureList();
                         while (fixtures.size > 0) {
                             pig.getPiggyBody().destroyFixture(fixtures.first());
-                            player.setScore(player.getScore() + pig.getScore());
+                            player.setScore(pig.getScore()+player.getScore());
                             if(player.getScore()>=50000){
+//                                Game.saveGameScore(player, "MarsLevelScore");
                                 Game.setScreen(new SpaceLevelEnd(Game,player));
+                                this.dispose();
+                                Game.removeFile("MarsLevel");
                             }
                         }
                         world.destroyBody(pig.getPiggyBody());
@@ -133,7 +160,7 @@ public class MarsLevel  implements Screen {
         if (world == null) {
             world = new World(new Vector2(0, -3.73f), false);
             world.setContactListener(new CollisionDetector());
-            if (PigList == null) {
+            if (PigList == null && !isSerialized) {
                 PigList = new ArrayList<Piggy>();
                 PigList.add(new Piggy("First Piggy",10,null,"assets/MushPig.png",world,"Mars",1000,100,47,47,10000));
                 PigList.add(new Piggy("Second Piggy",5,null,"assets/ProfPig.png",world,"Mars",1000,50,47,47,10000));
@@ -142,6 +169,13 @@ public class MarsLevel  implements Screen {
                 PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Mars",1050,150,47,40,10000));
             }
             world.setGravity(new Vector2(0, 0f));
+        }
+        if (isSerialized) {
+            if (SpaceBird.isIslaunched()) world.setGravity(new Vector2(0, -3.73f));
+            SpaceBird.processSerialization(null, world);
+            for (Piggy pig : PigList) {
+                pig.processSerialization(null, world);
+            }
         }
 
 
@@ -180,6 +214,7 @@ public class MarsLevel  implements Screen {
                 birdsAvailable--;
                 BirdX  = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
+                isFirstLaunched = true;
                 return true;
             }
 
@@ -198,6 +233,7 @@ public class MarsLevel  implements Screen {
                 birdsAvailable--;
                 BirdX  = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
+                isFirstLaunched = true;
                 return true;
             }
 
@@ -216,6 +252,7 @@ public class MarsLevel  implements Screen {
                 birdsAvailable--;
                 BirdX  = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
+                isFirstLaunched = true;
                 return true;
             }
 
@@ -306,6 +343,9 @@ public class MarsLevel  implements Screen {
         }
         if(birdsAvailable<=0){
             Game.setScreen(new SpaceLevelEnd(Game,player));
+            this.dispose();
+            Game.removeFile("MarsLevel");
+            Game.removeFile("MarsLevelScore");
         }
         cleanupDestroyedBodies();
 

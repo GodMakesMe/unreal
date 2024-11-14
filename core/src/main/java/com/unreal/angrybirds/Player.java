@@ -1,6 +1,8 @@
 package com.unreal.angrybirds;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
     int Score;
     public Player() {
         Score = 0;

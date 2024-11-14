@@ -6,20 +6,26 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
-public class Piggy {
+import java.io.Serializable;
+
+public class Piggy implements Serializable {
     private String Name;
     private int Mass;
-    private Ability PiggyAbility;
+    private transient Ability PiggyAbility;
     private int Health;
-    private Sprite PiggySprite;
-    private Texture PiggyTexture;
+    private transient Sprite PiggySprite;
+    private transient Texture PiggyTexture;
     private float x;
     private float y;
-    private Body PiggyBody;
-    private BodyDef PiggyBodydef;
-    private World worldInstance;
+    private float pigWidth;
+    private float pigHeight;
+    private transient Body PiggyBody;
+    private transient BodyDef PiggyBodydef;
+    private transient World worldInstance;
     private boolean isRemoved = false;
     private int score;
+    private float angle;
+    private String pigPath;
     public Piggy(String Name, int Mass,Ability PiggyAbility,String PiggyPath,World world,String Planet,int x,int y,int width,int height,int score) {
         this.Name = Name;
         this.Mass = Mass;
@@ -27,9 +33,11 @@ public class Piggy {
         this.Health = 100;
         this.worldInstance = world;
         this.score = score;
-        PiggyTexture = new Texture(PiggyPath);
+        this.pigPath = PiggyPath;
+        PiggyTexture = new Texture(pigPath);
         PiggySprite = new Sprite(PiggyTexture);
-        PiggySprite.setSize(width, height);
+        pigWidth = width; pigHeight = height;
+        PiggySprite.setSize(pigWidth, pigHeight);
         PiggySprite.setOrigin(0, 0f);
         worldInstance.setGravity(new Vector2(0, -3.73f));
 //        this.x = 268;
@@ -58,6 +66,10 @@ public class Piggy {
 //        this.PiggyBody.applyTorque(100f, true);
         PiggyShape.dispose();
     }
+
+    public Piggy() {
+    }
+
     public String getName() {
         return Name;
     }
@@ -119,9 +131,12 @@ public class Piggy {
 
     public void updateSprite() {
         if(PiggyBody != null) {
-            getPiggySprite().setPosition(PiggyBody.getPosition().x - PiggySprite.getWidth() / 2, PiggyBody.getPosition().y - PiggySprite.getHeight() / 2);
+            x = PiggyBody.getPosition().x - PiggySprite.getWidth() / 2;
+            y = PiggyBody.getPosition().y - PiggySprite.getHeight() / 2;
+            angle = PiggyBody.getAngle();
+            getPiggySprite().setPosition(x,y);
             PiggyBody.setTransform(PiggyBody.getPosition().x, PiggyBody.getPosition().y, PiggyBody.getAngle());
-            PiggySprite.setRotation((float) Math.toDegrees(PiggyBody.getAngle()));
+            PiggySprite.setRotation((float) Math.toDegrees(angle));
             PiggySprite.setOrigin(PiggySprite.getWidth()/2, PiggySprite.getHeight()/2);
         }
         else{
@@ -131,7 +146,45 @@ public class Piggy {
 //            this.PiggyBody.applyTorque(5f, true);
 //        }
     }
+    public void processSerialization(Ability piggyAbility, World world){
+        this.Name = Name;
+        this.Mass = Mass;
+        this.PiggyAbility = PiggyAbility;
+        this.Health = 100;
+        this.worldInstance = world;
+        this.score = score;
+//        this.pigPath = PiggyPath;
+        PiggyTexture = new Texture(pigPath);
+        PiggySprite = new Sprite(PiggyTexture);
+        PiggySprite.setSize(pigWidth, pigHeight);
+        PiggySprite.setOrigin(0, 0f);
+        worldInstance.setGravity(new Vector2(0, -3.73f));
+//        this.x = 268;
+//        this.y = 720-PiggySprite.getHeight()-320;
+        this.PiggyBodydef = new BodyDef();
+        this.PiggyBodydef.type = BodyDef.BodyType.DynamicBody;
+        this.PiggyBodydef.position.x = x;
+        this.PiggyBodydef.position.y = y;
+        this.PiggyBody = world.createBody(PiggyBodydef);
+        PiggySprite.setPosition(x, y);
+        PolygonShape PiggyShape = new PolygonShape();
+        PiggyShape.setAsBox(PiggySprite.getWidth()/2,PiggySprite.getHeight()/2);
 
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = PiggyShape;
+//        fixtureDef.density = (float) this.getMass() /2;
+        fixtureDef.density = 1f;
+        fixtureDef.friction = 0.05f;
+        fixtureDef.restitution = 0.1f;
+        this.PiggyBody.setGravityScale(1f);
+        Fixture fixture = this.PiggyBody.createFixture(fixtureDef);
+        this.PiggyBody.setFixedRotation(false);
+        this.PiggyBody.setUserData(this);
+        fixture.setUserData(this);
+//        this.PiggyBody.applyAngularImpulse(500,true);
+//        this.PiggyBody.applyTorque(100f, true);
+        PiggyShape.dispose();
+    }
     public void applyTorqueOnImpact(float angleOfImpact) {
         if (angleOfImpact > 45 && angleOfImpact < 135) {
             this.PiggyBody.applyTorque(10f, true);

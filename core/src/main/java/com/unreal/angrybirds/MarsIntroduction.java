@@ -17,21 +17,42 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class MarsIntroduction implements Screen {
-    private Main Game;
-    private OrthographicCamera camera;
-    private Stage stage;
-    private SpriteBatch batch;
-    private Sprite sprite;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-    private ImageButton Backbutton;
-    private Pixmap backButtonPixmap;
-    private ImageButton PlayButton;
-    private Pixmap playButtonPixmap;
+public class MarsIntroduction implements Screen, Serializable {
+    private transient Main Game;
+    private transient OrthographicCamera camera;
+    private transient Stage stage;
+    private transient SpriteBatch batch;
+    private transient Sprite sprite;
+
+    private transient ImageButton Backbutton;
+    private transient Pixmap backButtonPixmap;
+    private transient ImageButton PlayButton;
+    private transient Pixmap playButtonPixmap;
+     public int stars;
 
     public MarsIntroduction(Main game) {
         this.Game = game;
+        Screen serializedInstance = Game.loadGameScreen("MarsIntroduction");
+        if (serializedInstance instanceof MarsIntroduction) {
+            MarsIntroduction mi = (MarsIntroduction) serializedInstance;
+            stars = mi.stars;
+        }
+        Player marsLevelInstance = Game.loadGameScore("MarsLevelScore");
+        if (marsLevelInstance != null) {
+            stars = marsLevelInstance.getScore() >= 50000 ? 3 : 0;
+        }else{
+            stars = 0;
+        }
     }
+
+    public MarsIntroduction() {
+    }
+
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
         Texture ButtonTexture = new Texture(Path);
         Texture HoverButtonTexture = new Texture(HoverPath);
@@ -59,7 +80,18 @@ public class MarsIntroduction implements Screen {
         Backbutton = createButton("assets/Back.png","assets/HoverBack.png",47,720-635-55,55,55);
         backButtonPixmap = new Pixmap(Gdx.files.internal("assets/Back.png"));
         stage.addActor(Backbutton);
-        Game.clickHandling(Backbutton, backButtonPixmap, new SpaceLevelScreen(Game));
+        Game.clickHandlingByFunction(Backbutton, backButtonPixmap, () -> {
+            Game.setScreen(new SpaceLevelScreen(Game));
+            String fileName = "MarsIntroduction";
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName))) {
+                out.writeObject(this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            dispose();
+
+        });
+//        Game.clickHandling(Backbutton, backButtonPixmap, new SpaceLevelScreen(Game)));
 
         PlayButton = createButton("assets/Play.png","assets/HoverPlay.png",680,720-420-159,159,159);
         playButtonPixmap = new Pixmap(Gdx.files.internal("assets/Play.png"));

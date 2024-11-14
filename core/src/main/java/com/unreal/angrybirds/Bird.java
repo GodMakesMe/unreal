@@ -9,26 +9,31 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Disposable;
 
-public class Bird {
+import java.io.Serializable;
+
+public class Bird implements Serializable {
     private String Name;
     private int Mass;
-    private Ability BirdAbility;
+    private transient Ability BirdAbility;
     private int Health;
-    private Sprite BirdSprite;
-    private Texture BirdTexture;
+    private transient Sprite BirdSprite;
+    private transient Texture BirdTexture;
     private float x;
     private float y;
     private float GlobalX;
     private float GlobalY;
-    private Body BirdBody;
-    private BodyDef BirdBodydef;
+    private transient Body BirdBody;
+    private transient BodyDef BirdBodydef;
     private boolean islaunched;
-    private World worldInstance;
+    private transient World worldInstance;
     private String Planet;
-    private float velocity;
-    private float angle;
     private Vector2[] trajectoryPoints;
+    private String birdPath;
+    private float y_velocity;
+    private float x_velocity;
+
     public Bird(String Name, int Mass, Ability BirdAbility,String BirdPath,World world,String Planet) {
         this.Name = Name;
         this.Mass = Mass;
@@ -36,7 +41,8 @@ public class Bird {
         this.Health = 100;
         this.worldInstance = world;
         world.setGravity(new Vector2(0, 0f));
-        BirdTexture = new Texture(BirdPath);
+        this.birdPath = BirdPath;
+        BirdTexture = new Texture(birdPath);
         BirdSprite = new Sprite(BirdTexture);
         BirdSprite.setSize(39, 38);
         BirdSprite.setOrigin(0, 0);
@@ -67,6 +73,39 @@ public class Bird {
         BirdShape.dispose();
         this.Planet = Planet;
 
+    }
+
+    public Bird() {
+    }
+    public void processSerialization(Ability birdAbility, World world){
+        this.BirdAbility = BirdAbility;
+        this.worldInstance = world;
+        world.setGravity(new Vector2(0, 0f));
+        BirdTexture = new Texture(birdPath);
+        BirdSprite = new Sprite(BirdTexture);
+        BirdSprite.setSize(39, 38);
+        BirdSprite.setOrigin(0, 0);
+        this.BirdBodydef = new BodyDef();
+        this.BirdBodydef.type = BodyDef.BodyType.DynamicBody;
+        this.BirdBodydef.position.x = x;
+        this.BirdBodydef.position.y =y;
+        this.BirdBody = world.createBody(BirdBodydef);
+        BirdSprite.setPosition(x, y);
+        PolygonShape BirdShape = new PolygonShape();
+        BirdShape.setAsBox(BirdSprite.getWidth()/2,BirdSprite.getHeight()/2);
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = BirdShape;
+        fixtureDef.density = 2;
+        System.out.println("Density of the Bird: "+fixtureDef.density);
+//        fixtureDef.density = f;
+        fixtureDef.friction = 0.05f;
+        fixtureDef.restitution = 0.05f;
+        this.BirdBody.setGravityScale(1f);
+        Fixture fixture = this.BirdBody.createFixture(fixtureDef);
+        this.BirdBody.setUserData(this);
+        fixture.setUserData(this);
+        BirdShape.dispose();
+        this.BirdBody.setLinearVelocity(new Vector2(x_velocity, y_velocity));
     }
     public String getName() {
         return Name;
@@ -198,30 +237,50 @@ public class Bird {
 //            System.out.println("GlobalX  "+GlobalX+"\tGlobalX  "+GlobalY);
         }else if (GlobalY*GlobalY+GlobalX*GlobalX>=1681){
             float angle = MathUtils.atan2(GlobalY,GlobalX);
-            float y = GlobalY > 0 ? -0.8f*Math.abs(MathUtils.sin(angle)) : 0.8f*Math.abs(MathUtils.sin(angle));
-            float x = GlobalX > 0 ? -0.8f*Math.abs(MathUtils.cos(angle)) : 0.8f*Math.abs(MathUtils.cos(angle));
-            GlobalX += x;
-            GlobalY += y;
-            posX += x;
-            posY += y;
+            float y_s = GlobalY > 0 ? -0.8f*Math.abs(MathUtils.sin(angle)) : 0.8f*Math.abs(MathUtils.sin(angle));
+            float x_s = GlobalX > 0 ? -0.8f*Math.abs(MathUtils.cos(angle)) : 0.8f*Math.abs(MathUtils.cos(angle));
+            GlobalX += x_s;
+            GlobalY += y_s;
+            posX += x_s;
+            posY += y_s;
         }
         BirdBody.setTransform(BirdBody.getPosition().x+posX,BirdBody.getPosition().y+posY,BirdBody.getAngle());
         getBirdSprite().setPosition(BirdBody.getPosition().x-BirdSprite.getWidth()/2, BirdBody.getPosition().y-BirdSprite.getHeight()/2);
+        x = BirdBody.getPosition().x-BirdSprite.getWidth()/2;
+        y = BirdBody.getPosition().y-BirdSprite.getHeight()/2;
         float gravity = 0;
         if(Planet.equals("Mars")){
             gravity = -3.73f;
+        }if (Planet.equals("Earth")){
+            gravity = -9.8f;
+        }if (Planet.equals("Jupiter")){
+            gravity = -9.8f*3.0f;
+        }if (Planet.equals("Saturn")){
+            gravity = -9.8f*3.0f;
+        }if (Planet.equals("Uranus")){
+            gravity = -9.8f*0.8f;
+        }if (Planet.equals("Neptune")){
+            gravity = -9.8f*0.8f;
+        }if (Planet.equals("Moon")){
+            gravity = -9.8f*0.5f;
+        }if (Planet.equals("Mercury")){
+            gravity = -9.8f*0.9f;
+        }if (Planet.equals("Venus")){
+            gravity = -9.8f*0.9f;
         }
-        float changeX = -BirdBody.getPosition().x+x;
-        float changeY = -BirdBody.getPosition().y+y;
+        float changeX = -BirdBody.getPosition().x+268;
+        float changeY = -BirdBody.getPosition().y+720-BirdSprite.getHeight()-320;
         float angle = (float) Math.atan2(changeY, changeX);
         float dist = (float)  Math.sqrt(changeX*changeX+changeY*changeY);
         float velocity = dist*3f;
+        x_velocity = BirdBody.getLinearVelocity().x;
+        y_velocity = BirdBody.getLinearVelocity().y;
 //        if (!islaunched) {
         CreateTrajectory(new Vector2(BirdBody.getPosition().x, BirdBody.getPosition().y), velocity, angle, gravity, 100);
 //        }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && !islaunched){
             worldInstance.setGravity(new Vector2(0, gravity));
-            System.out.println(Math.pow(changeX,2)+"\t"+Math.pow(changeY,2)+"\t"+dist);
+//            System.out.println(Math.pow(changeX,2)+"\t"+Math.pow(changeY,2)+"\t"+dist);
             System.out.println("Launching with impulse: X=" + MathUtils.cos(angle)*velocity + ", Y=" + MathUtils.sin(angle)*velocity);
 //            BirdBody.applyLinearImpulse( MathUtils.cos(angle)*velocity, MathUtils.sin(angle)*velocity,BirdBody.getWorldCenter().x,BirdBody.getWorldCenter().y,true);
             BirdBody.setLinearVelocity(MathUtils.cos(angle)*velocity, MathUtils.sin(angle)*velocity);

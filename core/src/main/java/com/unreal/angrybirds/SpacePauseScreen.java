@@ -17,6 +17,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 public class SpacePauseScreen  implements Screen {
     private Main Game;
     private OrthographicCamera camera;
@@ -40,6 +44,7 @@ public class SpacePauseScreen  implements Screen {
         this.PlanetPath = PlanetPath;
         this.Planet = Planet;
         this.previousScreen = prevScreen;
+        this.previousScreen.pause();
     }
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
         Texture ButtonTexture = new Texture(Path);
@@ -74,35 +79,47 @@ public class SpacePauseScreen  implements Screen {
         stage.addActor(ResumeButton);
         Screen screen = null;
         if(Planet.equals("Mercury")){
-            screen = new MercuryLevel(Game);
+            screen = new MercuryIntroduction(Game);
         } else if (Planet.equals("Venus")) {
-            screen = new VenusLevel(Game);
+            screen = new VenusIntroduction(Game);
         }else if (Planet.equals("Earth")) {
             screen = new EarthLevel(Game);
         }else if (Planet.equals("Mars")) {
-            screen = new MarsLevel(Game);
+            screen = new MarsIntroduction(Game);
         }else if (Planet.equals("Jupiter")) {
-            screen = new JupiterLevel(Game);
+            screen = new JupiterIntroduction(Game);
         }else if (Planet.equals("Saturn")) {
-            screen = new SaturnLevel(Game);
+            screen = new SaturnIntroduction(Game);
         }else if (Planet.equals("Uranus")) {
-            screen = new UranusLevel(Game);
+            screen = new UranusIntroduction(Game);
         }else if (Planet.equals("Neptune")) {
-            screen = new NeptuneLevel(Game);
+            screen = new NeptuneIntroduction(Game);
         }else if (Planet.equals("Moon")) {
-            screen = new MoonLevel(Game);
+            screen = new MoonIntroduction(Game);
         }
         Game.clickHandling(ResumeButton, resumeButtonPixmap, previousScreen);
 
         SettingsButton = createButton("assets/Settings1.png","assets/HoverSettings1.png",235, 720 -299-67, 268, 67);
         settingsButtonPixmap = new Pixmap(Gdx.files.internal("assets/Settings1.png"));
         stage.addActor(SettingsButton);
-        Game.clickHandling(SettingsButton, settingsButtonPixmap, new SettingsPage(Game, "assets/SpacePause.png", this));
+        Game.clickHandlingByFunction(SettingsButton, settingsButtonPixmap, new SettingsPage(Game, "assets/SpacePause.png", this), () -> {
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("MarsLevel"))) {
+                out.writeObject(previousScreen);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         BacktoMenuButton = createButton("assets/BacktoMenu.png","assets/HoverBacktoMenu.png",234, 720 -381-67, 268, 67);
         backtoMenuPixmap = new Pixmap(Gdx.files.internal("assets/BacktoMenu.png"));
         stage.addActor(BacktoMenuButton);
-        Game.clickHandling(BacktoMenuButton, backtoMenuPixmap, screen);
+        Game.clickHandlingByFunction(BacktoMenuButton, backtoMenuPixmap, new SpaceLevelScreen(Game), () -> {
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("MarsLevel"))) {
+                out.writeObject(previousScreen);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
