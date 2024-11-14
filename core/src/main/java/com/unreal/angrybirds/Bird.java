@@ -72,7 +72,7 @@ public class Bird implements Serializable {
         fixture.setUserData(this);
         BirdShape.dispose();
         this.Planet = Planet;
-
+        BirdBody.setGravityScale(0f);
     }
 
     public Bird() {
@@ -81,8 +81,8 @@ public class Bird implements Serializable {
         this.BirdAbility = BirdAbility;
         this.worldInstance = world;
         world.setGravity(new Vector2(0, 0f));
-        BirdTexture = new Texture(birdPath);
-        BirdSprite = new Sprite(BirdTexture);
+        if (BirdTexture == null) BirdTexture = new Texture(birdPath);
+        if (BirdSprite == null) BirdSprite = new Sprite(BirdTexture);
         BirdSprite.setSize(39, 38);
         BirdSprite.setOrigin(0, 0);
         this.BirdBodydef = new BodyDef();
@@ -106,6 +106,7 @@ public class Bird implements Serializable {
         fixture.setUserData(this);
         BirdShape.dispose();
         this.BirdBody.setLinearVelocity(new Vector2(x_velocity, y_velocity));
+        if (!isIslaunched()) BirdBody.setGravityScale(0f);
     }
     public String getName() {
         return Name;
@@ -246,9 +247,9 @@ public class Bird implements Serializable {
         }
         BirdBody.setTransform(BirdBody.getPosition().x+posX,BirdBody.getPosition().y+posY,BirdBody.getAngle());
         getBirdSprite().setPosition(BirdBody.getPosition().x-BirdSprite.getWidth()/2, BirdBody.getPosition().y-BirdSprite.getHeight()/2);
-        x = BirdBody.getPosition().x-BirdSprite.getWidth()/2;
-        y = BirdBody.getPosition().y-BirdSprite.getHeight()/2;
-        float gravity = 0;
+        x = BirdBody.getPosition().x - BirdSprite.getWidth()/2;
+        y = BirdBody.getPosition().y - BirdSprite.getHeight()/2;
+        float gravity = -3.73f;
         if(Planet.equals("Mars")){
             gravity = -3.73f;
         }if (Planet.equals("Earth")){
@@ -282,10 +283,9 @@ public class Bird implements Serializable {
             worldInstance.setGravity(new Vector2(0, gravity));
 //            System.out.println(Math.pow(changeX,2)+"\t"+Math.pow(changeY,2)+"\t"+dist);
             System.out.println("Launching with impulse: X=" + MathUtils.cos(angle)*velocity + ", Y=" + MathUtils.sin(angle)*velocity);
-//            BirdBody.applyLinearImpulse( MathUtils.cos(angle)*velocity, MathUtils.sin(angle)*velocity,BirdBody.getWorldCenter().x,BirdBody.getWorldCenter().y,true);
             BirdBody.setLinearVelocity(MathUtils.cos(angle)*velocity, MathUtils.sin(angle)*velocity);
-//            BirdBody.set
             this.islaunched = true;
+            BirdBody.setGravityScale(1f);
         }
 
     }

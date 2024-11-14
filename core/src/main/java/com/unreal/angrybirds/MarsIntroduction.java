@@ -37,17 +37,7 @@ public class MarsIntroduction implements Screen, Serializable {
 
     public MarsIntroduction(Main game) {
         this.Game = game;
-        Screen serializedInstance = Game.loadGameScreen("MarsIntroduction");
-        if (serializedInstance instanceof MarsIntroduction) {
-            MarsIntroduction mi = (MarsIntroduction) serializedInstance;
-            stars = mi.stars;
-        }
-        Player marsLevelInstance = Game.loadGameScore("MarsLevelScore");
-        if (marsLevelInstance != null) {
-            stars = marsLevelInstance.getScore() >= 50000 ? 3 : 0;
-        }else{
-            stars = 0;
-        }
+
     }
 
     public MarsIntroduction() {
@@ -82,15 +72,7 @@ public class MarsIntroduction implements Screen, Serializable {
         stage.addActor(Backbutton);
         Game.clickHandlingByFunction(Backbutton, backButtonPixmap, () -> {
             Game.setScreen(new SpaceLevelScreen(Game));
-            String fileName = "MarsIntroduction";
-            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName))) {
-                out.writeObject(this);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            dispose();
-
-        });
+            });
 //        Game.clickHandling(Backbutton, backButtonPixmap, new SpaceLevelScreen(Game)));
 
         PlayButton = createButton("assets/Play.png","assets/HoverPlay.png",680,720-420-159,159,159);

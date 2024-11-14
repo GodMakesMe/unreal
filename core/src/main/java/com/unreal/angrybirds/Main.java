@@ -119,8 +119,8 @@ public class Main extends Game implements Serializable {
                 if (isPixelOpaque((int) (localX / scaleX), (int) (localY / scaleY), PixmapCopy)) {
                     Gdx.app.log("Click", "Button clicked inside shape!");
                     if (action != null) {
-                        setScreen(toGo);
                         action.run();  // Run the provided function instead of changing screen
+                        setScreen(toGo);
                     }
                 } else {
                     Gdx.app.log("Click", "Clicked outside the button shape");

@@ -64,19 +64,24 @@ public class MarsLevel  implements Screen, Serializable {
     transient BitmapFont Scorefont;
 
     private int birdsAvailable;
-    boolean isSerialized = false;
+    boolean isSerialized;
 
 
     public MarsLevel(Main game) {
         this.Game = game;
         Scorefont = new BitmapFont(Gdx.files.internal("angrybirds.fnt"));
         Scorefont.setColor(Color.BLACK);
+        Screen serializedLevel = null;
 //        Scorefont.getData().setScale(1.2f);
-        Screen serializedLevel = Game.loadGameScreen("MarsLevel");
+        try{
+            serializedLevel = Game.loadGameScreen("MarsLevel");
+        }catch(Exception e){
+            Gdx.app.log("loadMessage", "Game State Not Found!!");
+        }
         if (serializedLevel instanceof MarsLevel) {
             MarsLevel level = (MarsLevel) serializedLevel;
             player = level.player;
-            birdsAvailable = level.birdsAvailable;
+//            birdsAvailable = level.birdsAvailable;
             BirdX = level.BirdX;
             BirdY = level.BirdY;
             SpaceBird = level.SpaceBird;
@@ -85,6 +90,7 @@ public class MarsLevel  implements Screen, Serializable {
             PigList = level.PigList;
             bodiesToDestroy = level.bodiesToDestroy;
             isSerialized = true;
+//            Game.removeFile("MarsLevel");
 //            SpaceBird.processSerialization(null, world);
         }else {
             player = new Player();
@@ -120,7 +126,6 @@ public class MarsLevel  implements Screen, Serializable {
                             if(player.getScore()>=50000){
 //                                Game.saveGameScore(player, "MarsLevelScore");
                                 Game.setScreen(new SpaceLevelEnd(Game,player));
-                                this.dispose();
                                 Game.removeFile("MarsLevel");
                             }
                         }
@@ -149,16 +154,17 @@ public class MarsLevel  implements Screen, Serializable {
 
     @Override
     public void show() {
-        stage = new Stage(new ScreenViewport());
+        if (stage == null) stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        if (camera == null) camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2, 0); // Set camera position to center
         camera.update();
-        sprite = new Sprite(new Texture("assets/MarsLevel.png"));
-        batch = new SpriteBatch();
+        if (sprite == null) sprite = new Sprite(new Texture("assets/MarsLevel.png"));
+        if (batch == null) batch = new SpriteBatch();
 
         if (world == null) {
             world = new World(new Vector2(0, -3.73f), false);
+            world.setGravity(new Vector2(0, -3.73f));
             world.setContactListener(new CollisionDetector());
             if (PigList == null && !isSerialized) {
                 PigList = new ArrayList<Piggy>();
@@ -168,14 +174,15 @@ public class MarsLevel  implements Screen, Serializable {
                 PigList.add(new Piggy("Fourth Piggy",10,null,"assets/CorpPig.png",world,"Mars",1100,100,47,43,10000));
                 PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Mars",1050,150,47,40,10000));
             }
-            world.setGravity(new Vector2(0, 0f));
+//            world.setGravity(new Vector2(0, 0f));
         }
         if (isSerialized) {
-            if (SpaceBird.isIslaunched()) world.setGravity(new Vector2(0, -3.73f));
-            SpaceBird.processSerialization(null, world);
+            if (SpaceBird != null) SpaceBird.processSerialization(null, world);
+            assert PigList != null;
             for (Piggy pig : PigList) {
-                pig.processSerialization(null, world);
+                if (pig != null) pig.processSerialization(null, world);
             }
+            isSerialized = false;
         }
 
 
@@ -214,7 +221,6 @@ public class MarsLevel  implements Screen, Serializable {
                 birdsAvailable--;
                 BirdX  = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
-                isFirstLaunched = true;
                 return true;
             }
 
@@ -233,7 +239,6 @@ public class MarsLevel  implements Screen, Serializable {
                 birdsAvailable--;
                 BirdX  = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
-                isFirstLaunched = true;
                 return true;
             }
 
@@ -252,7 +257,6 @@ public class MarsLevel  implements Screen, Serializable {
                 birdsAvailable--;
                 BirdX  = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
-                isFirstLaunched = true;
                 return true;
             }
 
@@ -343,7 +347,6 @@ public class MarsLevel  implements Screen, Serializable {
         }
         if(birdsAvailable<=0){
             Game.setScreen(new SpaceLevelEnd(Game,player));
-            this.dispose();
             Game.removeFile("MarsLevel");
             Game.removeFile("MarsLevelScore");
         }
@@ -365,9 +368,9 @@ public class MarsLevel  implements Screen, Serializable {
             }
         }
 
-        batch.begin();
-        sprite.draw(batch);
-        batch.end();
+//        batch.begin();
+//        sprite.draw(batch);
+//        batch.end();
         batch.begin();
 
         for(Piggy pig: PigList){

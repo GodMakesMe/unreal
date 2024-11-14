@@ -131,10 +131,10 @@ public class Piggy implements Serializable {
 
     public void updateSprite() {
         if(PiggyBody != null) {
-            x = PiggyBody.getPosition().x - PiggySprite.getWidth() / 2;
-            y = PiggyBody.getPosition().y - PiggySprite.getHeight() / 2;
+            x = PiggyBody.getPosition().x;
+            y = PiggyBody.getPosition().y;
             angle = PiggyBody.getAngle();
-            getPiggySprite().setPosition(x,y);
+            getPiggySprite().setPosition(x-pigWidth/2,y-pigHeight/2);
             PiggyBody.setTransform(PiggyBody.getPosition().x, PiggyBody.getPosition().y, PiggyBody.getAngle());
             PiggySprite.setRotation((float) Math.toDegrees(angle));
             PiggySprite.setOrigin(PiggySprite.getWidth()/2, PiggySprite.getHeight()/2);
@@ -154,8 +154,8 @@ public class Piggy implements Serializable {
         this.worldInstance = world;
         this.score = score;
 //        this.pigPath = PiggyPath;
-        PiggyTexture = new Texture(pigPath);
-        PiggySprite = new Sprite(PiggyTexture);
+        if (PiggyTexture == null) PiggyTexture = new Texture(pigPath);
+        if (PiggySprite == null) PiggySprite = new Sprite(PiggyTexture);
         PiggySprite.setSize(pigWidth, pigHeight);
         PiggySprite.setOrigin(0, 0f);
         worldInstance.setGravity(new Vector2(0, -3.73f));
