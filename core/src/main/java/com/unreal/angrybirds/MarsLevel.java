@@ -228,12 +228,14 @@ public class MarsLevel  implements Screen, Serializable {
             }
 //            world.setGravity(new Vector2(0, 0f));
         }
+        world.setGravity(new Vector2(0, -3.73f));
         if (isSerialized) {
             if (SpaceBird != null) SpaceBird.processSerialization(null, world);
             assert PigList != null;
             for (Piggy pig : PigList) {
                 if (pig != null && !pig.dead) pig.processSerialization(null, world);
             }
+            birdsAvailable++;
             isSerialized = false;
         }
 
@@ -269,7 +271,7 @@ public class MarsLevel  implements Screen, Serializable {
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                SpaceBird = new Bird("Red Bird", 8, null, "assets/RedBirdMain.png",world,"Mars");
+                if (birdsAvailable > 1) SpaceBird = new Bird("Red Bird", 8, null, "assets/RedBirdMain.png",world,"Mars");
 //                birdsAvailable--;
                 flag = false;
                 BirdX  = SpaceBird.getX();
