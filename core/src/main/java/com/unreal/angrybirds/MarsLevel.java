@@ -271,7 +271,7 @@ public class MarsLevel  implements Screen, Serializable {
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Red Bird", 8, null, "assets/RedBirdMain.png",world,"Mars");
+                if (birdsAvailable > 1) SpaceBird = new Bird("Red Bird", 20, null, "assets/RedBirdMain.png",world,"Mars");
 //                birdsAvailable--;
                 flag = false;
                 BirdX  = SpaceBird.getX();
@@ -290,7 +290,7 @@ public class MarsLevel  implements Screen, Serializable {
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                SpaceBird = new Bird("Yellow Bird", 4, null, "assets/YellowBirdMain.png",world,"Mars");
+                if (birdsAvailable > 1) SpaceBird = new Bird("Yellow Bird", 10, null, "assets/YellowBirdMain.png",world,"Mars");
 //                birdsAvailable--;
                 flag = false;
                 BirdX  = SpaceBird.getX();
@@ -309,7 +309,7 @@ public class MarsLevel  implements Screen, Serializable {
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                SpaceBird = new Bird("Blue Bird", 2, null, "assets/BlueBirdMain.png",world,"Mars");
+                if (birdsAvailable > 1) SpaceBird = new Bird("Blue Bird", 8, null, "assets/BlueBirdMain.png",world,"Mars");
 //                birdsAvailable--;
                 flag = false;
                 BirdX  = SpaceBird.getX();
