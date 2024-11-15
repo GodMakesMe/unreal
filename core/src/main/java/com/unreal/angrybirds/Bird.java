@@ -83,7 +83,7 @@ public class Bird implements Serializable {
     public void processSerialization(Ability birdAbility, World world){
         this.BirdAbility = BirdAbility;
         this.worldInstance = world;
-        world.setGravity(new Vector2(0, 0f));
+//        world.setGravity(new Vector2(0, 0f));
         if (BirdTexture == null) BirdTexture = new Texture(birdPath);
         if (BirdSprite == null) BirdSprite = new Sprite(BirdTexture);
         BirdSprite.setSize(39, 38);

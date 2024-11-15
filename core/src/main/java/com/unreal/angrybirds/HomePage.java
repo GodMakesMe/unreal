@@ -75,7 +75,7 @@ public class HomePage implements Screen {
         Settingsbutton.setSize(55,55);
         stage.addActor(Settingsbutton);
 
-        Game.clickHandling(Startbutton, startButtonPixmap, new SeasonPage(Game));
+        Game.clickHandlingByFunction(Startbutton, startButtonPixmap, new SeasonPage(Game), () -> {dispose();});
         Game.clickHandling(Settingsbutton, settingsButtonPixmap, new SettingsPage(Game, "assets/HomePagewithoutbutton.png", this));
 
 //        Startbutton.addListener(new ClickListener() {

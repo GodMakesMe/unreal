@@ -81,7 +81,7 @@ public class SeasonPage implements Screen {
         SpaceButton.setPosition(664,720-205-275);
         SpaceButton.setSize(285,275);
         stage.addActor(SpaceButton);
-        Game.clickHandling(SpaceButton, spaceButtonPixmap, new SpaceLoadingScreen(Game));
+        Game.clickHandlingByFunction(SpaceButton, spaceButtonPixmap, new SpaceLoadingScreen(Game), () -> {dispose();});
 
 
         Earth = new Texture("assets/Earth.png");
@@ -94,7 +94,7 @@ public class SeasonPage implements Screen {
         EarthButton.setPosition(362,720-205-275);
         EarthButton.setSize(285,275);
         stage.addActor(EarthButton);
-        Game.clickHandling(EarthButton, earthButtonPixmap, new EarthLevelPage(Game));
+        Game.clickHandlingByFunction(EarthButton, earthButtonPixmap, new EarthLevelPage(Game), () -> {dispose();});
     }
 
     @Override

@@ -52,6 +52,7 @@ public class SpaceLoadingScreen implements Screen {
         }
         if (elapsedTime>3.5f) {
             Game.setScreen(new SpaceLevelScreen(Game));
+//            this.dispose();
         }
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
