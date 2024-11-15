@@ -89,7 +89,6 @@ public class MarsIntroduction implements Screen, Serializable {
         batch.begin();
         sprite.draw(batch);
         batch.end();
-
         stage.act(delta);
         stage.draw();
     }

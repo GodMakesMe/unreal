@@ -40,7 +40,7 @@ public class Piggy implements Serializable {
         pigWidth = width; pigHeight = height;
         PiggySprite.setSize(pigWidth, pigHeight);
         PiggySprite.setOrigin(0, 0f);
-        worldInstance.setGravity(new Vector2(0, -3.73f));
+//        worldInstance.setGravity(new Vector2(0, -3.73f));
 //        this.x = 268;
 //        this.y = 720-PiggySprite.getHeight()-320;
         this.PiggyBodydef = new BodyDef();
@@ -159,7 +159,7 @@ public class Piggy implements Serializable {
         if (PiggySprite == null) PiggySprite = new Sprite(PiggyTexture);
         PiggySprite.setSize(pigWidth, pigHeight);
         PiggySprite.setOrigin(0, 0f);
-        worldInstance.setGravity(new Vector2(0, -3.73f));
+//        worldInstance.setGravity(new Vector2(0, -3.73f));
 //        this.x = 268;
 //        this.y = 720-PiggySprite.getHeight()-320;
         this.PiggyBodydef = new BodyDef();

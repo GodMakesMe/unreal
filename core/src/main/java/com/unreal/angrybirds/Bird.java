@@ -42,7 +42,7 @@ public class Bird implements Serializable {
         this.BirdAbility = BirdAbility;
         this.Health = 100;
         this.worldInstance = world;
-        world.setGravity(new Vector2(0, 0f));
+//        world.setGravity(new Vector2(0, 0f));
         this.birdPath = BirdPath;
         BirdTexture = new Texture(birdPath);
         BirdSprite = new Sprite(BirdTexture);
@@ -239,26 +239,26 @@ public class Bird implements Serializable {
 //        y = BirdBody.getPosition().y - BirdSprite.getHeight()/2;
         x = BirdBody.getPosition().x;
         y = BirdBody.getPosition().y;
-        float gravity = -3.73f;
-        if(Planet.equals("Mars")){
-            gravity = -3.73f;
-        }if (Planet.equals("Earth")){
-            gravity = -9.8f;
-        }if (Planet.equals("Jupiter")){
-            gravity = -9.8f*3.0f;
-        }if (Planet.equals("Saturn")){
-            gravity = -9.8f*3.0f;
-        }if (Planet.equals("Uranus")){
-            gravity = -9.8f*0.8f;
-        }if (Planet.equals("Neptune")){
-            gravity = -9.8f*0.8f;
-        }if (Planet.equals("Moon")){
-            gravity = -9.8f*0.5f;
-        }if (Planet.equals("Mercury")){
-            gravity = -9.8f*0.9f;
-        }if (Planet.equals("Venus")){
-            gravity = -9.8f*0.9f;
-        }
+//        float gravity = -3.73f;
+//        if(Planet.equals("Mars")){
+//            gravity = -3.73f;
+//        }if (Planet.equals("Earth")){
+//            gravity = -9.8f;
+//        }if (Planet.equals("Jupiter")){
+//            gravity = -9.8f*3.0f;
+//        }if (Planet.equals("Saturn")){
+//            gravity = -9.8f*3.0f;
+//        }if (Planet.equals("Uranus")){
+//            gravity = -9.8f*0.8f;
+//        }if (Planet.equals("Neptune")){
+//            gravity = -9.8f*0.8f;
+//        }if (Planet.equals("Moon")){
+//            gravity = -9.8f*0.5f;
+//        }if (Planet.equals("Mercury")){
+//            gravity = -9.8f*0.9f;
+//        }if (Planet.equals("Venus")){
+//            gravity = -9.8f*0.9f;
+//        }
         float changeX = -BirdBody.getPosition().x+268;
         float changeY = -BirdBody.getPosition().y+720-BirdSprite.getHeight()-320;
         float angle = (float) Math.atan2(changeY, changeX);
@@ -267,10 +267,10 @@ public class Bird implements Serializable {
         x_velocity = BirdBody.getLinearVelocity().x;
         y_velocity = BirdBody.getLinearVelocity().y;
 //        if (!islaunched) {
-        CreateTrajectory(new Vector2(BirdBody.getPosition().x, BirdBody.getPosition().y), velocity, angle, gravity, 100);
+        CreateTrajectory(new Vector2(BirdBody.getPosition().x, BirdBody.getPosition().y), velocity, angle, worldInstance.getGravity().y, 100);
 //        }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && !islaunched){
-            worldInstance.setGravity(new Vector2(0, gravity));
+//            worldInstance.setGravity(new Vector2(0, gravity));
 //            System.out.println(Math.pow(changeX,2)+"\t"+Math.pow(changeY,2)+"\t"+dist);
             System.out.println("Launching with impulse: X=" + MathUtils.cos(angle)*velocity + ", Y=" + MathUtils.sin(angle)*velocity);
             BirdBody.setLinearVelocity(MathUtils.cos(angle)*velocity, MathUtils.sin(angle)*velocity);

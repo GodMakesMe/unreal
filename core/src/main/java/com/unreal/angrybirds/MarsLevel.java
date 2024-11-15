@@ -34,7 +34,7 @@ public class MarsLevel  implements Screen, Serializable {
 //    private Pixmap nextButtonPixmap;
     private transient ImageButton PauseButton;
     private transient Pixmap pauseButtonPixmap;
-
+    private boolean flag = false;
     private transient ImageButton RedBirdButton;
     private transient Pixmap redBirdButtonPixmap;
     private transient ImageButton YellowBirdButton;
@@ -270,7 +270,8 @@ public class MarsLevel  implements Screen, Serializable {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
                 SpaceBird = new Bird("Red Bird", 8, null, "assets/RedBirdMain.png",world,"Mars");
-                birdsAvailable--;
+//                birdsAvailable--;
+                flag = false;
                 BirdX  = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
                 return true;
@@ -288,7 +289,8 @@ public class MarsLevel  implements Screen, Serializable {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
                 SpaceBird = new Bird("Yellow Bird", 4, null, "assets/YellowBirdMain.png",world,"Mars");
-                birdsAvailable--;
+//                birdsAvailable--;
+                flag = false;
                 BirdX  = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
                 return true;
@@ -306,7 +308,8 @@ public class MarsLevel  implements Screen, Serializable {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
                 SpaceBird = new Bird("Blue Bird", 2, null, "assets/BlueBirdMain.png",world,"Mars");
-                birdsAvailable--;
+//                birdsAvailable--;
+                flag = false;
                 BirdX  = SpaceBird.getX();
                 BirdY = SpaceBird.getY();
                 return true;
@@ -370,6 +373,7 @@ public class MarsLevel  implements Screen, Serializable {
         FixtureDef.friction = 0.5f;
         FixtureDef.restitution = 0.0f;
 
+
         world.createBody(bodyDef).createFixture(FixtureDef);
         GroundShape.dispose();
 
@@ -413,7 +417,10 @@ public class MarsLevel  implements Screen, Serializable {
         debugRenderer.render(world,camera.combined);
         if (SpaceBird != null) {
             SpaceBird.updateSprite();
-
+            if (SpaceBird.isIslaunched() && !flag) {
+                birdsAvailable--;
+                flag = true;
+            }
         }
         for(Piggy pig: PigList){
             if(pig != null  && !pig.isRemoved()) {
