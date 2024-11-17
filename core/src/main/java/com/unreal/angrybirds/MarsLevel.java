@@ -22,6 +22,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MarsLevel  implements Screen, Serializable {
     private Main Game;
@@ -67,7 +68,7 @@ public class MarsLevel  implements Screen, Serializable {
 
     private int birdsAvailable;
     boolean isSerialized;
-
+    private int allPigScore;
 
     public MarsLevel(Main game) {
         this.Game = game;
@@ -177,7 +178,7 @@ public class MarsLevel  implements Screen, Serializable {
     }
 
     public void endGame(){
-        if (player.getScore() >=50000) {
+        if (player.getScore() >= allPigScore) {
             if ((int) SpaceBird.getBirdBody().getLinearVelocity().x <= 1 && SpaceBird.getBirdBody().getLinearVelocity().y <= 1) {
                 Game.saveGameScore(player, "MarsLevelScore");
                 Game.removeFile("MarsLevel");
@@ -219,12 +220,16 @@ public class MarsLevel  implements Screen, Serializable {
             world.setContactListener(new CollisionDetector());
             if (PigList == null && !isSerialized) {
                 PigList = new ArrayList<Piggy>();
-                PigList.add(new Piggy("First Piggy",5,null,"assets/MushPig.png",world,"Mars",1000,100,47,47,10000));
+                PigList.add(new Piggy("First Piggy",5,null,"assets/MushPig.png",world,"Mars",1000,100,47,47,5000));
                 PigList.add(new Piggy("Second Piggy",3,null,"assets/ProfPig.png",world,"Mars",1000,50,47,47,10000));
-                PigList.add(new Piggy("Third Piggy",2,null,"assets/KingPig.png",world,"Mars",1100,50,47,57,10000));
-                PigList.add(new Piggy("Fourth Piggy",4,null,"assets/CorpPig.png",world,"Mars",1100,100,47,43,10000));
-                PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Mars",1050,150,47,40,10000));
+                PigList.add(new Piggy("Third Piggy",2,null,"assets/KingPig.png",world,"Mars",1100,50,47,57,20000));
+                PigList.add(new Piggy("Fourth Piggy",4,null,"assets/CorpPig.png",world,"Mars",1100,100,47,43,9000));
+                PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Mars",1050,150,47,40,4000));
                 initialPiggyCount = PigList.size();
+                AtomicInteger tempScore =  new AtomicInteger();
+                PigList.forEach(pig -> {tempScore.getAndAdd(pig.getScore());});
+                allPigScore = tempScore.get();
+                player.setWinScore(allPigScore);
             }
 //            world.setGravity(new Vector2(0, 0f));
         }

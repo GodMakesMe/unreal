@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Player implements Serializable {
     int Score;
+    int winScore;
     public Player() {
         Score = 0;
     }
@@ -12,5 +13,8 @@ public class Player implements Serializable {
     }
     public int getScore() {
         return Score;
+    }
+    public void setWinScore(int allSumPig){
+        this.winScore = allSumPig;
     }
 }
