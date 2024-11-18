@@ -68,6 +68,7 @@ public class Bird implements Serializable {
 //        fixtureDef.density = f;
         fixtureDef.friction = 0.05f;
         fixtureDef.restitution = 0.05f;
+        BirdBody.setFixedRotation(false);
         this.islaunched = false;
         this.BirdBody.setGravityScale(1f);
         Fixture fixture = this.BirdBody.createFixture(fixtureDef);
@@ -80,6 +81,7 @@ public class Bird implements Serializable {
 
     public Bird() {
     }
+
     public void processSerialization(Ability birdAbility, World world){
         this.BirdAbility = BirdAbility;
         this.worldInstance = world;
@@ -104,6 +106,7 @@ public class Bird implements Serializable {
         fixtureDef.friction = 0.05f;
         fixtureDef.restitution = 0.05f;
         this.BirdBody.setGravityScale(1f);
+        this.BirdBody.setFixedRotation(false);
         Fixture fixture = this.BirdBody.createFixture(fixtureDef);
         this.BirdBody.setUserData(this);
         fixture.setUserData(this);
@@ -235,6 +238,8 @@ public class Bird implements Serializable {
         }
         BirdBody.setTransform(BirdBody.getPosition().x+posX,BirdBody.getPosition().y+posY,BirdBody.getAngle());
         getBirdSprite().setPosition(BirdBody.getPosition().x-BirdSprite.getWidth()/2, BirdBody.getPosition().y-BirdSprite.getHeight()/2);
+        BirdSprite.setOriginCenter();
+        BirdSprite.setRotation((float) Math.toDegrees(BirdBody.getAngle()));
 //        x = BirdBody.getPosition().x - BirdSprite.getWidth()/2;
 //        y = BirdBody.getPosition().y - BirdSprite.getHeight()/2;
         x = BirdBody.getPosition().x;

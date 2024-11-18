@@ -63,7 +63,7 @@ public class MarsLevel  implements Screen, Serializable {
     private ArrayList<Piggy> PigList;
     private ArrayList<Piggy> bodiesToDestroy = new ArrayList<Piggy>();
     private ArrayList<Piggy> deadPiggyList = new ArrayList<Piggy>();
-
+    private ArrayList<Block> blockList;
     transient BitmapFont Scorefont;
 
     private int birdsAvailable;
@@ -94,6 +94,7 @@ public class MarsLevel  implements Screen, Serializable {
             deadPiggyList = level.deadPiggyList;
             initialPiggyCount = level.initialPiggyCount;
             bodiesToDestroy = level.bodiesToDestroy;
+            blockList = level.blockList;
             isSerialized = true;
 //            Game.removeFile("MarsLevel");
 //            SpaceBird.processSerialization(null, world);
@@ -178,7 +179,7 @@ public class MarsLevel  implements Screen, Serializable {
     }
 
     public void endGame(){
-        if (player.getScore() >= allPigScore) {
+        if (player.getScore() >= allPigScore && deadPiggyList.size() == initialPiggyCount) {
             if ((int) SpaceBird.getBirdBody().getLinearVelocity().x <= 1 && SpaceBird.getBirdBody().getLinearVelocity().y <= 1) {
                 Game.saveGameScore(player, "MarsLevelScore");
                 Game.removeFile("MarsLevel");
@@ -231,6 +232,18 @@ public class MarsLevel  implements Screen, Serializable {
                 allPigScore = tempScore.get();
                 player.setWinScore(allPigScore);
             }
+            if (blockList == null && !isSerialized) {
+                blockList = new ArrayList<Block>();
+                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1001, 60, 3.14f/2f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 44, 11, world, 1, 1001, 60, 3.14f/2f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 44, 12, world, 1, 1001, 60, 3.14f/2f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 44, 13, world, 1, 1001, 60, 3.14f/2f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 44, 14, world, 1, 1001, 60, 3.14f/2f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 44, 15, world, 1, 1001, 60, 3.14f/2f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 46, 10, world, 1, 1001, 60, 3.14f/2f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 47, 10, world, 1, 1001, 60, 3.14f/2f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 49, 10, world, 1, 1001, 60, 3.14f/2f, 100));
+            }
 //            world.setGravity(new Vector2(0, 0f));
         }
         world.setGravity(new Vector2(0, -3.73f));
@@ -239,6 +252,10 @@ public class MarsLevel  implements Screen, Serializable {
             assert PigList != null;
             for (Piggy pig : PigList) {
                 if (pig != null && !pig.dead) pig.processSerialization(null, world);
+            }
+            assert blockList != null;
+            for (Block block : blockList) {
+                if (block != null) block.processSerialization(world);
             }
             birdsAvailable++;
             isSerialized = false;
@@ -277,6 +294,7 @@ public class MarsLevel  implements Screen, Serializable {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
                 if (birdsAvailable > 1) SpaceBird = new Bird("Red Bird", 20, null, "assets/RedBirdMain.png",world,"Mars");
+                else {flag = false; return true;}
 //                birdsAvailable--;
                 flag = false;
                 BirdX  = SpaceBird.getX();
@@ -296,6 +314,7 @@ public class MarsLevel  implements Screen, Serializable {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
                 if (birdsAvailable > 1) SpaceBird = new Bird("Yellow Bird", 10, null, "assets/YellowBirdMain.png",world,"Mars");
+                else {flag = false; return true;}
 //                birdsAvailable--;
                 flag = false;
                 BirdX  = SpaceBird.getX();
@@ -315,6 +334,7 @@ public class MarsLevel  implements Screen, Serializable {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
                 if (birdsAvailable > 1) SpaceBird = new Bird("Blue Bird", 8, null, "assets/BlueBirdMain.png",world,"Mars");
+                else{ flag = false; return true;}
 //                birdsAvailable--;
                 flag = false;
                 BirdX  = SpaceBird.getX();
@@ -429,21 +449,30 @@ public class MarsLevel  implements Screen, Serializable {
                 flag = true;
             }
         }
+
         for(Piggy pig: PigList){
             if(pig != null  && !pig.isRemoved()) {
                 pig.updateSprite();
             }
         }
+        for (Block block : blockList){
+            if (block != null) block.updateSprite();
+        }
+
 
         batch.begin();
         sprite.draw(batch);
         batch.end();
+
         batch.begin();
 
         for(Piggy pig: PigList){
             if(pig != null && !pig.isRemoved()) {
                 pig.getPiggySprite().draw(batch);
             }
+        }
+        for (Block block: blockList){
+            if (block != null) block.getblockSprite().draw(batch);
         }
         batch.end();
         if (SpaceBird != null) {

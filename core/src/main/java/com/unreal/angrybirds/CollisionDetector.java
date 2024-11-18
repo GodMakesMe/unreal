@@ -11,8 +11,12 @@ public class CollisionDetector implements ContactListener {
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
 
+
         Object DataA = fixtureA.getBody().getUserData();
         Object DataB = fixtureB.getBody().getUserData();
+
+
+
 
 //        System.out.println("Fixture A UserData: " +DataA);
 //        System.out.println("Fixture B UserData: " + DataA);
@@ -20,13 +24,28 @@ public class CollisionDetector implements ContactListener {
 //        System.out.println("Fixture B UserData: " + DataB);
 
         if(DataA instanceof Bird && DataB instanceof Piggy){
-            System.out.println("Collision detected!");
+//            System.out.println("Collision detected!");
             HandleCollisions((Piggy)DataB,(Bird)DataA);
         }else if(DataB instanceof Bird && DataA instanceof Piggy){
-            System.out.println("Collision detected!");
+//            System.out.println("Collision detected!");
             HandleCollisions((Piggy)DataA,(Bird)DataB);
+        }else if (DataA instanceof Piggy && DataB instanceof Piggy){
+//            System.out.println("Collision detected!");
+            HandleCollisions((Piggy)DataB,(Piggy)DataA);
+        }else if (DataA instanceof Piggy || DataA instanceof Bird && DataB instanceof Block || DataA instanceof Block && DataB instanceof Piggy){
+//            System.out.println("Collision detected!");
+            if (DataA instanceof Block){
+                HandleCollisions((Block) DataA, DataB);
+            }else{
+                HandleCollisions((Block) DataB, DataA);
+            }
+        }
+        else {
+            System.out.println("Collision detected!");
+            System.out.println("This Type of Collision is not handled for a reason.");
         }
     }
+
 
     @Override
     public void endContact(Contact contact) {
@@ -73,6 +92,39 @@ public class CollisionDetector implements ContactListener {
 
             Piggy.markForRemoval();
 //            Piggy = null;
+        }
+    }
+    public void HandleCollisions(Piggy pig1, Piggy pig2){
+        if (pig1 == null || pig2 == null) {
+            return;
+        }
+        pig1.setHealth(pig1.getHealth() - (int) (getChangeInMomentum(pig1.getPiggyBody(), pig2.getPiggyBody())*0.0004F));
+        pig2.setHealth(pig2.getHealth() - (int) (getChangeInMomentum(pig2.getPiggyBody(), pig1.getPiggyBody())*0.0004F));
+        System.out.println("Two Pigs collided:\t Pig1 Health:\t" + pig1.getHealth() + " Pig2 Health: " + pig2.getHealth());
+        if (pig1.getHealth() <= 0){
+            System.out.println("Piggy's DEAD " + pig1.getName());
+            System.out.println("Number of bodies in world: " + pig1.getWorldInstance().getBodyCount());
+            pig1.markForRemoval();
+        }if (pig2.getHealth() <= 0){
+            System.out.println("Piggy's DEAD " + pig2.getName());
+            System.out.println("Number of bodies in world: " + pig2.getWorldInstance().getBodyCount());
+            pig2.markForRemoval();
+        }
+    }
+    private void HandleCollisions(Block dataA, Object dataB) {
+        if (dataB instanceof Piggy){
+            Piggy piggy = (Piggy) dataB;
+            piggy.setHealth((int) (piggy.getHealth()- getChangeInMomentum(dataA.getBlockBody(), piggy.getPiggyBody())*0.0004F));
+            dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), piggy.getPiggyBody())*0.0004F);
+        }else if (dataB instanceof Bird){
+            Bird bird = (Bird) dataB;
+            bird.setHealth((int) (bird.getHealth() - getChangeInMomentum(bird.getBirdBody(), dataA.getBlockBody())*0.0004F));
+            dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), bird.getBirdBody())*0.0004F);
+        }else if (dataB instanceof Block){
+            Block b = (Block) dataB;
+            b.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), b.getBlockBody())*0.0004F);
+            dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), b.getBlockBody())*0.0004F);
+
         }
     }
 }
