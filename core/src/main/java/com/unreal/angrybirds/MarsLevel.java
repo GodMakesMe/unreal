@@ -237,10 +237,10 @@ public class MarsLevel  implements Screen, Serializable {
                 blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1001, 22, 3.14f/2f, 100));
                 blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1001, 22, 3.14f/2f, 100));
                 blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1045+10, 22, 3.14f/2f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1001+22, 44/2f+5, 0f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1001+22, 44+5, 0f, 100));
                 blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1045+10+44, 22, 3.14f/2f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1045+10+22, 44/2f+5, 0f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1045+10+22, 5, 0f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1045+10+22, 44+5, 0f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1045+10+22, 5+50, 0f, 100));
 //                blockList.add(new Block("assets/MediumGlass.png", 44, 15, world, 1, 1001, 60, 3.14f/2f, 100));
 //                blockList.add(new Block("assets/MediumGlass.png", 46, 10, world, 1, 1001, 60, 3.14f/2f, 100));
 //                blockList.add(new Block("assets/MediumGlass.png", 47, 10, world, 1, 1001, 60, 3.14f/2f, 100));
@@ -462,9 +462,9 @@ public class MarsLevel  implements Screen, Serializable {
         }
 
 
-//        batch.begin();
-//        sprite.draw(batch);
-//        batch.end();
+        batch.begin();
+        sprite.draw(batch);
+        batch.end();
 
         batch.begin();
 
