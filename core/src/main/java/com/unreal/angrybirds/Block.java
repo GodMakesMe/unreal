@@ -49,7 +49,7 @@ public class Block implements Serializable {
         this.angle = angle;
         blockBodydef.type = BodyDef.BodyType.DynamicBody;
         blockBody = worldInstance.createBody(blockBodydef);
-        blockBody.setTransform(pos_x + width/2, pos_y + height/2, angle);
+        blockBody.setTransform(pos_x, pos_y, angle);
         PolygonShape blockShape = new PolygonShape();
         blockShape.setAsBox(blockSprite.getWidth()/2, blockSprite.getHeight()/2);
         blockBody.setFixedRotation(false);
@@ -81,6 +81,7 @@ public class Block implements Serializable {
         blockSprite.setRotation(angle);
         blockBodydef.type = BodyDef.BodyType.DynamicBody;
         blockBody = worldInstance.createBody(blockBodydef);
+        blockBody.setTransform(x, y, angle);
         PolygonShape blockShape = new PolygonShape();
         blockShape.setAsBox(blockSprite.getWidth()/2, blockSprite.getHeight()/2);
         blockBody.setFixedRotation(false);
