@@ -3,6 +3,7 @@ package com.unreal.angrybirds;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 
 import java.io.Serializable;
 
@@ -22,7 +23,7 @@ public class Block implements Serializable {
     float angle;
     float x;
     float y;
-
+    boolean isRemoved;
     private transient Body blockBody;
     private transient BodyDef blockBodydef;
 
@@ -41,6 +42,7 @@ public class Block implements Serializable {
         blockBodydef = new BodyDef();
         blockBodydef.position.x = pos_x;
         blockBodydef.position.y = pos_y;
+        isRemoved = false;
         blockSprite.setPosition(pos_x, pos_y);
         blockSprite.setOriginCenter();
         blockSprite.setRotation(angle);
@@ -113,6 +115,7 @@ public class Block implements Serializable {
 
     public void updateSprite() {
         if(blockBody != null) {
+            if (health <= 0){ selfdestroy(); return;}
             x = blockBody.getPosition().x;
             y = blockBody.getPosition().y;
             angle = blockBody.getAngle();
@@ -130,6 +133,20 @@ public class Block implements Serializable {
         return blockSprite;
     }
     protected Body getBlockBody(){ return blockBody;}
+    public void selfdestroy(){
+        getBlockBody().setUserData(null);
+        Array<Fixture> fixtures = getBlockBody().getFixtureList();
+        while (fixtures.size > 0) {
+            getBlockBody().destroyFixture(fixtures.first());
+        }
+        worldInstance.destroyBody(blockBody);
+        this.blockBody = null;
+        if (blockTexture != null) {
+            blockTexture.dispose();
+            blockTexture = null;
+        }
+        blockSprite = null;
+        isRemoved = true;
+    }
 }
 
-//public class

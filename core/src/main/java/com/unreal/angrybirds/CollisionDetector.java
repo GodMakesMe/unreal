@@ -32,7 +32,7 @@ public class CollisionDetector implements ContactListener {
         }else if (DataA instanceof Piggy && DataB instanceof Piggy){
 //            System.out.println("Collision detected!");
             HandleCollisions((Piggy)DataB,(Piggy)DataA);
-        }else if (DataA instanceof Piggy || DataA instanceof Bird && DataB instanceof Block || DataA instanceof Block && DataB instanceof Piggy){
+        }else if (((DataA instanceof Piggy || DataA instanceof Bird) && DataB instanceof Block) || (DataA instanceof Block && (DataB instanceof Piggy || DataA instanceof Piggy))){
 //            System.out.println("Collision detected!");
             if (DataA instanceof Block){
                 HandleCollisions((Block) DataA, DataB);
@@ -41,7 +41,26 @@ public class CollisionDetector implements ContactListener {
             }
         }
         else {
-//            System.out.println("Collision detected!");
+            if (DataA instanceof Piggy){
+                Piggy p = (Piggy) DataA;
+                p.setHealth(p.getHealth()-(int) Math.abs(p.getPiggyBody().getLinearVelocity().y*p.getMass()*0.0002F));
+            }else if (DataB instanceof Piggy){
+                Piggy p = (Piggy) DataB;
+                p.setHealth(p.getHealth()-(int) Math.abs(p.getPiggyBody().getLinearVelocity().y*p.getMass()*0.0002F));
+            }else if (DataA instanceof Bird){
+                Bird p = (Bird) DataA;
+                p.setHealth(p.getHealth()-(int) Math.abs(p.getBirdBody().getLinearVelocity().y*p.getMass()*0.0002F));
+            }else if (DataB instanceof Bird){
+                Bird p = (Bird) DataB;
+                p.setHealth(p.getHealth()-(int) Math.abs(p.getBirdBody().getLinearVelocity().y*p.getMass()*0.0002F));
+            }else if (DataA instanceof Block){
+                Block p = (Block) DataA;
+                p.health -= (int) Math.abs(p.getBlockBody().getLinearVelocity().y*p.mass*0.0002F);
+            }else if (DataB instanceof Block){
+                Block p = (Block) DataB;
+                p.health -= (int) Math.abs(p.getBlockBody().getLinearVelocity().y*p.mass*0.0002F);
+            }
+            //            System.out.println("Collision detected!");
 //            System.out.println("This Type of Collision is not handled for a reason.");
         }
     }

@@ -221,7 +221,7 @@ public class MarsLevel  implements Screen, Serializable {
             world.setContactListener(new CollisionDetector());
             if (PigList == null && !isSerialized) {
                 PigList = new ArrayList<Piggy>();
-                PigList.add(new Piggy("First Piggy",5,null,"assets/MushPig.png",world,"Mars",1000,100,47,47,5000));
+                PigList.add(new Piggy("First Piggy",5,null,"assets/MushPig.png",world,"Mars",1001+25,47/2,47,47,5000));
 //                PigList.add(new Piggy("Second Piggy",3,null,"assets/ProfPig.png",world,"Mars",1000,50,47,47,10000));
 //                PigList.add(new Piggy("Third Piggy",7,null,"assets/KingPig.png",world,"Mars",1100,50,47,57,20000));
 //                PigList.add(new Piggy("Fourth Piggy",4,null,"assets/CorpPig.png",world,"Mars",1100,100,47,43,9000));
@@ -234,14 +234,13 @@ public class MarsLevel  implements Screen, Serializable {
             }
             if (blockList == null && !isSerialized) {
                 blockList = new ArrayList<Block>();
-                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1001, 22, 3.14f/2f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1001, 22, 3.14f/2f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1045+10, 22, 3.14f/2f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1001+22, 44+5, 0f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1045+10+44, 22, 3.14f/2f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1045+10+22, 44+5, 0f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1045+10+22, 5+50, 0f, 100));
-//                blockList.add(new Block("assets/MediumGlass.png", 44, 15, world, 1, 1001, 60, 3.14f/2f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 50, 10, world, 1, 1001, 50/2f, 3.14f/2f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 50, 10, world, 1, 1001+50/2f, 50+10/2f, 0f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 50, 10, world, 1, 1001+50, 50/2f, 3.14f/2f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 50, 10, world, 1, 1001+50+50, 50/2f, 3.14f/2f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 50, 10, world, 1, 1001+50+50/2f, 50+10/2f, 0f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 50, 10, world, 1, 1001+50+50/2f, 10/2f+50, 0f, 100));
+//                blockList.add(new Block("assets/MediumGlass.png", 50, 15, world, 1, 1001, 60, 3.14f/2f, 100));
 //                blockList.add(new Block("assets/MediumGlass.png", 46, 10, world, 1, 1001, 60, 3.14f/2f, 100));
 //                blockList.add(new Block("assets/MediumGlass.png", 47, 10, world, 1, 1001, 60, 3.14f/2f, 100));
 //                blockList.add(new Block("assets/MediumGlass.png", 49, 10, world, 1, 1001, 60, 3.14f/2f, 100));
@@ -458,7 +457,7 @@ public class MarsLevel  implements Screen, Serializable {
             }
         }
         for (Block block : blockList){
-            if (block != null) block.updateSprite();
+            if (block != null && !block.isRemoved) block.updateSprite();
         }
 
 
@@ -474,7 +473,7 @@ public class MarsLevel  implements Screen, Serializable {
             }
         }
         for (Block block: blockList){
-            if (block != null) block.getblockSprite().draw(batch);
+            if (block != null && !block.isRemoved) block.getblockSprite().draw(batch);
         }
         batch.end();
         if (SpaceBird != null) {
