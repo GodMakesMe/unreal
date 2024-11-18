@@ -222,10 +222,10 @@ public class MarsLevel  implements Screen, Serializable {
             if (PigList == null && !isSerialized) {
                 PigList = new ArrayList<Piggy>();
                 PigList.add(new Piggy("First Piggy",5,null,"assets/MushPig.png",world,"Mars",1000,100,47,47,5000));
-                PigList.add(new Piggy("Second Piggy",3,null,"assets/ProfPig.png",world,"Mars",1000,50,47,47,10000));
-                PigList.add(new Piggy("Third Piggy",2,null,"assets/KingPig.png",world,"Mars",1100,50,47,57,20000));
-                PigList.add(new Piggy("Fourth Piggy",4,null,"assets/CorpPig.png",world,"Mars",1100,100,47,43,9000));
-                PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Mars",1050,150,47,40,4000));
+//                PigList.add(new Piggy("Second Piggy",3,null,"assets/ProfPig.png",world,"Mars",1000,50,47,47,10000));
+//                PigList.add(new Piggy("Third Piggy",7,null,"assets/KingPig.png",world,"Mars",1100,50,47,57,20000));
+//                PigList.add(new Piggy("Fourth Piggy",4,null,"assets/CorpPig.png",world,"Mars",1100,100,47,43,9000));
+//                PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Mars",1050,150,47,40,4000));
                 initialPiggyCount = PigList.size();
                 AtomicInteger tempScore =  new AtomicInteger();
                 PigList.forEach(pig -> {tempScore.getAndAdd(pig.getScore());});
@@ -234,15 +234,16 @@ public class MarsLevel  implements Screen, Serializable {
             }
             if (blockList == null && !isSerialized) {
                 blockList = new ArrayList<Block>();
-                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1001, 60, 3.14f/2f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 44, 11, world, 1, 1001, 60, 3.14f/2f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 44, 12, world, 1, 1001, 60, 3.14f/2f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 44, 13, world, 1, 1001, 60, 3.14f/2f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 44, 14, world, 1, 1001, 60, 3.14f/2f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 44, 15, world, 1, 1001, 60, 3.14f/2f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 46, 10, world, 1, 1001, 60, 3.14f/2f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 47, 10, world, 1, 1001, 60, 3.14f/2f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 49, 10, world, 1, 1001, 60, 3.14f/2f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1001, 0, 3.14f/2f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1001, 0, 3.14f/2f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1045+10, 0, 3.14f/2f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1001+22, 44/2f+5, 0f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1045+10+44, 0, 3.14f/2f, 100));
+                blockList.add(new Block("assets/MediumGlass.png", 44, 10, world, 1, 1045+10+22, 44/2f+5, 0f, 100));
+//                blockList.add(new Block("assets/MediumGlass.png", 44, 15, world, 1, 1001, 60, 3.14f/2f, 100));
+//                blockList.add(new Block("assets/MediumGlass.png", 46, 10, world, 1, 1001, 60, 3.14f/2f, 100));
+//                blockList.add(new Block("assets/MediumGlass.png", 47, 10, world, 1, 1001, 60, 3.14f/2f, 100));
+//                blockList.add(new Block("assets/MediumGlass.png", 49, 10, world, 1, 1001, 60, 3.14f/2f, 100));
             }
 //            world.setGravity(new Vector2(0, 0f));
         }
@@ -460,9 +461,9 @@ public class MarsLevel  implements Screen, Serializable {
         }
 
 
-        batch.begin();
-        sprite.draw(batch);
-        batch.end();
+//        batch.begin();
+//        sprite.draw(batch);
+//        batch.end();
 
         batch.begin();
 
