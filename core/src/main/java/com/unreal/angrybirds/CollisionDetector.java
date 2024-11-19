@@ -146,7 +146,11 @@ public class CollisionDetector implements ContactListener {
     private void HandleCollisions(Block dataA, Object dataB) {
         if (dataB instanceof Piggy){
             Piggy piggy = (Piggy) dataB;
-            piggy.setHealth((int) (piggy.getHealth()- getChangeInMomentum(dataA.getBlockBody(), piggy.getPiggyBody())*0.0005F));
+            piggy.setHealth((int) (piggy.getHealth()- getChangeInMomentum(dataA.getBlockBody(), piggy.getPiggyBody())*0.0002F));
+            if (piggy.getHealth() <= 0){
+                System.out.println("Piggy's DEAD " + piggy.getName());
+                System.out.println("Number of bodies in world: " + piggy.getWorldInstance().getBodyCount());
+                piggy.markForRemoval();}
             dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), piggy.getPiggyBody())*0.0001F);
         }else if (dataB instanceof Bird){
             Bird bird = (Bird) dataB;

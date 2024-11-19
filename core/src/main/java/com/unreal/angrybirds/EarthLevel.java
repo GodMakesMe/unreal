@@ -99,6 +99,10 @@ public class EarthLevel  implements Screen, Serializable {
             birdsAvailable = 3;
         }
     }
+
+    public EarthLevel() {
+    }
+
     public void markForRemoval(Piggy pig) {
         if (pig != null && !bodiesToDestroy.contains(pig) && !pig.dead) {
             bodiesToDestroy.add(pig);
