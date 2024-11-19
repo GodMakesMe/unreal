@@ -33,6 +33,9 @@ public class MarsIntroduction implements Screen, Serializable {
     private transient Pixmap backButtonPixmap;
     private transient ImageButton PlayButton;
     private transient Pixmap playButtonPixmap;
+    private transient Sprite middleStar;
+    private transient Sprite startStar;
+    private transient Sprite endStar;
      public int stars;
 
     public MarsIntroduction(Main game) {
@@ -63,7 +66,9 @@ public class MarsIntroduction implements Screen, Serializable {
         camera.update();
         sprite = new Sprite(new Texture("assets/MarsScreen.png"));
         batch = new SpriteBatch();
-
+        startStar = new Sprite(new Texture("Star1.png"), 145, 244, 242, 242);
+        middleStar = new Sprite(new Texture("assets/Star2.png"), 145, 244, 242, 242);
+        endStar = new Sprite(new Texture("assets/Star3.png"), 145, 244, 242, 242);
         sprite.setPosition(0, 0);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
@@ -91,6 +96,15 @@ public class MarsIntroduction implements Screen, Serializable {
         batch.end();
         stage.act(delta);
         stage.draw();
+        Player prev;
+        prev = Game.loadGameScore("MarsLevelScore");
+        if (prev != null && prev.hasWin()) {
+            batch.begin();
+            middleStar.draw(batch);
+            startStar.draw(batch);
+            endStar.draw(batch);
+            batch.end();
+        }
     }
 
     @Override

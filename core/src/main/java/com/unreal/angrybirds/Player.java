@@ -17,4 +17,7 @@ public class Player implements Serializable {
     public void setWinScore(int allSumPig){
         this.winScore = allSumPig;
     }
+    public boolean hasWin(){
+        return Score >= winScore;
+    }
 }
