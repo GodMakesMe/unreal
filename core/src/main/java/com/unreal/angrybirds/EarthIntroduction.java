@@ -17,21 +17,32 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-public class EarthIntroduction implements Screen {
-    private Main Game;
-    private OrthographicCamera camera;
-    private Stage stage;
-    private SpriteBatch batch;
-    private Sprite sprite;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-    private ImageButton Backbutton;
-    private Pixmap backButtonPixmap;
-    private ImageButton PlayButton;
-    private Pixmap playButtonPixmap;
+public class EarthIntroduction implements Screen, Serializable {
+    private transient Main Game;
+    private transient OrthographicCamera camera;
+    private transient Stage stage;
+    private transient SpriteBatch batch;
+    private transient Sprite sprite;
+
+    private transient ImageButton Backbutton;
+    private transient Pixmap backButtonPixmap;
+    private transient ImageButton PlayButton;
+    private transient Pixmap playButtonPixmap;
+    public int stars;
 
     public EarthIntroduction(Main game) {
         this.Game = game;
+
     }
+
+    public EarthIntroduction() {
+    }
+
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
         Texture ButtonTexture = new Texture(Path);
         Texture HoverButtonTexture = new Texture(HoverPath);
@@ -59,28 +70,15 @@ public class EarthIntroduction implements Screen {
         Backbutton = createButton("assets/Back.png","assets/HoverBack.png",47,720-635-55,55,55);
         backButtonPixmap = new Pixmap(Gdx.files.internal("assets/Back.png"));
         stage.addActor(Backbutton);
-        Game.clickHandling(Backbutton, backButtonPixmap, new SpaceLevelScreen(Game));
-//        Backbutton.addListener(new InputListener(){
-//            @Override
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//                System.out.println("Button is clicked!!!!!!!!!");
-//                Game.setScreen(new SpaceLevelScreen(Game));
-//                return true;
-//            }
-//        });
+        Game.clickHandlingByFunction(Backbutton, backButtonPixmap, () -> {
+            Game.setScreen(new SpaceLevelScreen(Game));
+        });
+//        Game.clickHandling(Backbutton, backButtonPixmap, new SpaceLevelScreen(Game)));
 
         PlayButton = createButton("assets/Play.png","assets/HoverPlay.png",680,720-420-159,159,159);
         playButtonPixmap = new Pixmap(Gdx.files.internal("assets/Play.png"));
         stage.addActor(PlayButton);
         Game.clickHandling(PlayButton, playButtonPixmap, new EarthLevel(Game));
-//        PlayButton.addListener(new InputListener(){
-//            @Override
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//                System.out.println("Button is clicked!!!!!!!!!");
-////                Game.setScreen(new SeasonPage(Game));
-//                return true;
-//            }
-//        });
     }
 
     @Override
@@ -91,7 +89,6 @@ public class EarthIntroduction implements Screen {
         batch.begin();
         sprite.draw(batch);
         batch.end();
-
         stage.act(delta);
         stage.draw();
     }

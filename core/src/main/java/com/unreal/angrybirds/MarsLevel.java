@@ -183,7 +183,7 @@ public class MarsLevel  implements Screen, Serializable {
             if ((int) SpaceBird.getBirdBody().getLinearVelocity().x <= 1 && SpaceBird.getBirdBody().getLinearVelocity().y <= 1) {
                 Game.saveGameScore(player, "MarsLevelScore");
                 Game.removeFile("MarsLevel");
-                Game.setScreen(new SpaceLevelEnd(Game, player));
+                Game.setScreen(new SpaceLevelEnd(Game, player,"Mars"));
             }
         }
     }
@@ -448,7 +448,7 @@ public class MarsLevel  implements Screen, Serializable {
         if(birdsAvailable<=0){
             Game.removeFile("MarsLevel");
 //            Game.removeFile("MarsLevelScore");
-            Game.setScreen(new SpaceLevelEnd(Game,player));
+            Game.setScreen(new SpaceLevelEnd(Game,player,"Mars"));
         }
         if (!isSerialized) cleanupDestroyedBodies();
         updateScore();
