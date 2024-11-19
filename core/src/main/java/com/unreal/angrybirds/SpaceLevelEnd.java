@@ -69,34 +69,24 @@ public class SpaceLevelEnd  implements Screen {
         ReplayButton = createButton("assets/Retry.png","assets/HoverRetry.png",506, 720 -572-67, 70, 67);
         replayButtonPixmap = new Pixmap(Gdx.files.internal("assets/Retry.png"));
         stage.addActor(ReplayButton);
-        Screen screen = null;
         Screen mainScreen = null;
         if(Planet.equals("Mercury")){
-            screen = new MercuryIntroduction(Game);
             mainScreen = new MercuryLevel(Game);
         } else if (Planet.equals("Venus")) {
-            screen = new VenusIntroduction(Game);
             mainScreen = new VenusLevel(Game);
         }else if (Planet.equals("Earth")) {
-            screen = new EarthIntroduction(Game);
             mainScreen = new EarthLevel(Game);
         }else if (Planet.equals("Mars")) {
-            screen = new MarsIntroduction(Game);
             mainScreen = new MarsLevel(Game);
         }else if (Planet.equals("Jupiter")) {
-            screen = new JupiterIntroduction(Game);
             mainScreen = new JupiterLevel(Game);
         }else if (Planet.equals("Saturn")) {
-            screen = new SaturnIntroduction(Game);
             mainScreen = new SaturnLevel(Game);
         }else if (Planet.equals("Uranus")) {
-            screen = new UranusIntroduction(Game);
             mainScreen = new UranusLevel(Game);
         }else if (Planet.equals("Neptune")) {
-            screen = new NeptuneIntroduction(Game);
             mainScreen = new NeptuneLevel(Game);
         }else if (Planet.equals("Moon")) {
-            screen = new MoonIntroduction(Game);
             mainScreen = new MoonLevel(Game);
         }
         Game.clickHandling(ReplayButton, replayButtonPixmap,mainScreen);

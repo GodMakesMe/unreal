@@ -86,34 +86,24 @@ public class SpaceIntroduction implements Screen, Serializable {
         });
 //        Game.clickHandling(Backbutton, backButtonPixmap, new SpaceLevelScreen(Game)));
 
-        Screen screen = null;
         Screen mainScreen = null;
         if(Planet.equals("Mercury")){
-            screen = new MercuryIntroduction(Game);
             mainScreen = new MercuryLevel(Game);
         } else if (Planet.equals("Venus")) {
-            screen = new VenusIntroduction(Game);
             mainScreen = new VenusLevel(Game);
         }else if (Planet.equals("Earth")) {
-            screen = new EarthIntroduction(Game);
             mainScreen = new EarthLevel(Game);
         }else if (Planet.equals("Mars")) {
-            screen = new MarsIntroduction(Game);
             mainScreen = new MarsLevel(Game);
         }else if (Planet.equals("Jupiter")) {
-            screen = new JupiterIntroduction(Game);
             mainScreen = new JupiterLevel(Game);
         }else if (Planet.equals("Saturn")) {
-            screen = new SaturnIntroduction(Game);
             mainScreen = new SaturnLevel(Game);
         }else if (Planet.equals("Uranus")) {
-            screen = new UranusIntroduction(Game);
             mainScreen = new UranusLevel(Game);
         }else if (Planet.equals("Neptune")) {
-            screen = new NeptuneIntroduction(Game);
             mainScreen = new NeptuneLevel(Game);
         }else if (Planet.equals("Moon")) {
-            screen = new MoonIntroduction(Game);
             mainScreen = new MoonLevel(Game);
         }
         PlayButton = createButton("assets/Play.png","assets/HoverPlay.png",680,720-420-159,159,159);

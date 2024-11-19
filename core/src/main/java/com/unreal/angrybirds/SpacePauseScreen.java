@@ -77,37 +77,7 @@ public class SpacePauseScreen  implements Screen {
         ResumeButton = createButton("assets/Resume.png","assets/HoverResume.png",234, 720 -217-67, 268, 67);
         resumeButtonPixmap = new Pixmap(Gdx.files.internal("assets/Resume.png"));
         stage.addActor(ResumeButton);
-        Screen screen = null;
-        Screen mainScreen = null;
-        if(Planet.equals("Mercury")){
-            screen = new MercuryIntroduction(Game);
-            mainScreen = new MercuryLevel(Game);
-        } else if (Planet.equals("Venus")) {
-            screen = new VenusIntroduction(Game);
-            mainScreen = new VenusLevel(Game);
-        }else if (Planet.equals("Earth")) {
-            screen = new EarthIntroduction(Game);
-            mainScreen = new EarthLevel(Game);
-        }else if (Planet.equals("Mars")) {
-            screen = new MarsIntroduction(Game);
-            mainScreen = new MarsLevel(Game);
-        }else if (Planet.equals("Jupiter")) {
-            screen = new JupiterIntroduction(Game);
-            mainScreen = new JupiterLevel(Game);
-        }else if (Planet.equals("Saturn")) {
-            screen = new SaturnIntroduction(Game);
-            mainScreen = new SaturnLevel(Game);
-        }else if (Planet.equals("Uranus")) {
-            screen = new UranusIntroduction(Game);
-            mainScreen = new UranusLevel(Game);
-        }else if (Planet.equals("Neptune")) {
-            screen = new NeptuneIntroduction(Game);
-            mainScreen = new NeptuneLevel(Game);
-        }else if (Planet.equals("Moon")) {
-            screen = new MoonIntroduction(Game);
-            mainScreen = new MoonLevel(Game);
-        }
-//        previousScreen.dispose();
+
         Game.clickHandling(ResumeButton, resumeButtonPixmap, previousScreen);
         Game.saveGameScreen(previousScreen, Planet+"Level");
         SettingsButton = createButton("assets/Settings1.png","assets/HoverSettings1.png",235, 720 -299-67, 268, 67);
