@@ -175,6 +175,11 @@ public class SaturnLevel  implements Screen, Serializable {
         for (Piggy i : deadPiggyList){
             scoreToAdd += i.getScore();
         }
+        for (Block i : blockList){
+            if (i.isRemoved){
+                scoreToAdd += (int) (i.mass*i.height*i.width);
+            }
+        }
         player.setScore(scoreToAdd);
     }
 
