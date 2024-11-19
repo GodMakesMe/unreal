@@ -109,7 +109,7 @@ public class SpacePauseScreen  implements Screen {
         }
 //        previousScreen.dispose();
         Game.clickHandling(ResumeButton, resumeButtonPixmap, previousScreen);
-        Game.saveGameScreen(previousScreen, "MarsLevel");
+        Game.saveGameScreen(previousScreen, Planet+"Level");
         SettingsButton = createButton("assets/Settings1.png","assets/HoverSettings1.png",235, 720 -299-67, 268, 67);
         settingsButtonPixmap = new Pixmap(Gdx.files.internal("assets/Settings1.png"));
         stage.addActor(SettingsButton);
