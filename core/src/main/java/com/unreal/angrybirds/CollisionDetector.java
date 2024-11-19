@@ -43,22 +43,22 @@ public class CollisionDetector implements ContactListener {
         else {
             if (DataA instanceof Piggy){
                 Piggy p = (Piggy) DataA;
-                p.setHealth(p.getHealth()-(int) Math.abs(p.getPiggyBody().getLinearVelocity().y*p.getMass()*0.0002F));
+                p.setHealth(p.getHealth()-(int) Math.abs(p.getPiggyBody().getLinearVelocity().y*p.getMass()*0.0008F));
             }else if (DataB instanceof Piggy){
                 Piggy p = (Piggy) DataB;
-                p.setHealth(p.getHealth()-(int) Math.abs(p.getPiggyBody().getLinearVelocity().y*p.getMass()*0.0002F));
+                p.setHealth(p.getHealth()-(int) Math.abs(p.getPiggyBody().getLinearVelocity().y*p.getMass()*0.0008F));
             }else if (DataA instanceof Bird){
                 Bird p = (Bird) DataA;
-                p.setHealth(p.getHealth()-(int) Math.abs(p.getBirdBody().getLinearVelocity().y*p.getMass()*0.0002F));
+                p.setHealth(p.getHealth()-(int) Math.abs(p.getBirdBody().getLinearVelocity().y*p.getMass()*0.0008F));
             }else if (DataB instanceof Bird){
                 Bird p = (Bird) DataB;
-                p.setHealth(p.getHealth()-(int) Math.abs(p.getBirdBody().getLinearVelocity().y*p.getMass()*0.0002F));
+                p.setHealth(p.getHealth()-(int) Math.abs(p.getBirdBody().getLinearVelocity().y*p.getMass()*0.0008F));
             }else if (DataA instanceof Block){
                 Block p = (Block) DataA;
-                p.health -= (int) Math.abs(p.getBlockBody().getLinearVelocity().y*p.mass*0.0002F);
+                p.health -= (int) Math.abs(p.getBlockBody().getLinearVelocity().y*p.mass*0.0008F);
             }else if (DataB instanceof Block){
                 Block p = (Block) DataB;
-                p.health -= (int) Math.abs(p.getBlockBody().getLinearVelocity().y*p.mass*0.0002F);
+                p.health -= (int) Math.abs(p.getBlockBody().getLinearVelocity().y*p.mass*0.0008F);
             }
             //            System.out.println("Collision detected!");
 //            System.out.println("This Type of Collision is not handled for a reason.");
@@ -155,7 +155,7 @@ public class CollisionDetector implements ContactListener {
         }else if (dataB instanceof Bird){
             Bird bird = (Bird) dataB;
             bird.setHealth((int) (bird.getHealth() - getChangeInMomentum(bird.getBirdBody(), dataA.getBlockBody())*0.002F));
-            dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), bird.getBirdBody())*0.002F*bird.getMass());
+            dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), bird.getBirdBody())*0.005F*bird.getMass());
 
         }else if (dataB instanceof Block){
             Block b = (Block) dataB;

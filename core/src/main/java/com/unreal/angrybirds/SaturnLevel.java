@@ -425,7 +425,7 @@ public class SaturnLevel  implements Screen, Serializable {
         bodyDef.position.set(0,0);
 
         ChainShape GroundShape1 = new ChainShape();
-        GroundShape1.createChain(new Vector2[] {new Vector2((271),(325)),new Vector2((280),(325))});
+        GroundShape1.createChain(new Vector2[] {new Vector2((271),(325)),new Vector2((273),(325))});
 
         FixtureDef.shape = GroundShape1;
         FixtureDef.friction = 0.5f;

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$/../../../core/src/main"/>
+	<levels>
+		<level name="Gradle: com.badlogicgames.gdx:gdx-box2d:1.12.1" value="project"/>
+		<level name="Gradle: com.badlogicgames.gdx:gdx-freetype:1.12.1" value="project"/>
+		<level name="Gradle: com.badlogicgames.gdx:gdx:1.12.1" value="project"/>
+		<level name="Gradle: org.mini2Dx:universal-tween-engine:6.3.3" value="project"/>
+		<level name="Gradle: com.badlogicgames.gdx:gdx-jnigen-loader:2.3.1" value="project"/>
+	</levels>
+</component>

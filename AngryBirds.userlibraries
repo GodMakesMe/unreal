@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="Gradle: com.github.tommyettinger:gdx-backend-gwt:1.1210.1">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.github.tommyettinger/gdx-backend-gwt/1.1210.1/e340ce351fcb89a9a85816c3a4bc5eee52a3b431/gdx-backend-gwt-1.1210.1.jar" />
+  </library>
+  <library name="Gradle: com.github.tommyettinger:gdx-backend-gwt:sources:1.1210.1">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.github.tommyettinger/gdx-backend-gwt/1.1210.1/e3afdbf79c2b9b81557748269969e6197c8e9527/gdx-backend-gwt-1.1210.1-sources.jar" />
+  </library>
+  <library name="Gradle: org.gwtproject:gwt-user:2.11.0">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.gwtproject/gwt-user/2.11.0/a6540aeeb3a20ca13ab33b4c77e1efaa83b7a1c1/gwt-user-2.11.0.jar" />
+  </library>
+  <library name="Gradle: org.gwtproject:gwt-codeserver:2.11.0">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.gwtproject/gwt-codeserver/2.11.0/57f51e825ad97604c7535b18609d5880d5b3b2/gwt-codeserver-2.11.0.jar" />
+  </library>
+  <library name="Gradle: org.gwtproject:gwt-dev:2.11.0">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.gwtproject/gwt-dev/2.11.0/9832889f3ba33ea6127df852fe9b558bb4d30c80/gwt-dev-2.11.0.jar" />
+  </library>
+  <library name="Gradle: javax.servlet:javax.servlet-api:3.1.0">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/javax.servlet/javax.servlet-api/3.1.0/3cd63d075497751784b2fa84be59432f4905bf7c/javax.servlet-api-3.1.0.jar" />
+  </library>
+  <library name="Gradle: javax.websocket:javax.websocket-api:1.0">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/javax.websocket/javax.websocket-api/1.0/fc843b649d4a1dcb0497669d262befa3918c7ba8/javax.websocket-api-1.0.jar" />
+  </library>
+  <library name="Gradle: com.badlogicgames.gdx:gdx-box2d:1.12.1">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-box2d/1.12.1/6c37ed04f97d062f1bdc4afe1f583182e539a269/gdx-box2d-1.12.1.jar" />
+  </library>
+  <library name="Gradle: com.badlogicgames.gdx:gdx-box2d:sources:1.12.1">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-box2d/1.12.1/cc798f986bd3b0607e553c344403f593ab7fb0a9/gdx-box2d-1.12.1-sources.jar" />
+  </library>
+  <library name="Gradle: com.badlogicgames.gdx:gdx-box2d-gwt:sources:1.12.1">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-box2d-gwt/1.12.1/1896378cd9b4c6363fc52ffead68fd3371b9f150/gdx-box2d-gwt-1.12.1-sources.jar" />
+  </library>
+  <library name="Gradle: com.badlogicgames.gdx:gdx:1.12.1">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.12.1/a2d066c09329c457045c284c42d6f37122840aa/gdx-1.12.1.jar" />
+  </library>
+  <library name="Gradle: com.badlogicgames.gdx:gdx:sources:1.12.1">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.12.1/ab23b5d3982f3d89ba30f1c4db509aa7568c3024/gdx-1.12.1-sources.jar" />
+  </library>
+  <library name="Gradle: com.google.jsinterop:jsinterop-annotations:2.0.2">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.google.jsinterop/jsinterop-annotations/2.0.2/e63234bafbebdbceac51b4d029fc8f1fa6f490fa/jsinterop-annotations-2.0.2.jar" />
+  </library>
+  <library name="Gradle: com.google.jsinterop:jsinterop-annotations:sources:2.0.2">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.google.jsinterop/jsinterop-annotations/2.0.2/a7bc649bf6cfbe6e8def7ecdb2e540d093c3bc0f/jsinterop-annotations-2.0.2-sources.jar" />
+  </library>
+  <library name="Gradle: org.mini2Dx:universal-tween-engine:6.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.mini2Dx/universal-tween-engine/6.3.3/a65cd6d5c8c26adca5ddf8b4482238a422b33b18/universal-tween-engine-6.3.3.jar" />
+  </library>
+  <library name="Gradle: org.mini2Dx:universal-tween-engine:sources:6.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.mini2Dx/universal-tween-engine/6.3.3/747faf681a3a380cc95716d92ca3089a5ba0d4aa/universal-tween-engine-6.3.3-sources.jar" />
+  </library>
+  <library name="Gradle: javax.validation:validation-api:1.0.0.GA">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/javax.validation/validation-api/1.0.0.GA/b6bd7f9d78f6fdaa3c37dae18a4bd298915f328e/validation-api-1.0.0.GA.jar" />
+  </library>
+  <library name="Gradle: javax.validation:validation-api:sources:1.0.0.GA">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/javax.validation/validation-api/1.0.0.GA/7a561191db2203550fbfa40d534d4997624cd369/validation-api-1.0.0.GA-sources.jar" />
+  </library>
+  <library name="Gradle: org.w3c.css:sac:1.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.w3c.css/sac/1.3/cdb2dcb4e22b83d6b32b93095f644c3462739e82/sac-1.3.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty:apache-jsp:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/apache-jsp/9.4.44.v20210927/6cc73cb8ec63f2b4dabefb22e1a234d632752490/apache-jsp-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty:jetty-annotations:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-annotations/9.4.44.v20210927/e05deafd17977c1cc19418ac09a7be28909c50ff/jetty-annotations-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty:jetty-webapp:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-webapp/9.4.44.v20210927/60c0ff88088b2eddb2a8e40d6cc4d4e963b72d6e/jetty-webapp-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: com.google.code.findbugs:jsr305:1.3.9">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/1.3.9/40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf/jsr305-1.3.9.jar" />
+  </library>
+  <library name="Gradle: com.google.code.gson:gson:2.6.2">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.6.2/f1bc476cc167b18e66c297df599b2377131a8947/gson-2.6.2.jar" />
+  </library>
+  <library name="Gradle: org.ow2.asm:asm-util:9.2">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-util/9.2/fbc178fc5ba3dab50fd7e8a5317b8b647c8e8946/asm-util-9.2.jar" />
+  </library>
+  <library name="Gradle: org.ow2.asm:asm-commons:9.2">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/9.2/f4d7f0fc9054386f2893b602454d48e07d4fbead/asm-commons-9.2.jar" />
+  </library>
+  <library name="Gradle: org.ow2.asm:asm:9.2">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/9.2/81a03f76019c67362299c40e0ba13405f5467bff/asm-9.2.jar" />
+  </library>
+  <library name="Gradle: colt:colt:1.2.0">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/colt/colt/1.2.0/abc984f3adc760684d49e0f11ddf167ba516d4f/colt-1.2.0.jar" />
+  </library>
+  <library name="Gradle: commons-collections:commons-collections:3.2.2">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/commons-collections/commons-collections/3.2.2/8ad72fe39fa8c91eaaf12aadb21e0c3661fe26d5/commons-collections-3.2.2.jar" />
+  </library>
+  <library name="Gradle: net.sourceforge.htmlunit:htmlunit:2.55.0">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/net.sourceforge.htmlunit/htmlunit/2.55.0/19b993df433692899e82b63490a6792181b9ef51/htmlunit-2.55.0.jar" />
+  </library>
+  <library name="Gradle: commons-io:commons-io:2.10.0">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.10.0/79384da84646660c57b89aa86a5a1eb98af50e00/commons-io-2.10.0.jar" />
+  </library>
+  <library name="Gradle: com.ibm.icu:icu4j:63.1">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.ibm.icu/icu4j/63.1/385682b7fff53cd5ac2cad0fdb4658a7b97e9475/icu4j-63.1.jar" />
+  </library>
+  <library name="Gradle: tapestry:tapestry:4.0.2">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/tapestry/tapestry/4.0.2/e855a807425d522e958cbce8697f21e9d679b1f7/tapestry-4.0.2.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty:jetty-servlets:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-servlets/9.4.44.v20210927/d22ec443ac9b983a8771a44ed258b47dc70108b6/jetty-servlets-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: com.badlogicgames.gdx:gdx-jnigen-loader:2.3.1">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-jnigen-loader/2.3.1/2d472f69243631fbcb3d4c3f93dd2e137a6cb084/gdx-jnigen-loader-2.3.1.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty:jetty-util:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-util/9.4.44.v20210927/3c7151c5a04a93119988b48a1577a972d90f8990/jetty-util-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: org.mortbay.jasper:apache-jsp:8.5.70">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.mortbay.jasper/apache-jsp/8.5.70/67515d2ae96e9cb442659668b6a58423f112b5ed/apache-jsp-8.5.70.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty.toolchain:jetty-schemas:3.1.2">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.toolchain/jetty-schemas/3.1.2/e4fb7fb14038a35ac135a784180f8a51a518eab1/jetty-schemas-3.1.2.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty:jetty-plus:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-plus/9.4.44.v20210927/7ce435886161c4f1a9015168712e6df974eb016f/jetty-plus-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: javax.annotation:javax.annotation-api:1.3.2">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/javax.annotation/javax.annotation-api/1.3.2/934c04d3cfef185a8008e7bf34331b79730a9d43/javax.annotation-api-1.3.2.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty:jetty-servlet:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-servlet/9.4.44.v20210927/1cb43a0d74b7395c7207dbf3dc2ca97eac89f5fd/jetty-servlet-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty:jetty-xml:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-xml/9.4.44.v20210927/da53a0fa775752cd4626539796bdb49e9b4cf23c/jetty-xml-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: org.ow2.asm:asm-analysis:9.2">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-analysis/9.2/7487dd756daf96cab9986e44b9d7bcb796a61c10/asm-analysis-9.2.jar" />
+  </library>
+  <library name="Gradle: org.ow2.asm:asm-tree:9.2">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/9.2/d96c99a30f5e1a19b0e609dbb19a44d8518ac01e/asm-tree-9.2.jar" />
+  </library>
+  <library name="Gradle: xalan:xalan:2.7.2">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/xalan/xalan/2.7.2/d55d3f02a56ec4c25695fe67e1334ff8c2ecea23/xalan-2.7.2.jar" />
+  </library>
+  <library name="Gradle: org.apache.commons:commons-lang3:3.12.0">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.12.0/c6842c86792ff03b9f1d1fe2aab8dc23aa6c6f0e/commons-lang3-3.12.0.jar" />
+  </library>
+  <library name="Gradle: org.apache.commons:commons-text:1.9">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-text/1.9/ba6ac8c2807490944a0a27f6f8e68fb5ed2e80e2/commons-text-1.9.jar" />
+  </library>
+  <library name="Gradle: org.apache.httpcomponents:httpmime:4.5.13">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpmime/4.5.13/efc110bad4a0d45cda7858e6beee1d8a8313da5a/httpmime-4.5.13.jar" />
+  </library>
+  <library name="Gradle: net.sourceforge.htmlunit:htmlunit-core-js:2.55.0">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/net.sourceforge.htmlunit/htmlunit-core-js/2.55.0/edf682911ae555e4ac520207fbcab06dd2427cbb/htmlunit-core-js-2.55.0.jar" />
+  </library>
+  <library name="Gradle: net.sourceforge.htmlunit:neko-htmlunit:2.55.0">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/net.sourceforge.htmlunit/neko-htmlunit/2.55.0/357606d1648fe63f8bf159d357f54dfbf8611b08/neko-htmlunit-2.55.0.jar" />
+  </library>
+  <library name="Gradle: net.sourceforge.htmlunit:htmlunit-cssparser:1.10.0">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/net.sourceforge.htmlunit/htmlunit-cssparser/1.10.0/6d601cb81693bdb1d239b162fc2bf52c02a5865c/htmlunit-cssparser-1.10.0.jar" />
+  </library>
+  <library name="Gradle: commons-logging:commons-logging:1.2">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/4bfc12adfe4842bf07b657f0369c4cb522955686/commons-logging-1.2.jar" />
+  </library>
+  <library name="Gradle: commons-net:commons-net:3.8.0">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/commons-net/commons-net/3.8.0/63ea56587c8aaf05adab5cb0397e056bac8a2db0/commons-net-3.8.0.jar" />
+  </library>
+  <library name="Gradle: org.brotli:dec:0.1.2">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.brotli/dec/0.1.2/c26a897ae0d524809eef1c786cc6183b4ddcc3b/dec-0.1.2.jar" />
+  </library>
+  <library name="Gradle: com.shapesecurity:salvation2:3.0.0">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.shapesecurity/salvation2/3.0.0/15f4d7969936bfd6d554227f11f5ae2c71e176b/salvation2-3.0.0.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty.websocket:websocket-client:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.websocket/websocket-client/9.4.44.v20210927/77fe11eb5d7dacc10fd5644983877e8973d4e26d/websocket-client-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty:jetty-continuation:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-continuation/9.4.44.v20210927/4ffc681d5b4cbbc340cb58b17d7ac66254ee5e62/jetty-continuation-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty:jetty-http:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-http/9.4.44.v20210927/37f0e30cdc02128e40d095ad63cb18e10ecb7726/jetty-http-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty:jetty-io:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-io/9.4.44.v20210927/a2ec01e2b5552b777a3d7085163f80756ef8c1ce/jetty-io-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: org.mortbay.jasper:apache-el:8.5.70">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.mortbay.jasper/apache-el/8.5.70/e280d60a1b02f85babcc20ed53d603def113f853/apache-el-8.5.70.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jdt:ecj:3.19.0">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jdt/ecj/3.19.0/99ccdf7b2a75afb720270ab888bb21d6159ee631/ecj-3.19.0.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty:jetty-jndi:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-jndi/9.4.44.v20210927/8f4f459e38c78b5f6b021e4578acd7f6662f6553/jetty-jndi-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty:jetty-security:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-security/9.4.44.v20210927/ecb80b8e008daa46e95e5691b2611d4007922497/jetty-security-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty:jetty-util-ajax:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-util-ajax/9.4.44.v20210927/ed2f30e8eef939ab2825e607d83f82f85167e2c0/jetty-util-ajax-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: xalan:serializer:2.7.2">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/xalan/serializer/2.7.2/24247f3bb052ee068971393bdb83e04512bb1c3c/serializer-2.7.2.jar" />
+  </library>
+  <library name="Gradle: org.apache.httpcomponents:httpclient:4.5.13">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.5.13/e5f6cae5ca7ecaac1ec2827a9e2d65ae2869cada/httpclient-4.5.13.jar" />
+  </library>
+  <library name="Gradle: xerces:xercesImpl:2.12.1">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/xerces/xercesImpl/2.12.1/3a206b25679f598a03374afd4e0410d8849b088b/xercesImpl-2.12.1.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty:jetty-client:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-client/9.4.44.v20210927/d8b2c13ec103d12cdc575dc1bfea155dea59e1e/jetty-client-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty.websocket:websocket-common:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.websocket/websocket-common/9.4.44.v20210927/ba1b2d2096f0bab85dda350d19e176cc3d049009/websocket-common-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty:jetty-server:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty/jetty-server/9.4.44.v20210927/bf2de0d31925a8ca71ad80f721236850b636e0d/jetty-server-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: org.apache.httpcomponents:httpcore:4.4.13">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.4.13/853b96d3afbb7bf8cc303fe27ee96836a10c1834/httpcore-4.4.13.jar" />
+  </library>
+  <library name="Gradle: commons-codec:commons-codec:1.11">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.11/3acb4705652e16236558f0f4f2192cc33c3bd189/commons-codec-1.11.jar" />
+  </library>
+  <library name="Gradle: xml-apis:xml-apis:1.4.01">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/xml-apis/xml-apis/1.4.01/3789d9fada2d3d458c4ba2de349d48780f381ee3/xml-apis-1.4.01.jar" />
+  </library>
+  <library name="Gradle: org.eclipse.jetty.websocket:websocket-api:9.4.44.v20210927">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.eclipse.jetty.websocket/websocket-api/9.4.44.v20210927/afc5642bba238f43fec8b0841e20035786a2f13f/websocket-api-9.4.44.v20210927.jar" />
+  </library>
+  <library name="Gradle: org.gwtproject:gwt-servlet:2.11.0">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.gwtproject/gwt-servlet/2.11.0/1fe590cbc75e0bdc35f5de7116abea0c41a130cb/gwt-servlet-2.11.0.jar" />
+  </library>
+  <library name="Gradle: com.badlogicgames.gdx:gdx-backend-lwjgl3:1.12.1">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-lwjgl3/1.12.1/12a144cacb34f0392cd8354f798d99e4836a51a8/gdx-backend-lwjgl3-1.12.1.jar" />
+  </library>
+  <library name="Gradle: com.badlogicgames.gdx:gdx-box2d-platform:natives-desktop:1.12.1">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-box2d-platform/1.12.1/4e82228fcdd2e8a7673fe7952588acfdb33d7820/gdx-box2d-platform-1.12.1-natives-desktop.jar" />
+  </library>
+  <library name="Gradle: com.badlogicgames.gdx:gdx-platform:natives-desktop:1.12.1">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-platform/1.12.1/5737be5ce3a4e8f9f77c2d9ab95ab479f9c3705f/gdx-platform-1.12.1-natives-desktop.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-glfw:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.3.3/efa1eb78c5ccd840e9f329717109b5e892d72f8e/lwjgl-glfw-3.3.3.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-glfw:natives-linux:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.3.3/a03684c5e4b1b1dbbe0d29dbbdc27b985b6840f2/lwjgl-glfw-3.3.3-natives-linux.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-glfw:natives-linux-arm32:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.3.3/d9af485c32545b37dd5359b163161d42d7534dcf/lwjgl-glfw-3.3.3-natives-linux-arm32.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-glfw:natives-linux-arm64:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.3.3/492a0f11f85b85899a6568f07511160c1b87cd38/lwjgl-glfw-3.3.3-natives-linux-arm64.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-glfw:natives-macos:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.3.3/a1bf400f6bc64e6195596cb1430dafda46090751/lwjgl-glfw-3.3.3-natives-macos.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-glfw:natives-macos-arm64:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.3.3/ee8cc78d0a4a5b3b4600fade6d927c9fc320c858/lwjgl-glfw-3.3.3-natives-macos-arm64.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-glfw:natives-windows:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.3.3/e449e28b4891fc423c54c85fbc5bb0b9efece67a/lwjgl-glfw-3.3.3-natives-windows.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-glfw:natives-windows-x86:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.3.3/32334f3fd5270a59bad9939a93115acb6de36dcf/lwjgl-glfw-3.3.3-natives-windows-x86.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-jemalloc:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.3.3/b543467b7ff3c6920539a88ee602d34098628be5/lwjgl-jemalloc-3.3.3.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-jemalloc:natives-linux:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.3.3/4f86728bf449b1dd61251c4e0ac01df1389cb51e/lwjgl-jemalloc-3.3.3-natives-linux.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-jemalloc:natives-linux-arm32:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.3.3/109b6931880d02d4e65ced38928a16e41d19873e/lwjgl-jemalloc-3.3.3-natives-linux-arm32.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-jemalloc:natives-linux-arm64:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.3.3/eff8b86798191192fe2cba2dc2776109f30c239d/lwjgl-jemalloc-3.3.3-natives-linux-arm64.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-jemalloc:natives-macos:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.3.3/2906637657a57579847238c9c72d2c4bde7083f8/lwjgl-jemalloc-3.3.3-natives-macos.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-jemalloc:natives-macos-arm64:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.3.3/e9412c3ff8cb3a3bad1d3f52909ad74d8a5bdad1/lwjgl-jemalloc-3.3.3-natives-macos-arm64.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-jemalloc:natives-windows:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.3.3/426222fc027602a5f21b9c0fe79cde6a4c7a011f/lwjgl-jemalloc-3.3.3-natives-windows.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-jemalloc:natives-windows-x86:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.3.3/f6063b6e0f23be483c5c88d84ce51b39dc69126c/lwjgl-jemalloc-3.3.3-natives-windows-x86.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-openal:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.3.3/daada81ceb5fc0c291fbfdd4433cb8d9423577f2/lwjgl-openal-3.3.3.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-openal:natives-linux:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.3.3/3037360cc4595079bea240af250b6d1a527e0905/lwjgl-openal-3.3.3-natives-linux.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-openal:natives-linux-arm32:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.3.3/e1702aa09d20359d6cf5cb2999fa7685a785eca7/lwjgl-openal-3.3.3-natives-linux-arm32.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-openal:natives-linux-arm64:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.3.3/ad8f302118a65bb8d615f8a2a680db58fb8f835e/lwjgl-openal-3.3.3-natives-linux-arm64.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-openal:natives-macos:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.3.3/8df8338bfa77f2ebabef4e58964bd04d24805cbf/lwjgl-openal-3.3.3-natives-macos.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-openal:natives-macos-arm64:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.3.3/c78b078de2fb52f45aa55d04db889a560f3544f/lwjgl-openal-3.3.3-natives-macos-arm64.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-openal:natives-windows:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.3.3/cf83862ae95d98496b26915024c7e666d8ab1c8f/lwjgl-openal-3.3.3-natives-windows.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-openal:natives-windows-x86:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.3.3/87b8d5050e3adb46bb58fe1cb2669a4a48fce10d/lwjgl-openal-3.3.3-natives-windows-x86.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-opengl:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.3.3/2f6b0147078396a58979125a4c947664e98293a/lwjgl-opengl-3.3.3.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-opengl:natives-linux:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.3.3/62c70a4b00ca5391882b0f4b787c1588d24f1c86/lwjgl-opengl-3.3.3-natives-linux.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-opengl:natives-linux-arm32:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.3.3/dbba17fc5ac0985d14a57c11f9537617d67b9952/lwjgl-opengl-3.3.3-natives-linux-arm32.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-opengl:natives-linux-arm64:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.3.3/2096f6b94b2d68745d858fbfe53aacf5f0c8074c/lwjgl-opengl-3.3.3-natives-linux-arm64.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-opengl:natives-macos:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.3.3/1bd45997551ae8a28469f3a2b678f4b7289e12c0/lwjgl-opengl-3.3.3-natives-macos.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-opengl:natives-macos-arm64:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.3.3/d213ddef27637b1af87961ffa94d6b27036becc8/lwjgl-opengl-3.3.3-natives-macos-arm64.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-opengl:natives-windows:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.3.3/e6c1eec8be8a71951b830a4d69efc01c6531900c/lwjgl-opengl-3.3.3-natives-windows.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-opengl:natives-windows-x86:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.3.3/d32d833dcaa2f355a886eaf21f0408b5f03241d/lwjgl-opengl-3.3.3-natives-windows-x86.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-stb:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.3.3/25dd6161988d7e65f71d5065c99902402ee32746/lwjgl-stb-3.3.3.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-stb:natives-linux:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.3.3/fd1271ccd9d85eff2fa31f3fd543e02ccfaf5041/lwjgl-stb-3.3.3-natives-linux.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-stb:natives-linux-arm32:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.3.3/1ae28ff044699ff29b0e980ffabd73fba8a664b3/lwjgl-stb-3.3.3-natives-linux-arm32.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-stb:natives-linux-arm64:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.3.3/ddc177afc2be1ee8d93684b11363b80589a13fe1/lwjgl-stb-3.3.3-natives-linux-arm64.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-stb:natives-macos:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.3.3/472792c98fb2c1557c060cb9da5fca6a9773621f/lwjgl-stb-3.3.3-natives-macos.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-stb:natives-macos-arm64:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.3.3/51c6955571fbcdb7bb538c6aa589b953b584c6af/lwjgl-stb-3.3.3-natives-macos-arm64.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-stb:natives-windows:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.3.3/1d9facdf6541de114b0f963be33505b7679c78cb/lwjgl-stb-3.3.3-natives-windows.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl-stb:natives-windows-x86:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.3.3/b5c874687b9aac1a936501d4ed2c49567fd1b575/lwjgl-stb-3.3.3-natives-windows-x86.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.3.3/29589b5f87ed335a6c7e7ee6a5775f81f97ecb84/lwjgl-3.3.3.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl:natives-linux:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.3.3/1713758e3660ba66e1e954396fd18126038b33c0/lwjgl-3.3.3-natives-linux.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl:natives-linux-arm32:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.3.3/2075c51a80f0ef0f22ba616ba54007ac2b0debd4/lwjgl-3.3.3-natives-linux-arm32.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl:natives-linux-arm64:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.3.3/f35d8b6ffe1ac1e3a5eb1d4e33de80f044ad5fd8/lwjgl-3.3.3-natives-linux-arm64.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl:natives-macos:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.3.3/33a6efa288390490ce6eb6c3df47ac21ecf648cf/lwjgl-3.3.3-natives-macos.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl:natives-macos-arm64:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.3.3/226246e75f6bd8d4e1895bdce8638ef87808d114/lwjgl-3.3.3-natives-macos-arm64.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl:natives-windows:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.3.3/a5ed18a2b82fc91b81f40d717cb1f64c9dcb0540/lwjgl-3.3.3-natives-windows.jar" />
+  </library>
+  <library name="Gradle: org.lwjgl:lwjgl:natives-windows-x86:3.3.3">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.3.3/9e670718e050aeaeea0c2d5b907cffb142f2e58f/lwjgl-3.3.3-natives-windows-x86.jar" />
+  </library>
+  <library name="Gradle: com.badlogicgames.jlayer:jlayer:1.0.1-gdx">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.badlogicgames.jlayer/jlayer/1.0.1-gdx/7cca83cec5c1b2f011362f4d85aabd71a73b049d/jlayer-1.0.1-gdx.jar" />
+  </library>
+  <library name="Gradle: org.jcraft:jorbis:0.0.17">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/org.jcraft/jorbis/0.0.17/8872d22b293e8f5d7d56ff92be966e6dc28ebdc6/jorbis-0.0.17.jar" />
+  </library>
+  <library name="Gradle: com.badlogicgames.gdx:gdx-freetype:1.12.1">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-freetype/1.12.1/d5826997b0cfa595a72889610fadb18405056c1c/gdx-freetype-1.12.1.jar" />
+  </library>
+  <library name="Gradle: com.badlogicgames.gdx:gdx-freetype-platform:natives-desktop:1.12.1">
+    <archive path="C:/Users/jaype/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-freetype-platform/1.12.1/a32f9ecca13ae01370d9649e48a30201080d4c18/gdx-freetype-platform-1.12.1-natives-desktop.jar" />
+  </library>
+</eclipse-userlibraries>
+
