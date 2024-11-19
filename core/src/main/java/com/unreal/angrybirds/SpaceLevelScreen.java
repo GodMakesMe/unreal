@@ -80,47 +80,47 @@ public class SpaceLevelScreen implements Screen {
         MercuryButton = createButton("assets/Mercury.png","assets/HoverMercury.png",148,720-167-78,78,78);
         PixmapMercuryButton = new Pixmap(Gdx.files.internal("assets/Mercury.png"));
         stage.addActor(MercuryButton);
-        Game.clickHandling(MercuryButton, PixmapMercuryButton, new MercuryIntroduction(Game));
+        Game.clickHandling(MercuryButton, PixmapMercuryButton, new SpaceIntroduction(Game, "Mercury"));
 
         VenusButton = createButton("assets/Venus.png","assets/HoverVenus.png",158,720-590-80,80,80);
         PixmapVenusButton = new Pixmap(Gdx.files.internal("assets/Venus.png"));
         stage.addActor(VenusButton);
-        Game.clickHandling(VenusButton, PixmapVenusButton, new VenusIntroduction(Game));
+        Game.clickHandling(VenusButton, PixmapVenusButton, new SpaceIntroduction(Game, "Venus"));
 
         EarthButton = createButton("assets/EarthP.png","assets/HoverEarthP.png",381,720-240-99,100,99);
         PixmapEarthButton = new Pixmap(Gdx.files.internal("assets/EarthP.png"));
         stage.addActor(EarthButton);
-        Game.clickHandling(EarthButton, PixmapEarthButton, new EarthIntroduction(Game));
+        Game.clickHandling(EarthButton, PixmapEarthButton, new SpaceIntroduction(Game, "Earth"));
 
         MarsButton = createButton("assets/Mars.png","assets/HoverMars.png",433,720-590-89,91,89);
         PixmapMarsButton = new Pixmap(Gdx.files.internal("assets/Mars.png"));
         stage.addActor(MarsButton);
-        Game.clickHandling(MarsButton, PixmapMarsButton, new MarsIntroduction(Game));
+        Game.clickHandling(MarsButton, PixmapMarsButton, new SpaceIntroduction(Game, "Mars"));
 
         JupiterButton = createButton("assets/Jupiter.png","assets/HoverJupiter.png",600,720-366-196,198,196);
         PixmapJupiterButton = new Pixmap(Gdx.files.internal("assets/Jupiter.png"));
         stage.addActor(JupiterButton);
-        Game.clickHandling(JupiterButton, PixmapJupiterButton, new JupiterIntroduction(Game));
+        Game.clickHandling(JupiterButton, PixmapJupiterButton, new SpaceIntroduction(Game, "Jupiter"));
 
         SaturnButton = createButton("assets/Saturn.png","assets/HoverSaturn.png", (int) 703.57F, (int) (720-(-26.42)-266.72), (int) 328.65F, (int) 266.72F);
         PixmapSaturnButton = new Pixmap(Gdx.files.internal("assets/Saturn.png"));
         stage.addActor(SaturnButton);
-        Game.clickHandling(SaturnButton, PixmapSaturnButton, new SaturnIntroduction(Game));
+        Game.clickHandling(SaturnButton, PixmapSaturnButton, new SpaceIntroduction(Game, "Saturn"));
 
         UranusButton = createButton("assets/Uranus.png","assets/HoverUranus.png", 963, 720-481-218,218,218);
         PixmapUranusButton = new Pixmap(Gdx.files.internal("assets/Uranus.png"));
         stage.addActor(UranusButton);
-        Game.clickHandling(UranusButton, PixmapUranusButton, new UranusIntroduction(Game));
+        Game.clickHandling(UranusButton, PixmapUranusButton, new SpaceIntroduction(Game, "Uranus"));
 
         NeptuneButton = createButton("assets/Neptune.png","assets/HoverNeptune.png", 1129, 720-9-151,151,151);
         PixmapNeptuneButton = new Pixmap(Gdx.files.internal("assets/Neptune.png"));
         stage.addActor(NeptuneButton);
-        Game.clickHandling(NeptuneButton, PixmapNeptuneButton, new NeptuneIntroduction(Game));
+        Game.clickHandling(NeptuneButton, PixmapNeptuneButton, new SpaceIntroduction(Game, "Neptune"));
 
         MoonButton = createButton("assets/Moon.png","assets/HoverMoon.png", 441, 720-174-64,47,64);
         PixmapMoonButton = new Pixmap(Gdx.files.internal("assets/Moon.png"));
         stage.addActor(MoonButton);
-        Game.clickHandling(MoonButton, PixmapMoonButton, new MoonIntroduction(Game));
+        Game.clickHandling(MoonButton, PixmapMoonButton, new SpaceIntroduction(Game, "Moon"));
     }
 
     @Override

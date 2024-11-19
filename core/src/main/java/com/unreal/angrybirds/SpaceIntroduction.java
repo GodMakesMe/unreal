@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class MercuryIntroduction implements Screen, Serializable {
+public class SpaceIntroduction implements Screen, Serializable {
     private transient Main Game;
     private transient OrthographicCamera camera;
     private transient Stage stage;
@@ -38,13 +38,15 @@ public class MercuryIntroduction implements Screen, Serializable {
     private transient Sprite startStar;
     private transient Sprite endStar;
     public int stars;
+    public String Planet;
 
-    public MercuryIntroduction(Main game) {
+    public SpaceIntroduction(Main game, String Planet) {
         this.Game = game;
+        this.Planet = Planet;
 
     }
 
-    public MercuryIntroduction() {
+    public SpaceIntroduction() {
     }
 
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
@@ -65,7 +67,7 @@ public class MercuryIntroduction implements Screen, Serializable {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0); // Set camera position to center
         camera.update();
-        sprite = new Sprite(new Texture("assets/MercuryScreen.png"));
+        sprite = new Sprite(new Texture("assets/"+Planet+"Screen.png"));
         batch = new SpriteBatch();
         startStar = new Sprite(new Texture("Star1.png"), 124, 119);
         startStar.setPosition(131, 720-122-119);
@@ -84,10 +86,40 @@ public class MercuryIntroduction implements Screen, Serializable {
         });
 //        Game.clickHandling(Backbutton, backButtonPixmap, new SpaceLevelScreen(Game)));
 
+        Screen screen = null;
+        Screen mainScreen = null;
+        if(Planet.equals("Mercury")){
+            screen = new MercuryIntroduction(Game);
+            mainScreen = new MercuryLevel(Game);
+        } else if (Planet.equals("Venus")) {
+            screen = new VenusIntroduction(Game);
+            mainScreen = new VenusLevel(Game);
+        }else if (Planet.equals("Earth")) {
+            screen = new EarthIntroduction(Game);
+            mainScreen = new EarthLevel(Game);
+        }else if (Planet.equals("Mars")) {
+            screen = new MarsIntroduction(Game);
+            mainScreen = new MarsLevel(Game);
+        }else if (Planet.equals("Jupiter")) {
+            screen = new JupiterIntroduction(Game);
+            mainScreen = new JupiterLevel(Game);
+        }else if (Planet.equals("Saturn")) {
+            screen = new SaturnIntroduction(Game);
+            mainScreen = new SaturnLevel(Game);
+        }else if (Planet.equals("Uranus")) {
+            screen = new UranusIntroduction(Game);
+            mainScreen = new UranusLevel(Game);
+        }else if (Planet.equals("Neptune")) {
+            screen = new NeptuneIntroduction(Game);
+            mainScreen = new NeptuneLevel(Game);
+        }else if (Planet.equals("Moon")) {
+            screen = new MoonIntroduction(Game);
+            mainScreen = new MoonLevel(Game);
+        }
         PlayButton = createButton("assets/Play.png","assets/HoverPlay.png",680,720-420-159,159,159);
         playButtonPixmap = new Pixmap(Gdx.files.internal("assets/Play.png"));
         stage.addActor(PlayButton);
-        Game.clickHandling(PlayButton, playButtonPixmap, new MercuryLevel(Game));
+        Game.clickHandling(PlayButton, playButtonPixmap, mainScreen);
     }
 
     @Override
@@ -96,7 +128,7 @@ public class MercuryIntroduction implements Screen, Serializable {
         ScreenUtils.clear(1, 1, 1, 1);
         batch.setProjectionMatrix(camera.combined);
         Player prev;
-        prev = Game.loadGameScore("MercuryLevelScore");
+        prev = Game.loadGameScore(Planet+"LevelScore");
         batch.begin();
         sprite.draw(batch);
         if (prev != null && prev.hasWin()) {

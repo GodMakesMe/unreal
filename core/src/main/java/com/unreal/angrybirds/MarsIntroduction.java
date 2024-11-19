@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -66,9 +67,12 @@ public class MarsIntroduction implements Screen, Serializable {
         camera.update();
         sprite = new Sprite(new Texture("assets/MarsScreen.png"));
         batch = new SpriteBatch();
-        startStar = new Sprite(new Texture("Star1.png"), 145, 244, 242, 242);
-        middleStar = new Sprite(new Texture("assets/Star2.png"), 145, 244, 242, 242);
-        endStar = new Sprite(new Texture("assets/Star3.png"), 145, 244, 242, 242);
+        startStar = new Sprite(new Texture("Star1.png"), 124, 119);
+        startStar.setPosition(131, 720-122-119);
+        middleStar = new Sprite(new Texture("assets/Star2.png"), 164, 157);
+        middleStar.setPosition(255, 720-38-157);
+        endStar = new Sprite(new Texture("assets/Star3.png"), 124, 119);
+        endStar.setPosition(419, 720-110-119);
         sprite.setPosition(0, 0);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
@@ -91,20 +95,19 @@ public class MarsIntroduction implements Screen, Serializable {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         ScreenUtils.clear(1, 1, 1, 1);
         batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        sprite.draw(batch);
-        batch.end();
-        stage.act(delta);
-        stage.draw();
         Player prev;
         prev = Game.loadGameScore("MarsLevelScore");
+        batch.begin();
+        sprite.draw(batch);
         if (prev != null && prev.hasWin()) {
-            batch.begin();
+//            Batch batch1 = new SpriteBatch();
             middleStar.draw(batch);
             startStar.draw(batch);
             endStar.draw(batch);
-            batch.end();
         }
+        batch.end();
+        stage.act(delta);
+        stage.draw();
     }
 
     @Override

@@ -18,6 +18,6 @@ public class Player implements Serializable {
         this.winScore = allSumPig;
     }
     public boolean hasWin(){
-        return Score >= winScore;
+        return Score <= winScore;
     }
 }
