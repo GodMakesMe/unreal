@@ -151,15 +151,16 @@ public class CollisionDetector implements ContactListener {
                 System.out.println("Piggy's DEAD " + piggy.getName());
                 System.out.println("Number of bodies in world: " + piggy.getWorldInstance().getBodyCount());
                 piggy.markForRemoval();}
-            dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), piggy.getPiggyBody())*0.0001F);
+            dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), piggy.getPiggyBody())*0.0005F);
         }else if (dataB instanceof Bird){
             Bird bird = (Bird) dataB;
-            bird.setHealth((int) (bird.getHealth() - getChangeInMomentum(bird.getBirdBody(), dataA.getBlockBody())*0.0001F));
-            dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), bird.getBirdBody())*0.0001F);
+            bird.setHealth((int) (bird.getHealth() - getChangeInMomentum(bird.getBirdBody(), dataA.getBlockBody())*0.002F));
+            dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), bird.getBirdBody())*0.002F*bird.getMass());
+
         }else if (dataB instanceof Block){
             Block b = (Block) dataB;
-            b.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), b.getBlockBody())*0.0001F);
-            dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), b.getBlockBody())*0.0001F);
+            b.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), b.getBlockBody())*0.0005F);
+            dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), b.getBlockBody())*0.0005F);
         }
     }
 }
