@@ -221,11 +221,11 @@ public class MarsLevel  implements Screen, Serializable {
             world.setContactListener(new CollisionDetector());
             if (PigList == null && !isSerialized) {
                 PigList = new ArrayList<Piggy>();
-                PigList.add(new Piggy("First Piggy",5,null,"assets/MushPig.png",world,"Mars",1001+25,47/2,47,47,5000));
-//                PigList.add(new Piggy("Second Piggy",3,null,"assets/ProfPig.png",world,"Mars",1000,50,47,47,10000));
-//                PigList.add(new Piggy("Third Piggy",7,null,"assets/KingPig.png",world,"Mars",1100,50,47,57,20000));
-//                PigList.add(new Piggy("Fourth Piggy",4,null,"assets/CorpPig.png",world,"Mars",1100,100,47,43,9000));
-//                PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Mars",1050,150,47,40,4000));
+                PigList.add(new Piggy("First Piggy",5, null,"assets/MushPig.png",world,"Mars", (int) (955+47/2f), (int) (720-617-47/2f),47,47,5000));
+                PigList.add(new Piggy("Second Piggy",3,null,"assets/ProfPig.png",world,"Mars",(int) (1042+47/2f), (int) (720-441-47/2f),47,47,10000));
+                PigList.add(new Piggy("Third Piggy",7,null,"assets/KingPig.png",world,"Mars",(int) (1038+47/2f), (int) (720-537-47/2f),47,57,20000));
+//                PigList.add(new Piggy("Fourth Piggy",4,null,"assets/CorpPig.png",world,"Mars",(int) (939+47/2f), (int) (720-615-47/2f),47,43,9000));
+                PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Mars",(int) (1129+47/2f), (int) (720-615-47/2f),47,47,20000));
                 initialPiggyCount = PigList.size();
                 AtomicInteger tempScore =  new AtomicInteger();
                 PigList.forEach(pig -> {tempScore.getAndAdd(pig.getScore());});
@@ -234,12 +234,28 @@ public class MarsLevel  implements Screen, Serializable {
             }
             if (blockList == null && !isSerialized) {
                 blockList = new ArrayList<Block>();
-                blockList.add(new Block("assets/MediumGlass.png", 50, 10, world, 1, 1001, 50/2f, 3.14f/2f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 50, 10, world, 1, 1001+50/2f, 50+10/2f, 0f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 50, 10, world, 1, 1001+50, 50/2f, 3.14f/2f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 50, 10, world, 1, 1001+50+50, 50/2f, 3.14f/2f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 50, 10, world, 1, 1001+50+50/2f, 50+10/2f, 0f, 100));
-                blockList.add(new Block("assets/MediumGlass.png", 50, 10, world, 1, 1001+50+50/2f, 10/2f+50, 0f, 100));
+                blockList.add(new Block("assets/StoneCube.png", 38, 37, world, 2, 893+38/2f, 720-682-37/2f, 0, 100));
+                blockList.add(new Block("assets/StoneCube.png", 38, 37, world, 2, 1039+38/2f, 720-682-37/2f, 0, 100));
+                blockList.add(new Block("assets/StoneCube.png", 38, 37, world, 2, 1197+38/2f, 720-682-37/2f, 0, 100));
+                blockList.add(new Block("assets/StoneLongVer.png", 194, 22, world, 2, 866+194/2f, 720-662-22/2f, 0, 100));
+                blockList.add(new Block("assets/StoneLongVer.png", 194, 22, world, 2, 1059+194/2f, 720-662-22/2f, 0, 100));
+                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 927+21/2f, 720-625-40/2f, 0, 100));
+                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 927+21/2f, 720-586-40/2f, 0, 100));
+                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1179+21/2f, 720-625-40/2f, 0, 100));
+                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1179+21/2f, 720-586-40/2f, 0, 100));
+                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1004+21/2f, 720-625-40/2f, 0, 100));
+                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1004+21/2f, 720-586-40/2f, 0, 100));
+                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1105+21/2f, 720-625-40/2f, 0, 100));
+                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1105+21/2f, 720-586-40/2f, 0, 100));
+                blockList.add(new Block("assets/WoodMediumHor.png", 20, 80, world, 0.25f, 1050+20/2f, 720-586-80/2f, 0, 100));
+                blockList.add(new Block("assets/WoodLeftTriangle.png", 77, 79, world, 0.5f, 938+77/2f, 720-507-79/2f, 0, 100));
+                blockList.add(new Block("assets/WoodRightTriangle.png", 77, 79, world, 0.5f, 1116+77/2f, 720-507-79/2f, 0, 100));
+                blockList.add(new Block("assets/GlassMediumVer.png", 160, 21, world, 0.75f, 986+160/2f, 720-488-21/2f, 0, 100));
+                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1017+21/2f, 720-451-40/2f, 0, 100));
+                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1017+21/2f, 720-412-40/2f, 0, 100));
+                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1093+21/2f, 720-451-40/2f, 0, 100));
+                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1093+21/2f, 720-412-40/2f, 0, 100));
+                blockList.add(new Block("assets/WoodHTriangle.png", 80, 81, world, 0.25f, 1026+80/2f, 720-329-81/2f, 0, 100));
 //                blockList.add(new Block("assets/MediumGlass.png", 50, 15, world, 1, 1001, 60, 3.14f/2f, 100));
 //                blockList.add(new Block("assets/MediumGlass.png", 46, 10, world, 1, 1001, 60, 3.14f/2f, 100));
 //                blockList.add(new Block("assets/MediumGlass.png", 47, 10, world, 1, 1001, 60, 3.14f/2f, 100));

@@ -14,7 +14,7 @@ public class Block implements Serializable {
     float width;
     float saveScalex;
     float saveScaley;
-    int mass;
+    float mass;
     String fileImage;
     transient Texture blockTexture;
     transient Sprite blockSprite;
@@ -27,12 +27,12 @@ public class Block implements Serializable {
     private transient Body blockBody;
     private transient BodyDef blockBodydef;
 
-    Block(String imageFile, float scalex, float scaley, World world, int mass, float pos_x, float pos_y, float angle, int health) {
+    Block(String imageFile, float scalex, float scaley, World world, float mass, float pos_x, float pos_y, float angle, int health) {
         blockTexture = new Texture(imageFile);
         fileImage = imageFile;
         blockSprite = new Sprite(blockTexture);
         blockSprite.setSize(scalex, scaley);
-        this.health =
+        this.health = health;
         this.mass = mass;
         this.worldInstance = world;
         this.height = scalex;
