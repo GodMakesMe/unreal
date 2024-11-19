@@ -183,10 +183,13 @@ public class VenusLevel  implements Screen, Serializable {
         player.setScore(scoreToAdd);
     }
 
-    public void endGame(){
+public void endGame(){
         if (player.getScore() >= allPigScore && deadPiggyList.size() == initialPiggyCount) {
             if ((int) SpaceBird.getBirdBody().getLinearVelocity().x <= 1 && SpaceBird.getBirdBody().getLinearVelocity().y <= 1) {
-                Game.saveGameScore(player, "VenusLevelScore");
+                Player oldRecord = Game.loadGameScore("VenusLeveLScore");
+                if (oldRecord == null || oldRecord.getScore() < player.getScore()) {
+                    Game.saveGameScore(player, "VenusLevelScore");
+                }
                 Game.removeFile("VenusLevel");
                 Game.setScreen(new SpaceLevelEnd(Game, player,"Venus"));
             }

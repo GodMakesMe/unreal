@@ -183,10 +183,13 @@ public class SaturnLevel  implements Screen, Serializable {
         player.setScore(scoreToAdd);
     }
 
-    public void endGame(){
+public void endGame(){
         if (player.getScore() >= allPigScore && deadPiggyList.size() == initialPiggyCount) {
             if ((int) SpaceBird.getBirdBody().getLinearVelocity().x <= 1 && SpaceBird.getBirdBody().getLinearVelocity().y <= 1) {
-                Game.saveGameScore(player, "SaturnLevelScore");
+                Player oldRecord = Game.loadGameScore("SaturnLeveLScore");
+                if (oldRecord == null || oldRecord.getScore() < player.getScore()) {
+                    Game.saveGameScore(player, "SaturnLevelScore");
+                }
                 Game.removeFile("SaturnLevel");
                 Game.setScreen(new SpaceLevelEnd(Game, player,"Saturn"));
             }

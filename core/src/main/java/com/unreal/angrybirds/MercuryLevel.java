@@ -183,10 +183,13 @@ public class MercuryLevel  implements Screen, Serializable {
         player.setScore(scoreToAdd);
     }
 
-    public void endGame(){
+public void endGame(){
         if (player.getScore() >= allPigScore && deadPiggyList.size() == initialPiggyCount) {
             if ((int) SpaceBird.getBirdBody().getLinearVelocity().x <= 1 && SpaceBird.getBirdBody().getLinearVelocity().y <= 1) {
-                Game.saveGameScore(player, "MercuryLevelScore");
+                Player oldRecord = Game.loadGameScore("MercuryLeveLScore");
+                if (oldRecord == null || oldRecord.getScore() < player.getScore()) {
+                    Game.saveGameScore(player, "MercuryLevelScore");
+                }
                 Game.removeFile("MercuryLevel");
                 Game.setScreen(new SpaceLevelEnd(Game, player,"Mercury"));
             }

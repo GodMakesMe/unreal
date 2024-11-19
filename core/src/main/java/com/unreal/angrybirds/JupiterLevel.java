@@ -183,10 +183,13 @@ public class JupiterLevel  implements Screen, Serializable {
         player.setScore(scoreToAdd);
     }
 
-    public void endGame(){
+public void endGame(){
         if (player.getScore() >= allPigScore && deadPiggyList.size() == initialPiggyCount) {
             if ((int) SpaceBird.getBirdBody().getLinearVelocity().x <= 1 && SpaceBird.getBirdBody().getLinearVelocity().y <= 1) {
-                Game.saveGameScore(player, "JupiterLevelScore");
+                Player oldRecord = Game.loadGameScore("JupiterLeveLScore");
+                if (oldRecord == null || oldRecord.getScore() < player.getScore()) {
+                    Game.saveGameScore(player, "JupiterLevelScore");
+                }
                 Game.removeFile("JupiterLevel");
                 Game.setScreen(new SpaceLevelEnd(Game, player,"Jupiter"));
             }

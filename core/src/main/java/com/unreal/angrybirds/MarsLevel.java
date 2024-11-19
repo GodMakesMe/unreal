@@ -186,7 +186,10 @@ public class MarsLevel  implements Screen, Serializable {
     public void endGame(){
         if (player.getScore() >= allPigScore && deadPiggyList.size() == initialPiggyCount) {
             if ((int) SpaceBird.getBirdBody().getLinearVelocity().x <= 1 && SpaceBird.getBirdBody().getLinearVelocity().y <= 1) {
-                Game.saveGameScore(player, "MarsLevelScore");
+                Player oldRecord = Game.loadGameScore("MarsLeveScore");
+                if (oldRecord == null || oldRecord.getScore() < player.getScore()) {
+                    Game.saveGameScore(player, "MarsLevelScore");
+                }
                 Game.removeFile("MarsLevel");
                 Game.setScreen(new SpaceLevelEnd(Game, player,"Mars"));
             }
