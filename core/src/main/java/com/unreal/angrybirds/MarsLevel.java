@@ -433,7 +433,6 @@ public class MarsLevel  implements Screen, Serializable {
 
         world.createBody(bodyDef).createFixture(FixtureDef);
         GroundShape1.dispose();
-
     }
 
     @Override
