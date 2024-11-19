@@ -173,8 +173,8 @@ public class EarthLevel  implements Screen, Serializable {
         if (batch == null) batch = new SpriteBatch();
 
         if (world == null) {
-            world = new World(new Vector2(0, -3.73f), false);
-            world.setGravity(new Vector2(0, -3.73f));
+            world = new World(new Vector2(0, -9.81f), false);
+            world.setGravity(new Vector2(0, -9.81f));
             world.setContactListener(new CollisionDetector());
             if (PigList == null && !isSerialized) {
                 PigList = new ArrayList<Piggy>();
