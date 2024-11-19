@@ -139,6 +139,9 @@ public class Piggy implements Serializable {
             PiggyBody.setTransform(PiggyBody.getPosition().x, PiggyBody.getPosition().y, PiggyBody.getAngle());
             PiggySprite.setRotation((float) Math.toDegrees(angle));
             PiggySprite.setOrigin(PiggySprite.getWidth()/2, PiggySprite.getHeight()/2);
+            if(PiggyBody.getPosition().y<0){
+                this.markForRemoval();
+            }
         }
         else{
             getPiggySprite().getTexture().dispose();
