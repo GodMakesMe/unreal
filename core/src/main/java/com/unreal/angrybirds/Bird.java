@@ -2,6 +2,7 @@ package com.unreal.angrybirds;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
 import java.io.Serializable;
@@ -35,6 +37,15 @@ public class Bird implements Serializable {
     private String birdPath;
     private float y_velocity;
     private float x_velocity;
+    private transient Music BirdSpawnSFX;
+    private transient Music BirdLaunchSFX;
+    private transient Music BirdHitSFX;
+    private transient Music BirdDeathSFX;
+    private int Frames;
+    private boolean isRemoved;
+    private boolean isStretched;
+    private transient Music StretchSFX;
+    private transient Music StretchLaunchSFX;
 
     public Bird(String Name, int Mass, Ability BirdAbility,String BirdPath,World world,String Planet) {
         this.Name = Name;
@@ -77,9 +88,23 @@ public class Bird implements Serializable {
         BirdShape.dispose();
         this.Planet = Planet;
         BirdBody.setGravityScale(0f);
+        BirdSpawnSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Name+"SpawnSFX.mp3"));
+        BirdSpawnSFX.play();
+        BirdLaunchSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Name+"LaunchSFX.mp3"));
+        BirdHitSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Name+"HitSFX.mp3"));
+        BirdDeathSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Name+"DeathSFX.mp3"));
+        Frames=0;
+        isRemoved = false;
+        isStretched = false;
+        StretchSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/StretchSFX.mp3"));
+        StretchLaunchSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/SlingLaunchSFX.mp3"));
     }
 
-    public Bird() {
+    public void playHitSound() {
+        BirdHitSFX.play();
+    }
+    public void playDeathSound() {
+        BirdDeathSFX.play();
     }
 
     public void processSerialization(Ability birdAbility, World world){
@@ -206,27 +231,43 @@ public class Bird implements Serializable {
         }
         ShapeRenderer.end();
     }
+    public void playStretchSound(){
+        if(!isStretched) {
+            StretchSFX.play();
+            isStretched = true;
+        }
+    }
+//    public float max(float a, float b){
+//        return Math.max(a,b);
+//    }
+//    public float min(float a, float b){
+//        return Math.min(a,b);
+//    }
     public void updateSprite(){
         float posX=0,posY=0;
 //        && !(posX*posX+posY*posY<=1,681)
+
         if(!islaunched && !(GlobalY*GlobalY+GlobalX*GlobalX>=1681)){
             if(Gdx.input.isKeyPressed(Input.Keys.W)){
                 posY+=0.5f;
                 GlobalY+=0.5f;
+                playStretchSound();
             }
             if(Gdx.input.isKeyPressed(Input.Keys.S)){
                 posY-=0.5f;
                 GlobalY-=0.5f;
+                playStretchSound();
             }
             if(Gdx.input.isKeyPressed(Input.Keys.D)){
                 posX+=0.5f;
                 GlobalX+=0.5f;
+                playStretchSound();
             }
             if(Gdx.input.isKeyPressed(Input.Keys.A)){
                 posX-= 0.5f;
                 GlobalX-=0.5f;
+                playStretchSound();
             }
-//            System.out.println("GlobalX  "+GlobalX+"\tGlobalX  "+GlobalY);
         }else if (GlobalY*GlobalY+GlobalX*GlobalX>=1681){
             float angle = MathUtils.atan2(GlobalY,GlobalX);
             float y_s = GlobalY > 0 ? -0.8f*Math.abs(MathUtils.sin(angle)) : 0.8f*Math.abs(MathUtils.sin(angle));
@@ -236,14 +277,25 @@ public class Bird implements Serializable {
             posX += x_s;
             posY += y_s;
         }
-        BirdBody.setTransform(BirdBody.getPosition().x+posX,BirdBody.getPosition().y+posY,BirdBody.getAngle());
-        getBirdSprite().setPosition(BirdBody.getPosition().x-BirdSprite.getWidth()/2, BirdBody.getPosition().y-BirdSprite.getHeight()/2);
-        BirdSprite.setOriginCenter();
-        BirdSprite.setRotation((float) Math.toDegrees(BirdBody.getAngle()));
+        if(islaunched) {
+            if (BirdBody.getLinearVelocity().len() < 0.1f) {
+                Frames++;
+            } else {
+                Frames = 0;
+            }
+        }
+        if (Frames >= 60) {
+            playDeathSound();
+            selfdestroy();
+        }else {
+            BirdBody.setTransform(BirdBody.getPosition().x + posX, BirdBody.getPosition().y + posY, BirdBody.getAngle());
+            getBirdSprite().setPosition(BirdBody.getPosition().x - BirdSprite.getWidth() / 2, BirdBody.getPosition().y - BirdSprite.getHeight() / 2);
+            BirdSprite.setOriginCenter();
+            BirdSprite.setRotation((float) Math.toDegrees(BirdBody.getAngle()));
 //        x = BirdBody.getPosition().x - BirdSprite.getWidth()/2;
 //        y = BirdBody.getPosition().y - BirdSprite.getHeight()/2;
-        x = BirdBody.getPosition().x;
-        y = BirdBody.getPosition().y;
+            x = BirdBody.getPosition().x;
+            y = BirdBody.getPosition().y;
 //        float gravity = -3.73f;
 //        if(Planet.equals("Mars")){
 //            gravity = -3.73f;
@@ -264,25 +316,47 @@ public class Bird implements Serializable {
 //        }if (Planet.equals("Venus")){
 //            gravity = -9.8f*0.9f;
 //        }
-        float changeX = -BirdBody.getPosition().x+268;
-        float changeY = -BirdBody.getPosition().y+720-BirdSprite.getHeight()-320;
-        float angle = (float) Math.atan2(changeY, changeX);
-        float dist = (float)  Math.sqrt(changeX*changeX+changeY*changeY);
-        float velocity = dist*3f;
-        x_velocity = BirdBody.getLinearVelocity().x;
-        y_velocity = BirdBody.getLinearVelocity().y;
+            float changeX = -BirdBody.getPosition().x + 268;
+            float changeY = -BirdBody.getPosition().y + 720 - BirdSprite.getHeight() - 320;
+            float angle = (float) Math.atan2(changeY, changeX);
+            float dist = (float) Math.sqrt(changeX * changeX + changeY * changeY);
+            float velocity = dist * 3f;
+            x_velocity = BirdBody.getLinearVelocity().x;
+            y_velocity = BirdBody.getLinearVelocity().y;
 //        if (!islaunched) {
-        CreateTrajectory(new Vector2(BirdBody.getPosition().x, BirdBody.getPosition().y), velocity, angle, worldInstance.getGravity().y, 100);
+            CreateTrajectory(new Vector2(BirdBody.getPosition().x, BirdBody.getPosition().y), velocity, angle, worldInstance.getGravity().y, 100);
 //        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && !islaunched){
+            if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) && !islaunched) {
+                StretchLaunchSFX.play();
+                BirdLaunchSFX.play();
 //            worldInstance.setGravity(new Vector2(0, gravity));
 //            System.out.println(Math.pow(changeX,2)+"\t"+Math.pow(changeY,2)+"\t"+dist);
-            System.out.println("Launching with impulse: X=" + MathUtils.cos(angle)*velocity + ", Y=" + MathUtils.sin(angle)*velocity);
-            BirdBody.setLinearVelocity(MathUtils.cos(angle)*velocity, MathUtils.sin(angle)*velocity);
-            this.islaunched = true;
-            BirdBody.setGravityScale(1f);
+                System.out.println("Launching with impulse: X=" + MathUtils.cos(angle) * velocity + ", Y=" + MathUtils.sin(angle) * velocity);
+                BirdBody.setLinearVelocity(MathUtils.cos(angle) * velocity, MathUtils.sin(angle) * velocity);
+                this.islaunched = true;
+                BirdBody.setGravityScale(1f);
+            }
+        }
+    }
+    public void selfdestroy(){
+        if(!isRemoved()){
+            playDeathSound();
+            try {
+                BirdBody.setUserData(null);
+                worldInstance.destroyBody(BirdBody);
+                BirdSprite = null;
+//            BirdSprite.setPosition(-1000, -1000);
+                isRemoved = true;
+            }catch (Exception e){
+                System.out.println(e);
+            }
         }
 
+//        BirdSprite = null;
+    }
+
+    public boolean isRemoved() {
+        return isRemoved;
     }
 
     public World getWorldInstance() {

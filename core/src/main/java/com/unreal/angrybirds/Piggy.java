@@ -1,6 +1,8 @@
 package com.unreal.angrybirds;
 
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -27,6 +29,9 @@ public class Piggy implements Serializable {
     private float angle;
     protected boolean dead = false;
     private String pigPath;
+    private transient Music PiggySpawnSFX;
+    private transient Music PiggyDamageSFX;
+    private transient Music PiggyDeathSFX;
     public Piggy(String Name, int Mass,Ability PiggyAbility,String PiggyPath,World world,String Planet,int x,int y,int width,int height,int score) {
         this.Name = Name;
         this.Mass = Mass;
@@ -66,9 +71,17 @@ public class Piggy implements Serializable {
 //        this.PiggyBody.applyAngularImpulse(500,true);
 //        this.PiggyBody.applyTorque(100f, true);
         PiggyShape.dispose();
+        PiggySpawnSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/PiggySpawn.mp3"));
+        PiggySpawnSFX.play();
+        PiggyDamageSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/PiggyCollision.mp3"));
+        PiggyDeathSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/PiggyDeath.mp3"));
     }
 
-    public Piggy() {
+    public void playDamageSound() {
+        PiggyDamageSFX.play();
+    }
+    public void playDeathSound() {
+        PiggyDeathSFX.play();
     }
 
     public String getName() {

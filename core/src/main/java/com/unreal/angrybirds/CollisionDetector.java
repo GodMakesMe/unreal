@@ -115,10 +115,13 @@ public class CollisionDetector implements ContactListener {
         if (Piggy == null || Piggy.isRemoved()) {
             return;
         }
+        Piggy.playDamageSound();
+        bird.playHitSound();
         Piggy.setHealth(Piggy.getHealth() - (int) (getChangeInMomentum(Piggy.getPiggyBody(), bird.getBirdBody())*0.0002F));
         System.out.println("Bird hit a piggy! Piggy's new health: " + Piggy.getHealth());
         if(Piggy.getHealth() <= 0){
 //            Piggy.selfdestroy();
+            Piggy.playDeathSound();
             System.out.println("Piggy's DEAD " + Piggy.getName());
             System.out.println("Number of bodies in world: " + bird.getWorldInstance().getBodyCount());
 
@@ -131,36 +134,45 @@ public class CollisionDetector implements ContactListener {
             return;
         }
         pig1.setHealth(pig1.getHealth() - (int) (getChangeInMomentum(pig1.getPiggyBody(), pig2.getPiggyBody())*0.0002F));
+        pig1.playDamageSound();
         pig2.setHealth(pig2.getHealth() - (int) (getChangeInMomentum(pig2.getPiggyBody(), pig1.getPiggyBody())*0.0002F));
+        pig2.playDamageSound();
         System.out.println("Two Pigs collided:\t Pig1 Health:\t" + pig1.getHealth() + " Pig2 Health: " + pig2.getHealth());
         if (pig1.getHealth() <= 0){
+            pig1.playDeathSound();
             System.out.println("Piggy's DEAD " + pig1.getName());
             System.out.println("Number of bodies in world: " + pig1.getWorldInstance().getBodyCount());
             pig1.markForRemoval();
         }if (pig2.getHealth() <= 0){
+            pig2.playDeathSound();
             System.out.println("Piggy's DEAD " + pig2.getName());
             System.out.println("Number of bodies in world: " + pig2.getWorldInstance().getBodyCount());
             pig2.markForRemoval();
         }
     }
     private void HandleCollisions(Block dataA, Object dataB) {
+        dataA.playDamageSound();
         if (dataB instanceof Piggy){
             Piggy piggy = (Piggy) dataB;
+            piggy.playDamageSound();
             piggy.setHealth((int) (piggy.getHealth()- getChangeInMomentum(dataA.getBlockBody(), piggy.getPiggyBody())*0.0002F));
             if (piggy.getHealth() <= 0){
+                piggy.playDeathSound();
                 System.out.println("Piggy's DEAD " + piggy.getName());
                 System.out.println("Number of bodies in world: " + piggy.getWorldInstance().getBodyCount());
                 piggy.markForRemoval();}
             dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), piggy.getPiggyBody())*0.0005F);
         }else if (dataB instanceof Bird){
             Bird bird = (Bird) dataB;
+            bird.playHitSound();
             bird.setHealth((int) (bird.getHealth() - getChangeInMomentum(bird.getBirdBody(), dataA.getBlockBody())*0.002F));
             dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), bird.getBirdBody())*0.005F*bird.getMass());
 
         }else if (dataB instanceof Block){
             Block b = (Block) dataB;
-            b.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), b.getBlockBody())*0.0005F);
-            dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), b.getBlockBody())*0.0005F);
+            b.playDamageSound();
+            b.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), b.getBlockBody())*0.0002F);
+            dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), b.getBlockBody())*0.0002F);
         }
     }
 }

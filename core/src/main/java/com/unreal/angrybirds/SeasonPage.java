@@ -47,6 +47,7 @@ public class SeasonPage implements Screen {
     }
     @Override
     public void show() {
+        Game.playMusic("assets/TitleTheme.mp3");
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -127,7 +128,7 @@ public class SeasonPage implements Screen {
 
     @Override
     public void hide() {
-
+        Game.pauseMusic();
     }
 
     @Override

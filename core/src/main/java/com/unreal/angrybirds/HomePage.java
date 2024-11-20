@@ -1,5 +1,6 @@
 package com.unreal.angrybirds;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -39,6 +40,7 @@ public class HomePage implements Screen {
     }
     @Override
     public void show() {
+        Game.playMusic();
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -143,7 +145,7 @@ public class HomePage implements Screen {
 
     @Override
     public void hide() {
-
+//        Game.pauseMusic();
     }
 
     @Override

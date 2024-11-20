@@ -61,6 +61,7 @@ public class SpaceLevelScreen implements Screen {
     }
     @Override
     public void show() {
+        Game.playMusic("assets/SpaceTheme.ogg");
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

@@ -3,6 +3,7 @@ package com.unreal.angrybirds;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -17,11 +18,55 @@ import static java.lang.System.exit;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends Game implements Serializable {
-
+    private transient Music ost_theme;
     @Override
     public void create() {
+        ost_theme = Gdx.audio.newMusic(Gdx.files.internal("assets/TitleTheme.mp3"));
+        ost_theme.setLooping(true);
+        ost_theme.setVolume(0.5f);
+        ost_theme.play();
         setScreen(new HomePage(this));
     }
+    public void playMusic(){
+        if(ost_theme.isPlaying() && ost_theme!=null){
+            ost_theme.play();
+        }
+    }
+    public void playMusic(String Path){
+        if(ost_theme!=null){
+            ost_theme.stop();
+            ost_theme.dispose();
+        }
+        ost_theme = Gdx.audio.newMusic(Gdx.files.internal(Path));
+        ost_theme.setLooping(true);
+        ost_theme.setVolume(0.5f);
+        ost_theme.play();
+    }
+    public void pauseMusic() {
+        if(ost_theme.isPlaying() && ost_theme!=null){
+            ost_theme.pause();
+        }
+    }
+    public void resumeMusic() {
+        if(ost_theme.isPlaying() && ost_theme!=null){
+            ost_theme.play();
+        }
+    }
+    public void stopMusic() {
+        if(ost_theme!=null){
+            ost_theme.stop();
+        }
+    }
+    public void setVolume(float volume) {
+        if(ost_theme!=null && ost_theme.isPlaying()){
+            ost_theme.setVolume(volume);
+        }
+    }
+
+    public void setOst_theme(String Path) {
+        this.ost_theme = Gdx.audio.newMusic(Gdx.files.internal(Path));
+    }
+
     protected void clickHandling(final ImageButton ButtonData, final Pixmap buttonMap, final Screen toGo){
         ButtonData.addListener(new ClickListener() {
             final ImageButton ButtonCopy = ButtonData;

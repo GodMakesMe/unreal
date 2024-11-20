@@ -1,11 +1,14 @@
 package com.unreal.angrybirds;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Block implements Serializable {
     int health;
@@ -26,8 +29,10 @@ public class Block implements Serializable {
     boolean isRemoved;
     private transient Body blockBody;
     private transient BodyDef blockBodydef;
+    private transient Music DamageSFX;
+    private transient Music DeathSFX;
 
-    Block(String imageFile, float scalex, float scaley, World world, float mass, float pos_x, float pos_y, float angle, int health) {
+    Block(String Material,String imageFile, float scalex, float scaley, World world, float mass, float pos_x, float pos_y, float angle, int health) {
         blockTexture = new Texture(imageFile);
         fileImage = imageFile;
         blockSprite = new Sprite(blockTexture);
@@ -67,8 +72,15 @@ public class Block implements Serializable {
         fixture.setUserData(this);
         blockShape.dispose();
         blockSprite.setRotation((float) Math.toDegrees(angle));
+        DamageSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Material+"Collision.mp3"));
+        DeathSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Material+"Death.mp3"));
     }
-
+    public void playDamageSound() {
+        DamageSFX.play();
+    }
+    public void playDeathSound() {
+        DeathSFX.play();
+    }
     protected void processSerialization(World world){
         blockTexture = new Texture(fileImage);
 
@@ -134,6 +146,7 @@ public class Block implements Serializable {
     }
     protected Body getBlockBody(){ return blockBody;}
     public void selfdestroy(){
+        playDeathSound();
         getBlockBody().setUserData(null);
         Array<Fixture> fixtures = getBlockBody().getFixtureList();
         while (fixtures.size > 0) {

@@ -242,28 +242,28 @@ public void endGame(){
             }
             if (blockList == null && !isSerialized) {
                 blockList = new ArrayList<Block>();
-                blockList.add(new Block("assets/StoneCube.png", 38, 37, world, 2, 893+38/2f, 720-682-37/2f, 0, 100));
-                blockList.add(new Block("assets/StoneCube.png", 38, 37, world, 2, 1039+38/2f, 720-682-37/2f, 0, 100));
-                blockList.add(new Block("assets/StoneCube.png", 38, 37, world, 2, 1197+38/2f, 720-682-37/2f, 0, 100));
-                blockList.add(new Block("assets/StoneLongVer.png", 194, 22, world, 2, 866+194/2f, 720-662-22/2f, 0, 100));
-                blockList.add(new Block("assets/StoneLongVer.png", 194, 22, world, 2, 1059+194/2f, 720-662-22/2f, 0, 100));
-                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 927+21/2f, 720-625-40/2f, 0, 100));
-                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 927+21/2f, 720-586-40/2f, 0, 100));
-                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1179+21/2f, 720-625-40/2f, 0, 100));
-                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1179+21/2f, 720-586-40/2f, 0, 100));
-                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1004+21/2f, 720-625-40/2f, 0, 100));
-                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1004+21/2f, 720-586-40/2f, 0, 100));
-                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1105+21/2f, 720-625-40/2f, 0, 100));
-                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1105+21/2f, 720-586-40/2f, 0, 100));
-                blockList.add(new Block("assets/WoodMediumHor.png", 20, 80, world, 0.25f, 1050+20/2f, 720-586-80/2f, 0, 100));
-                blockList.add(new Block("assets/WoodLeftTriangle.png", 77, 79, world, 0.5f, 938+77/2f, 720-507-79/2f, 0, 100));
-                blockList.add(new Block("assets/WoodRightTriangle.png", 77, 79, world, 0.5f, 1116+77/2f, 720-507-79/2f, 0, 100));
-                blockList.add(new Block("assets/GlassMediumVer.png", 160, 21, world, 0.75f, 986+160/2f, 720-488-21/2f, 0, 100));
-                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1017+21/2f, 720-451-40/2f, 0, 100));
-                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1017+21/2f, 720-412-40/2f, 0, 100));
-                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1093+21/2f, 720-451-40/2f, 0, 100));
-                blockList.add(new Block("assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1093+21/2f, 720-412-40/2f, 0, 100));
-                blockList.add(new Block("assets/WoodHTriangle.png", 80, 81, world, 0.25f, 1026+80/2f, 720-329-81/2f, 0, 100));
+                blockList.add(new Block("Stone","assets/StoneCube.png", 38, 37, world, 2, 893+38/2f, 720-682-37/2f, 0, 200));
+                blockList.add(new Block("Stone","assets/StoneCube.png", 38, 37, world, 2, 1039+38/2f, 720-682-37/2f, 0, 200));
+                blockList.add(new Block("Stone","assets/StoneCube.png", 38, 37, world, 2, 1197+38/2f, 720-682-37/2f, 0, 200));
+                blockList.add(new Block("Stone","assets/StoneLongVer.png", 194, 22, world, 2, 866+194/2f, 720-662-22/2f, 0, 200));
+                blockList.add(new Block("Stone","assets/StoneLongVer.png", 194, 22, world, 2, 1059+194/2f, 720-662-22/2f, 0, 200));
+                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 927+21/2f, 720-625-40/2f, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 927+21/2f, 720-586-40/2f, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1179+21/2f, 720-625-40/2f, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1179+21/2f, 720-586-40/2f, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1004+21/2f, 720-625-40/2f, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1004+21/2f, 720-586-40/2f, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1105+21/2f, 720-625-40/2f, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1105+21/2f, 720-586-40/2f, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodMediumHor.png", 20, 80, world, 0.25f, 1050+20/2f, 720-586-80/2f, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodLeftTriangle.png", 77, 79, world, 0.5f, 938+77/2f, 720-507-79/2f, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodRightTriangle.png", 77, 79, world, 0.5f, 1116+77/2f, 720-507-79/2f, 0, 150));
+                blockList.add(new Block("Glass","assets/GlassMediumVer.png", 160, 21, world, 0.75f, 986+160/2f, 720-488-21/2f, 0, 75));
+                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1017+21/2f, 720-451-40/2f, 0, 100));
+                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1017+21/2f, 720-412-40/2f, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1093+21/2f, 720-451-40/2f, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1093+21/2f, 720-412-40/2f, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodHTriangle.png", 80, 81, world, 0.25f, 1026+80/2f, 720-329-81/2f, 0, 150));
 //                blockList.add(new Block("assets/MediumGlass.png", 50, 15, world, 1, 1001, 60, 3.14f/2f, 100));
 //                blockList.add(new Block("assets/MediumGlass.png", 46, 10, world, 1, 1001, 60, 3.14f/2f, 100));
 //                blockList.add(new Block("assets/MediumGlass.png", 47, 10, world, 1, 1001, 60, 3.14f/2f, 100));
@@ -318,7 +318,7 @@ public void endGame(){
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Red Bird", 20, null, "assets/RedBirdMain.png",world,"Jupiter");
+                if (birdsAvailable > 1) SpaceBird = new Bird("Red", 20, null, "assets/RedBirdMain.png",world,"Jupiter");
                 else {flag = false; return true;}
 //                birdsAvailable--;
                 flag = false;
@@ -338,7 +338,7 @@ public void endGame(){
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Yellow Bird", 10, null, "assets/YellowBirdMain.png",world,"Jupiter");
+                if (birdsAvailable > 1) SpaceBird = new Bird("Chuck", 10, null, "assets/YellowBirdMain.png",world,"Jupiter");
                 else {flag = false; return true;}
 //                birdsAvailable--;
                 flag = false;
@@ -358,7 +358,7 @@ public void endGame(){
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Blue Bird", 8, null, "assets/BlueBirdMain.png",world,"Jupiter");
+                if (birdsAvailable > 1) SpaceBird = new Bird("Blue", 8, null, "assets/BlueBirdMain.png",world,"Jupiter");
                 else{ flag = false; return true;}
 //                birdsAvailable--;
                 flag = false;
@@ -383,7 +383,7 @@ public void endGame(){
 //                    world.destroyBody(SpaceBird.getBirdBody());
 //
 //                }
-//                SpaceBird = new Bird("Bomb Bird", 8, null, "assets/BombBirdMain.png",world,"Jupiter");
+//                SpaceBird = new Bird("Bomb", 8, null, "assets/BombBirdMain.png",world,"Jupiter");
 //                birdsAvailable--;
 //                BirdX  = SpaceBird.getX();
 //                BirdY = SpaceBird.getY();
@@ -401,7 +401,7 @@ public void endGame(){
 //                if (SpaceBird != null) {
 //                    world.destroyBody(SpaceBird.getBirdBody());
 //                }
-//                SpaceBird = new Bird("White Bird", 6, null, "assets/WhiteBirdMain.png",world,"Jupiter");
+//                SpaceBird = new Bird("Matilda", 6, null, "assets/WhiteBirdMain.png",world,"Jupiter");
 //                birdsAvailable--;
 //                BirdX  = SpaceBird.getX();
 //                BirdY = SpaceBird.getY();
@@ -467,7 +467,7 @@ public void endGame(){
             }
         }
         debugRenderer.render(world,camera.combined);
-        if (SpaceBird != null) {
+        if (SpaceBird != null && !SpaceBird.isRemoved()) {
             SpaceBird.updateSprite();
             if (SpaceBird.isIslaunched() && !flag) {
                 birdsAvailable--;
@@ -500,7 +500,7 @@ public void endGame(){
             if (block != null && !block.isRemoved) block.getblockSprite().draw(batch);
         }
         batch.end();
-        if (SpaceBird != null) {
+        if (SpaceBird != null && !SpaceBird.isRemoved()) {
             if(!SpaceBird.isIslaunched() && SpaceBird.notInOrigin()){
                 SpaceBird.DrawTrajectory();
             }
