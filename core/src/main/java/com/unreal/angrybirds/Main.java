@@ -52,11 +52,13 @@ public class Main extends Game implements Serializable {
             ost_theme.play();
         }
     }
+
     public void stopMusic() {
         if(ost_theme!=null){
             ost_theme.stop();
         }
     }
+
     public void setVolume(float volume) {
         if(ost_theme!=null && ost_theme.isPlaying()){
             ost_theme.setVolume(volume);
