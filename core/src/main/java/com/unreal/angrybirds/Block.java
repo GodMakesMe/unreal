@@ -31,8 +31,10 @@ public class Block implements Serializable {
     private transient BodyDef blockBodydef;
     private transient Music DamageSFX;
     private transient Music DeathSFX;
+    private String Material;
 
     Block(String Material,String imageFile, float scalex, float scaley, World world, float mass, float pos_x, float pos_y, float angle, int health) {
+        this.Material = Material;
         blockTexture = new Texture(imageFile);
         fileImage = imageFile;
         blockSprite = new Sprite(blockTexture);
@@ -76,7 +78,7 @@ public class Block implements Serializable {
         DeathSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Material+"Death.mp3"));
     }
     public void playDamageSound() {
-        DamageSFX.play();
+        if (DamageSFX != null) DamageSFX.play();
     }
     public void playDeathSound() {
         DeathSFX.play();
@@ -111,6 +113,8 @@ public class Block implements Serializable {
         fixture.setUserData(this);
         blockShape.dispose();
         blockSprite.setRotation((float) Math.toDegrees(angle));
+        DamageSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Material+"Collision.mp3"));
+        DeathSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Material+"Death.mp3"));
     }
 
     public Block() {

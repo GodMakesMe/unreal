@@ -201,6 +201,10 @@ public class Piggy implements Serializable {
 //        this.PiggyBody.applyAngularImpulse(500,true);
 //        this.PiggyBody.applyTorque(100f, true);
         PiggyShape.dispose();
+        PiggySpawnSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/PiggySpawn.mp3"));
+//        PiggySpawnSFX.play();
+        PiggyDamageSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/PiggyCollision.mp3"));
+        PiggyDeathSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/PiggyDeath.mp3"));
     }
     public void applyTorqueOnImpact(float angleOfImpact) {
         if (angleOfImpact > 45 && angleOfImpact < 135) {

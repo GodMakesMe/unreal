@@ -138,6 +138,14 @@ public class Bird implements Serializable {
         BirdShape.dispose();
         this.BirdBody.setLinearVelocity(new Vector2(x_velocity, y_velocity));
         if (!isIslaunched()) BirdBody.setGravityScale(0f);
+        BirdSpawnSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Name+"SpawnSFX.mp3"));
+//        BirdSpawnSFX.play();
+        BirdLaunchSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Name+"LaunchSFX.mp3"));
+        BirdHitSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Name+"HitSFX.mp3"));
+        BirdDeathSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Name+"DeathSFX.mp3"));
+        StretchSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/StretchSFX.mp3"));
+        StretchLaunchSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/SlingLaunchSFX.mp3"));
+
     }
     public String getName() {
         return Name;
