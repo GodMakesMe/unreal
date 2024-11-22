@@ -294,7 +294,8 @@ public class Bird implements Serializable {
         }
         if (Frames >= 60) {
             playDeathSound();
-            selfdestroy();
+//            selfdestroy();
+            isRemoved = true;
         }else {
             BirdBody.setTransform(BirdBody.getPosition().x + posX, BirdBody.getPosition().y + posY, BirdBody.getAngle());
             getBirdSprite().setPosition(BirdBody.getPosition().x - BirdSprite.getWidth() / 2, BirdBody.getPosition().y - BirdSprite.getHeight() / 2);
@@ -355,6 +356,7 @@ public class Bird implements Serializable {
                 BirdSprite = null;
 //            BirdSprite.setPosition(-1000, -1000);
                 isRemoved = true;
+
             }catch (Exception e){
                 System.out.println(e);
             }
