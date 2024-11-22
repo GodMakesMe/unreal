@@ -49,6 +49,9 @@ public class SettingsPage implements Screen {
     private ImageButton RestartButton;
     private Pixmap restartButtonPixmap;
 
+    private ImageButton musicButton;
+    private Pixmap musicButtonPixmap;
+
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
         Texture ButtonTexture = new Texture(Path);
         Texture HoverButtonTexture = new Texture(HoverPath);
@@ -60,7 +63,24 @@ public class SettingsPage implements Screen {
         button.setSize(W,H);
         return button;
     }
-
+    void musicHandling(){
+        Game.clickHandlingByFunction(musicButton, musicButtonPixmap, () -> {
+            if (Game.ost_theme.isPlaying()){
+                Game.pauseMusic();
+                musicButton.remove();
+                musicButton = createButton("assets/Music_Logo_Mute.png", "assets/Hover_Music_Logo_Mute.png", 1072, 720-171-65, 65, 65);
+                musicHandling();
+                stage.addActor(musicButton);
+            }
+            else{
+                Game.resumeMusic();
+                musicButton.remove();
+                musicButton = createButton("assets/Music_Logo.png", "assets/Hover_Music_Logo.png", 1072, 720-171-65, 65, 65);
+                musicHandling();
+                stage.addActor(musicButton);
+            }
+        });
+    }
     @Override
     public void show() {
         stage = new Stage(new ScreenViewport());
@@ -73,6 +93,12 @@ public class SettingsPage implements Screen {
         sprite.setPosition(0, 0);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
+        if (Game.ost_theme.isPlaying()) musicButton = createButton("assets/Music_Logo.png", "assets/Hover_Music_Logo.png", 1072, 720-171-65, 65, 65);
+        else musicButton = createButton("assets/Music_Logo_Mute.png", "assets/Hover_Music_Logo_Mute.png", 1072, 720-171-65, 65, 65);
+        musicButtonPixmap = new Pixmap(Gdx.files.internal("assets/Music_Logo.png"));
+
+
+
         GoBackButton = createButton("assets/GoBackButton.png", "assets/HoverGoBackButton.png", 554, 720 -312 - 67, 268, 67);
         goBackButtonPixmap = new Pixmap(Gdx.files.internal("assets/GoBackButton.png"));
         RestartButton = createButton("assets/RestartButton.png", "assets/HoverRestartButton.png", 554, 720-394-67, 268, 67);
@@ -82,9 +108,11 @@ public class SettingsPage implements Screen {
         stage.addActor(GoBackButton);
         stage.addActor(RestartButton);
         stage.addActor(ExitButton);
+        stage.addActor(musicButton);
         Game.clickHandling(ExitButton, exitButtonPixmap, new Exit(Game));
         Game.clickHandling(RestartButton, restartButtonPixmap, new HomePage(Game));
         Game.clickHandling(GoBackButton, goBackButtonPixmap, previousScreen);
+        musicHandling();
 
     }
 

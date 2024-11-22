@@ -40,7 +40,7 @@ public class HomePage implements Screen {
     }
     @Override
     public void show() {
-        Game.playMusic();
+        if (!Game.isPlayingTitleTheme()) Game.playMusic("assets/TitleTheme.mp3");
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

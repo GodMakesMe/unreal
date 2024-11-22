@@ -100,7 +100,11 @@ public class Bird implements Serializable {
         StretchLaunchSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/SlingLaunchSFX.mp3"));
     }
 
+    public Bird() {
+    }
+
     public void playHitSound() {
+//        if ()
         BirdHitSFX.play();
     }
     public void playDeathSound() {

@@ -18,19 +18,27 @@ import static java.lang.System.exit;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends Game implements Serializable {
-    private transient Music ost_theme;
+    public transient Music ost_theme;
+    String musicFile;
+    boolean paused = true;
     @Override
     public void create() {
         ost_theme = Gdx.audio.newMusic(Gdx.files.internal("assets/TitleTheme.mp3"));
         ost_theme.setLooping(true);
         ost_theme.setVolume(0.5f);
         ost_theme.play();
+        paused = false;
+        musicFile = Gdx.files.internal("assets/TitleTheme.mp3").toString();
         setScreen(new HomePage(this));
     }
     public void playMusic(){
         if(ost_theme.isPlaying() && ost_theme!=null){
             ost_theme.play();
+            paused = false;
         }
+    }
+    public boolean isPlayingTitleTheme(){
+        return musicFile.equals(Gdx.files.internal("assets/TitleTheme.mp3").toString());
     }
     public void playMusic(String Path){
         if(ost_theme!=null){
@@ -40,22 +48,33 @@ public class Main extends Game implements Serializable {
         ost_theme = Gdx.audio.newMusic(Gdx.files.internal(Path));
         ost_theme.setLooping(true);
         ost_theme.setVolume(0.5f);
+        musicFile = Gdx.files.internal(Path).toString();
+        if (paused) return;
         ost_theme.play();
+        paused = false;
     }
     public void pauseMusic() {
         if(ost_theme.isPlaying() && ost_theme!=null){
             ost_theme.pause();
+            ost_theme.setVolume(0.0f);
+            paused = true;
         }
     }
     public void resumeMusic() {
-        if(ost_theme.isPlaying() && ost_theme!=null){
+//        if(ost_theme.isPlaying() && ost_theme!=null){
+//            ost_theme.play();
+//        }
+        if (paused) {
             ost_theme.play();
+            ost_theme.setVolume(0.5f);
         }
+
     }
 
     public void stopMusic() {
         if(ost_theme!=null){
             ost_theme.stop();
+            paused = true;
         }
     }
 
