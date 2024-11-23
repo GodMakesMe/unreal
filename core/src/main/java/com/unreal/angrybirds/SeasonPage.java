@@ -135,7 +135,8 @@ public class SeasonPage implements Screen {
 
     @Override
     public void dispose() {
-        Game.pauseMusic();
+        Game.pauseMusicForDispose();
+//        Game.paused = false;
         batch.dispose();
         stage.dispose();
         sprite.getTexture().dispose();

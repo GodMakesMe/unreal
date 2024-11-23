@@ -60,6 +60,13 @@ public class Main extends Game implements Serializable {
             paused = true;
         }
     }
+    public void pauseMusicForDispose() {
+        if(ost_theme.isPlaying() && ost_theme!=null){
+            ost_theme.pause();
+            ost_theme.setVolume(0.0f);
+//            paused = true;
+        }
+    }
     public void resumeMusic() {
 //        if(ost_theme.isPlaying() && ost_theme!=null){
 //            ost_theme.play();
@@ -207,7 +214,7 @@ public class Main extends Game implements Serializable {
     }
 
     protected void saveGameScreen(Screen screen, String fileName) {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName))) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("GameSaves/"+fileName))) {
             out.writeObject(screen);
         } catch (IOException e) {
             e.printStackTrace();
@@ -216,7 +223,7 @@ public class Main extends Game implements Serializable {
 
     // Deserialize method
     protected Screen loadGameScreen(String fileName) {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("GameSaves/" + fileName))) {
             return (Screen) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -225,7 +232,7 @@ public class Main extends Game implements Serializable {
     }
 
     protected void saveGameScore(Player screen, String fileName) {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName))) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("GameSaves/" + fileName))) {
             out.writeObject(screen);
         } catch (IOException e) {
             e.printStackTrace();
@@ -234,7 +241,7 @@ public class Main extends Game implements Serializable {
 
     // Deserialize method
     protected Player loadGameScore(String fileName) {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("GameSaves/" + fileName))) {
             return (Player) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -242,7 +249,7 @@ public class Main extends Game implements Serializable {
         }
     }
     protected void removeFile(String fileName) {
-        File file = new File(fileName);
+        File file = new File("GameSaves/"+fileName);
         if (file.exists()) {
             file.delete();
         }

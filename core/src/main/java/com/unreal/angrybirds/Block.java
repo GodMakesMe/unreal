@@ -75,14 +75,17 @@ public class Block implements Serializable {
         blockShape.dispose();
         blockSprite.setRotation((float) Math.toDegrees(angle));
         DamageSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Material+"Collision.mp3"));
+        DamageSFX.setVolume(0.1f);
         DeathSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Material+"Death.mp3"));
     }
     public void playDamageSound() {
+        DamageSFX.setVolume(0.1f);
         if (DamageSFX != null) DamageSFX.play();
     }
     public void playDeathSound() {
         DeathSFX.play();
     }
+
     protected void processSerialization(World world){
         blockTexture = new Texture(fileImage);
 
@@ -166,4 +169,3 @@ public class Block implements Serializable {
         isRemoved = true;
     }
 }
-
