@@ -26,6 +26,7 @@ public class CollisionDetector implements ContactListener {
         if(DataA instanceof Bird && DataB instanceof Piggy){
 //            System.out.println("Collision detected!");
             HandleCollisions((Piggy)DataB,(Bird)DataA);
+
         }else if(DataB instanceof Bird && DataA instanceof Piggy){
 //            System.out.println("Collision detected!");
             HandleCollisions((Piggy)DataA,(Bird)DataB);
@@ -112,6 +113,7 @@ public class CollisionDetector implements ContactListener {
         return (float) Math.pow(vx1*vx1 + vy1*vy1, 0.5) * m1;
     }
     public void HandleCollisions(Piggy Piggy,Bird bird) {
+        bird.isfirstCollided = true;
         if (Piggy == null || Piggy.isRemoved()) {
             return;
         }
@@ -157,14 +159,15 @@ public class CollisionDetector implements ContactListener {
             piggy.playDamageSound();
             piggy.setHealth((int) (piggy.getHealth()- getChangeInMomentum(dataA.getBlockBody(), piggy.getPiggyBody())*0.0002F));
             if (piggy.getHealth() <= 0){
-                piggy.playDeathSound();
+//                piggy.playDeathSound();
                 System.out.println("Piggy's DEAD " + piggy.getName());
                 System.out.println("Number of bodies in world: " + piggy.getWorldInstance().getBodyCount());
                 piggy.markForRemoval();}
             dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), piggy.getPiggyBody())*0.0005F);
         }else if (dataB instanceof Bird){
             Bird bird = (Bird) dataB;
-            bird.playHitSound();
+            bird.isfirstCollided = true;
+//            bird.playHitSound();
             bird.setHealth((int) (bird.getHealth() - getChangeInMomentum(bird.getBirdBody(), dataA.getBlockBody())*0.002F));
             dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), bird.getBirdBody())*0.005F*bird.getMass());
 

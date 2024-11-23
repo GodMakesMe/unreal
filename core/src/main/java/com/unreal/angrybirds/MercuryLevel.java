@@ -318,7 +318,7 @@ public void endGame(){
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Red", 20, null, "assets/RedBirdMain.png",world,"Mercury");
+                if (birdsAvailable > 1) SpaceBird = new Bird("Red", 20, new WarCryAbility(), "assets/RedBirdMain.png",world,"Mercury");
                 else {flag = false; return true;}
 //                birdsAvailable--;
                 flag = false;
@@ -338,7 +338,7 @@ public void endGame(){
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Chuck", 10, null, "assets/YellowBirdMain.png",world,"Mercury");
+                if (birdsAvailable > 1) SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world,"Mercury");
                 else {flag = false; return true;}
 //                birdsAvailable--;
                 flag = false;
@@ -358,7 +358,7 @@ public void endGame(){
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Blue", 8, null, "assets/BlueBirdMain.png",world,"Mercury");
+                if (birdsAvailable > 1) SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world,"Mercury");
                 else{ flag = false; return true;}
 //                birdsAvailable--;
                 flag = false;
@@ -383,7 +383,7 @@ public void endGame(){
 //                    world.destroyBody(SpaceBird.getBirdBody());
 //
 //                }
-//                SpaceBird = new Bird("Bomb", 8, null, "assets/BombBirdMain.png",world,"Mercury");
+//                SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world,"Mercury");
 //                birdsAvailable--;
 //                BirdX  = SpaceBird.getX();
 //                BirdY = SpaceBird.getY();
@@ -401,7 +401,7 @@ public void endGame(){
 //                if (SpaceBird != null) {
 //                    world.destroyBody(SpaceBird.getBirdBody());
 //                }
-//                SpaceBird = new Bird("Matilda", 6, null, "assets/WhiteBirdMain.png",world,"Mercury");
+//                SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world,"Mercury");
 //                birdsAvailable--;
 //                BirdX  = SpaceBird.getX();
 //                BirdY = SpaceBird.getY();
