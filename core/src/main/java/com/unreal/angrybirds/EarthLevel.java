@@ -2,7 +2,6 @@ package com.unreal.angrybirds;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
@@ -16,9 +15,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,6 +26,7 @@ public class EarthLevel  implements Screen, Serializable {
     private transient Stage stage;
     private transient SpriteBatch batch;
     private transient Sprite sprite;
+    private transient Sprite fastforwardSpriteBatch;
     protected Player player;
     //    private ImageButton Nextbutton;
 //    private Pixmap nextButtonPixmap;
@@ -74,6 +71,7 @@ public class EarthLevel  implements Screen, Serializable {
         this.Game = game;
         Scorefont = new BitmapFont(Gdx.files.internal("angrybirds.fnt"));
         Scorefont.setColor(Color.BLACK);
+        fastforwardSpriteBatch = new Sprite(new Texture("FastForward1.png"));
         Screen serializedLevel = null;
 //        Scorefont.getData().setScale(1.2f);
         try{
@@ -96,6 +94,7 @@ public class EarthLevel  implements Screen, Serializable {
             bodiesToDestroy = level.bodiesToDestroy;
             blockList = level.blockList;
             isSerialized = true;
+//            fastforwardSpriteBatch = new Sprite(new Texture("FastForward1.png"));
 //            Game.removeFile("EarthLevel");
 //            SpaceBird.processSerialization(null, world);
         }else {
@@ -193,7 +192,7 @@ public class EarthLevel  implements Screen, Serializable {
     }
     public void endGame(){
         if (player.getScore() >= allPigScore && deadPiggyList.size() == initialPiggyCount) {
-            if (SpaceBird == null && allBlockRested()) {
+            if ((SpaceBird == null || !SpaceBird.isItLaunched()) && allBlockRested()) {
                 Player oldRecord = Game.loadGameScore("EarthLevelScore");
                 if (oldRecord == null || oldRecord.getScore() < player.getScore()) {
                     Game.saveGameScore(player, "EarthLevelScore");
@@ -203,7 +202,31 @@ public class EarthLevel  implements Screen, Serializable {
             }
         }
     }
+    void fastForward(){
+        float timeStep = 1 / 60f; // Normal time step (60Hz)
+        int velocityIterations = 6;
+        int positionIterations = 2;
 
+// Fast forward time by adjusting the timeStep
+        float fastForwardFactor = 5f; // Adjust this value to control the speed
+        timeStep = timeStep / fastForwardFactor;
+
+// In your render loop, update the physics world
+        world.step(timeStep, velocityIterations, positionIterations);
+
+        // Original deltaTime passed to Box2D
+        float deltaTime = Gdx.graphics.getDeltaTime();
+
+// Scale the deltaTime to speed up physics
+        fastForwardFactor = 2f; // Factor by which to speed up
+        deltaTime *= fastForwardFactor;
+
+// Pass the scaled deltaTime to the physics world
+        world.step(deltaTime, velocityIterations, positionIterations);
+
+
+
+    }
 
 
     public static float meterstopixels(float meters) {
@@ -295,6 +318,7 @@ public class EarthLevel  implements Screen, Serializable {
         }
 
 
+
         debugRenderer = new Box2DDebugRenderer();
 
 
@@ -323,7 +347,7 @@ public class EarthLevel  implements Screen, Serializable {
         Game.clickHandling(RedBirdButton, redBirdButtonPixmap, null);
         RedBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null && SpaceBird.isIslaunched()) {
+                if (SpaceBird != null && SpaceBird.isItLaunched()) {
 //                    world.destroyBody(SpaceBird.getBirdBody());
                     SpaceBird.selfdestroy();
                     if (birdsAvailable <= 0) {
@@ -337,7 +361,7 @@ public class EarthLevel  implements Screen, Serializable {
 
                     }
                 }
-                else if (SpaceBird != null && !SpaceBird.isIslaunched()) {
+                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
                     SpaceBird.selfdestroy();
                     SpaceBird = new Bird("Red", 20, new WarCryAbility(), "assets/RedBirdMain.png",world,"Earth");
                     BirdX  = SpaceBird.getX();
@@ -365,7 +389,7 @@ public class EarthLevel  implements Screen, Serializable {
         Game.clickHandling(YellowBirdButton, yellowBirdButtonPixmap, null);
         YellowBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null && SpaceBird.isIslaunched()) {
+                if (SpaceBird != null && SpaceBird.isItLaunched()) {
 //                    world.destroyBody(SpaceBird.getBirdBody());
                     SpaceBird.selfdestroy();
                     if (birdsAvailable <= 0) {
@@ -379,7 +403,7 @@ public class EarthLevel  implements Screen, Serializable {
 
                     }
                 }
-                else if (SpaceBird != null && !SpaceBird.isIslaunched()) {
+                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
                     SpaceBird.selfdestroy();
                     SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world,"Earth");
                     BirdX  = SpaceBird.getX();
@@ -405,7 +429,7 @@ public class EarthLevel  implements Screen, Serializable {
         Game.clickHandling(BlueBirdButton, blueBirdButtonPixmap, null);
         BlueBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null && SpaceBird.isIslaunched()) {
+                if (SpaceBird != null && SpaceBird.isItLaunched()) {
 //                    world.destroyBody(SpaceBird.getBirdBody());
                     SpaceBird.selfdestroy();
                     if (birdsAvailable <= 0) {
@@ -419,7 +443,7 @@ public class EarthLevel  implements Screen, Serializable {
 
                     }
                 }
-                else if (SpaceBird != null && !SpaceBird.isIslaunched()) {
+                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
                     SpaceBird.selfdestroy();
                     SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world,"Earth");
                     BirdX  = SpaceBird.getX();
@@ -449,7 +473,7 @@ public class EarthLevel  implements Screen, Serializable {
 
         BombBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null && SpaceBird.isIslaunched()) {
+                if (SpaceBird != null && SpaceBird.isItLaunched()) {
                     SpaceBird.selfdestroy();
                     if (birdsAvailable <= 0) {
                         flag = true;
@@ -462,7 +486,7 @@ public class EarthLevel  implements Screen, Serializable {
 
                     }
                 }
-                else if (SpaceBird != null && !SpaceBird.isIslaunched()) {
+                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
                     SpaceBird.selfdestroy();
                     SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world,"Earth");
                     BirdX  = SpaceBird.getX();
@@ -487,7 +511,7 @@ public class EarthLevel  implements Screen, Serializable {
         Game.clickHandling(WhiteBirdButton, whiteBirdButtonPixmap, null);
         WhiteBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null && SpaceBird.isIslaunched()) {
+                if (SpaceBird != null && SpaceBird.isItLaunched()) {
                     SpaceBird.selfdestroy();
                     if (birdsAvailable <= 0) {
                         flag = true;
@@ -500,7 +524,7 @@ public class EarthLevel  implements Screen, Serializable {
 
                     }
                 }
-                else if (SpaceBird != null && !SpaceBird.isIslaunched()) {
+                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
                     SpaceBird.selfdestroy();
                     SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world,"Earth");
                     BirdX  = SpaceBird.getX();
@@ -580,7 +604,7 @@ public class EarthLevel  implements Screen, Serializable {
 //        debugRenderer.render(world,camera.combined);
         if (SpaceBird != null && !SpaceBird.isRemoved()) {
             SpaceBird.updateSprite();
-//            if (SpaceBird.isIslaunched() && !flag) {
+//            if (SpaceBird.isItLaunched() && !flag) {
 //                birdsAvailable--;
 //                flag = true;
 //            }
@@ -624,7 +648,7 @@ public class EarthLevel  implements Screen, Serializable {
         }
         batch.end();
         if (SpaceBird != null && !SpaceBird.isRemoved()) {
-            if(!SpaceBird.isIslaunched() && SpaceBird.notInOrigin()){
+            if(!SpaceBird.isItLaunched() && SpaceBird.notInOrigin()){
                 SpaceBird.DrawTrajectory();
             }
             batch.begin();
@@ -639,6 +663,19 @@ public class EarthLevel  implements Screen, Serializable {
             }
             batch.end();
         }
+        boolean draw = false;
+        if (deadPiggyList.size() == initialPiggyCount){
+            draw = true;
+
+            fastForward();
+
+        }
+
+//            fastforwardSpriteBatch.setSize(1014, 720);
+        batch.begin();
+        if (draw) batch.draw(fastforwardSpriteBatch, 0, 0, 1280, 720);
+        batch.end();
+
         batch.begin();
         SlingShotFront.draw(batch);
         batch.end();

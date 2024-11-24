@@ -10,8 +10,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Disposable;
 
 import java.io.Serializable;
 
@@ -270,7 +268,7 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
         fixture.setUserData(this);
         BirdShape.dispose();
         this.BirdBody.setLinearVelocity(new Vector2(x_velocity, y_velocity));
-        if (!isIslaunched()) BirdBody.setGravityScale(0f);
+        if (!isItLaunched()) BirdBody.setGravityScale(0f);
         BirdSpawnSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Name+"SpawnSFX.mp3"));
 //        BirdSpawnSFX.play();
         BirdLaunchSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Name+"LaunchSFX.mp3"));
@@ -316,7 +314,7 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
         return BirdBody;
     }
 
-    public boolean isIslaunched() {
+    public boolean isItLaunched() {
         return islaunched;
     }
 
@@ -387,6 +385,7 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
 //    public float min(float a, float b){
 //        return Math.min(a,b);
 //    }
+
     public void updateSprite(){
         float posX=0,posY=0;
 //        && !(posX*posX+posY*posY<=1,681)
