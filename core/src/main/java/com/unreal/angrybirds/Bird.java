@@ -18,7 +18,7 @@ import java.io.Serializable;
 public class Bird implements Serializable {
     private String Name;
     private int Mass;
-    private transient Ability BirdAbility;
+    private Ability BirdAbility;
     private int Health;
     private transient Sprite BirdSprite;
     private transient Texture BirdTexture;
@@ -234,14 +234,14 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
 
     public void playHitSound() {
 //        if ()
-        BirdHitSFX.play();
+        if (BirdHitSFX!=null)BirdHitSFX.play();
     }
     public void playDeathSound() {
-        BirdDeathSFX.play();
+        if (BirdDeathSFX != null) BirdDeathSFX.play();
     }
 
     public void processSerialization(Ability birdAbility, World world){
-        this.BirdAbility = BirdAbility;
+//        this.BirdAbility = BirdAbility;
         this.worldInstance = world;
 //        world.setGravity(new Vector2(0, 0f));
         if (BirdTexture == null) BirdTexture = new Texture(birdPath);
@@ -421,7 +421,7 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
             posX += x_s;
             posY += y_s;
         }
-        if(islaunched) {
+        if(islaunched && BirdBody != null) {
             if (BirdBody.getLinearVelocity().len() < 0.1f) {
                 Frames++;
             } else {

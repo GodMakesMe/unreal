@@ -5,7 +5,9 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
-public class SpeedAbility implements Ability {
+import java.io.Serializable;
+
+public class SpeedAbility implements Ability, Serializable {
     Bird bird;
     int count = 10;
     float velocityx;

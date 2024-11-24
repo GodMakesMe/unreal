@@ -3,7 +3,9 @@ package com.unreal.angrybirds;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 
-public class SplitAbility implements Ability{
+import java.io.Serializable;
+
+public class SplitAbility implements Ability, Serializable {
     Bird newBlueBird1;
     Bird newBlueBird2;
     @Override

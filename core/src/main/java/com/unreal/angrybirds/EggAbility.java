@@ -5,7 +5,9 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class EggAbility implements Ability{
+import java.io.Serializable;
+
+public class EggAbility implements Ability, Serializable {
     Bird egg;
     @Override
     public void triggerAbility(Bird LovelyBird){

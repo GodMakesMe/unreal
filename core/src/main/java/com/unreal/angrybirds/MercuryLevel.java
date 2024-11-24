@@ -290,7 +290,7 @@ public class MercuryLevel  implements Screen, Serializable {
             for (Block block : blockList) {
                 if (block != null) block.processSerialization(world);
             }
-            birdsAvailable++;
+
             isSerialized = false;
         }
 

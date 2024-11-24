@@ -3,7 +3,9 @@ package com.unreal.angrybirds;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 
-public class ExplodeAbility implements Ability {
+import java.io.Serializable;
+
+public class ExplodeAbility implements Ability, Serializable {
     int counter = 80;
     Bird myBird;
     @Override

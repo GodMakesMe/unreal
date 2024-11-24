@@ -89,6 +89,7 @@ public class Block implements Serializable {
     }
 
     protected void processSerialization(World world){
+        if (isRemoved) return;
         blockTexture = new Texture(fileImage);
 
         blockSprite = new Sprite(blockTexture);
@@ -165,19 +166,21 @@ public class Block implements Serializable {
     }
     protected Body getBlockBody(){ return blockBody;}
     public void selfdestroy(){
-        playDeathSound();
-        getBlockBody().setUserData(null);
-        Array<Fixture> fixtures = getBlockBody().getFixtureList();
-        while (fixtures.size > 0) {
-            getBlockBody().destroyFixture(fixtures.first());
+        if (!isRemoved) {
+            playDeathSound();
+            getBlockBody().setUserData(null);
+            Array<Fixture> fixtures = getBlockBody().getFixtureList();
+            while (fixtures.size > 0) {
+                getBlockBody().destroyFixture(fixtures.first());
+            }
+            worldInstance.destroyBody(blockBody);
+            this.blockBody = null;
+            if (blockTexture != null) {
+                blockTexture.dispose();
+                blockTexture = null;
+            }
+            blockSprite = null;
+            isRemoved = true;
         }
-        worldInstance.destroyBody(blockBody);
-        this.blockBody = null;
-        if (blockTexture != null) {
-            blockTexture.dispose();
-            blockTexture = null;
-        }
-        blockSprite = null;
-        isRemoved = true;
     }
 }
