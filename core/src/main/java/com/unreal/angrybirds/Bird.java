@@ -105,7 +105,7 @@ public class Bird implements Serializable {
         Fixture fixture = this.BirdBody.createFixture(fixtureDef);
         this.BirdBody.setUserData(this);
         this.BirdBody.setTransform(x, y, getBirdBody().getAngle());
-        this.BirdBody.setLinearVelocity(oldBirdInstance.x, oldBirdInstance.y*0f);
+        this.BirdBody.setLinearVelocity(oldBirdInstance.x_velocity, oldBirdInstance.y_velocity*0f);
         fixture.setUserData(this);
         BirdShape.dispose();
         this.Planet = oldBirdInstance.Planet;
@@ -430,17 +430,18 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
         }
         if (Frames >= 60) {
             if (!isRemoved) playDeathSound();
-            selfdestroy();
-            isRemoved = true;
             if (BirdAbility instanceof EggAbility){
                 EggAbility eggAbility = (EggAbility)BirdAbility;
-                eggAbility.egg.isRemoved = true;
+                eggAbility.egg.selfdestroy();
             }else if (BirdAbility instanceof SplitAbility){
                 SplitAbility splitAbility = (SplitAbility)BirdAbility;
-                splitAbility.newBlueBird1.isRemoved = true;
-                splitAbility.newBlueBird2.isRemoved = true;
+                splitAbility.newBlueBird1.selfdestroy();
+                splitAbility.newBlueBird2.selfdestroy();
             }
+            selfdestroy();
+            return;
         }else {
+            if (getBirdSprite() == null || isRemoved) return;
             BirdBody.setTransform(BirdBody.getPosition().x + posX, BirdBody.getPosition().y + posY, BirdBody.getAngle());
             getBirdSprite().setPosition(BirdBody.getPosition().x - BirdSprite.getWidth() / 2, BirdBody.getPosition().y - BirdSprite.getHeight() / 2);
             BirdSprite.setOriginCenter();
@@ -449,6 +450,10 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
 //        y = BirdBody.getPosition().y - BirdSprite.getHeight()/2;
             x = BirdBody.getPosition().x;
             y = BirdBody.getPosition().y;
+            if (y < -getBirdSprite().getHeight()/2) {
+                selfdestroy();
+                return;
+            }
 //        float gravity = -3.73f;
 //        if(Planet.equals("Mars")){
 //            gravity = -3.73f;
@@ -525,7 +530,11 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
                     splitAbility.newBlueBird1.selfdestroy();
                     splitAbility.newBlueBird2.selfdestroy();
                 }
-//                BirdSprite = null;
+                if (BirdAbility instanceof EggAbility && isAbilityTriggered){
+                    EggAbility eggAbility = (EggAbility) BirdAbility;
+                    eggAbility.egg.selfdestroy();
+                }
+                BirdSprite = null;
 //            BirdSprite.setPosition(-1000, -1000);
                 isRemoved = true;
 

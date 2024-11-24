@@ -100,7 +100,7 @@ public class MarsLevel  implements Screen, Serializable {
 //            SpaceBird.processSerialization(null, world);
         }else {
             player = new Player();
-            birdsAvailable = 3;
+            birdsAvailable = 2;
         }
     }
 
@@ -183,10 +183,18 @@ public class MarsLevel  implements Screen, Serializable {
         player.setScore(scoreToAdd);
     }
 
+    boolean allBlockRested(){
+        for (Block i : blockList){
+            if ( i != null && !i.isRemoved && !i.isRested()){
+                return false;
+            }
+        }
+        return true;
+    }
     public void endGame(){
         if (player.getScore() >= allPigScore && deadPiggyList.size() == initialPiggyCount) {
-            if ((int) SpaceBird.getBirdBody().getLinearVelocity().x <= 1 && SpaceBird.getBirdBody().getLinearVelocity().y <= 1) {
-                Player oldRecord = Game.loadGameScore("MarsLeveScore");
+            if (SpaceBird == null && allBlockRested()) {
+                Player oldRecord = Game.loadGameScore("MarsLevelScore");
                 if (oldRecord == null || oldRecord.getScore() < player.getScore()) {
                     Game.saveGameScore(player, "MarsLevelScore");
                 }
@@ -224,8 +232,8 @@ public class MarsLevel  implements Screen, Serializable {
         if (batch == null) batch = new SpriteBatch();
 
         if (world == null) {
-            world = new World(new Vector2(0, -3.73f), false);
-            world.setGravity(new Vector2(0, -3.73f));
+            world = new World(new Vector2(0, Game.spaceGravityByPlantName("Mars")), false);
+            world.setGravity(new Vector2(0, Game.spaceGravityByPlantName("Mars")));
             world.setContactListener(new CollisionDetector());
             if (PigList == null && !isSerialized) {
                 PigList = new ArrayList<Piggy>();
@@ -271,7 +279,7 @@ public class MarsLevel  implements Screen, Serializable {
             }
 //            world.setGravity(new Vector2(0, 0f));
         }
-        world.setGravity(new Vector2(0, -3.73f));
+        world.setGravity(new Vector2(0, Game.spaceGravityByPlantName("Mars")));
         if (isSerialized) {
             if (SpaceBird != null) SpaceBird.processSerialization(null, world);
             assert PigList != null;
@@ -315,15 +323,37 @@ public class MarsLevel  implements Screen, Serializable {
         Game.clickHandling(RedBirdButton, redBirdButtonPixmap, null);
         RedBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null) {
-                    world.destroyBody(SpaceBird.getBirdBody());
+                if (SpaceBird != null && SpaceBird.isIslaunched()) {
+//                    world.destroyBody(SpaceBird.getBirdBody());
+                    SpaceBird.selfdestroy();
+                    if (birdsAvailable <= 0) {
+                        flag = true;
+                    }
+                    else {
+                        SpaceBird = new Bird("Red", 20, new WarCryAbility(), "assets/RedBirdMain.png",world,"Mars");
+                        birdsAvailable--;
+                        BirdX  = SpaceBird.getX();
+                        BirdY = SpaceBird.getY();
+
+                    }
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Red", 20, new WarCryAbility(), "assets/RedBirdMain.png",world,"Mars");
-                else {flag = false; return true;}
-//                birdsAvailable--;
-                flag = false;
-                BirdX  = SpaceBird.getX();
-                BirdY = SpaceBird.getY();
+                else if (SpaceBird != null && !SpaceBird.isIslaunched()) {
+                    SpaceBird.selfdestroy();
+                    SpaceBird = new Bird("Red", 20, new WarCryAbility(), "assets/RedBirdMain.png",world,"Mars");
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+                else if (SpaceBird == null && birdsAvailable <= 0) {
+                    flag = true;
+                }else {
+                    SpaceBird = new Bird("Red", 20, new WarCryAbility(), "assets/RedBirdMain.png",world,"Mars");
+//                else {flag = false; return true;}
+//                    flag = false;
+                    birdsAvailable--;
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+
                 return true;
             }
 
@@ -335,18 +365,38 @@ public class MarsLevel  implements Screen, Serializable {
         Game.clickHandling(YellowBirdButton, yellowBirdButtonPixmap, null);
         YellowBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null) {
-                    world.destroyBody(SpaceBird.getBirdBody());
+                if (SpaceBird != null && SpaceBird.isIslaunched()) {
+//                    world.destroyBody(SpaceBird.getBirdBody());
+                    SpaceBird.selfdestroy();
+                    if (birdsAvailable <= 0) {
+                        flag = true;
+                    }
+                    else {
+                        SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world,"Mars");
+                        birdsAvailable--;
+                        BirdX  = SpaceBird.getX();
+                        BirdY = SpaceBird.getY();
+
+                    }
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world,"Mars");
-                else {flag = false; return true;}
-//                birdsAvailable--;
-                flag = false;
-                BirdX  = SpaceBird.getX();
-                BirdY = SpaceBird.getY();
+                else if (SpaceBird != null && !SpaceBird.isIslaunched()) {
+                    SpaceBird.selfdestroy();
+                    SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world,"Mars");
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+                else if (SpaceBird == null && birdsAvailable <= 0) {
+                    flag = true;
+                }else {
+                    SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world,"Mars");
+//                    else {flag = false; return true;}
+//                    flag = false;
+                    birdsAvailable--;
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
                 return true;
             }
-
         });
 
         BlueBirdButton= createButton("assets/BlueBird.png","assets/HoverBlueBird.png",299, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
@@ -355,20 +405,39 @@ public class MarsLevel  implements Screen, Serializable {
         Game.clickHandling(BlueBirdButton, blueBirdButtonPixmap, null);
         BlueBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null) {
-                    world.destroyBody(SpaceBird.getBirdBody());
+                if (SpaceBird != null && SpaceBird.isIslaunched()) {
+//                    world.destroyBody(SpaceBird.getBirdBody());
+                    SpaceBird.selfdestroy();
+                    if (birdsAvailable <= 0) {
+                        flag = true;
+                    }
+                    else {
+                        SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world,"Mars");
+                        birdsAvailable--;
+                        BirdX  = SpaceBird.getX();
+                        BirdY = SpaceBird.getY();
+
+                    }
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world,"Mars");
-                else{ flag = false; return true;}
-//                birdsAvailable--;
-                flag = false;
-                BirdX  = SpaceBird.getX();
-                BirdY = SpaceBird.getY();
+                else if (SpaceBird != null && !SpaceBird.isIslaunched()) {
+                    SpaceBird.selfdestroy();
+                    SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world,"Mars");
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+                else if (SpaceBird == null && birdsAvailable <= 0) {
+                    flag = true;
+                }else {
+                    SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world,"Mars");
+                    birdsAvailable--;
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
                 return true;
             }
 
         });
-
+//        SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world,"Mars");
 //        BombBirdButton= createButton("assets/BombBirdNotAvailable.png","assets/BombBirdNotAvailable.png",377, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
 //        stage.addActor(BombBirdButton);
 //        WhiteBirdButton= createButton("assets/WhiteBirdNotAvailable.png","assets/WhiteBirdNotAvailable.png",454, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
@@ -377,17 +446,36 @@ public class MarsLevel  implements Screen, Serializable {
         bombBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/BombBird.png"));
         stage.addActor(BombBirdButton);
         Game.clickHandling(BombBirdButton, bombBirdButtonPixmap, null);
+
         BombBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null) {
-                    world.destroyBody(SpaceBird.getBirdBody());
+                if (SpaceBird != null && SpaceBird.isIslaunched()) {
+                    SpaceBird.selfdestroy();
+                    if (birdsAvailable <= 0) {
+                        flag = true;
+                    }
+                    else {
+                        SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world,"Mars");
+                        birdsAvailable--;
+                        BirdX  = SpaceBird.getX();
+                        BirdY = SpaceBird.getY();
+
+                    }
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world,"Mars");
-                else {flag = false; return true;}
-//                birdsAvailable--;
-                flag = false;
-                BirdX  = SpaceBird.getX();
-                BirdY = SpaceBird.getY();
+                else if (SpaceBird != null && !SpaceBird.isIslaunched()) {
+                    SpaceBird.selfdestroy();
+                    SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world,"Mars");
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+                else if (SpaceBird == null && birdsAvailable <= 0) {
+                    flag = true;
+                }else {
+                    SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world,"Mars");
+                    birdsAvailable--;
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
                 return true;
             }
 
@@ -399,15 +487,33 @@ public class MarsLevel  implements Screen, Serializable {
         Game.clickHandling(WhiteBirdButton, whiteBirdButtonPixmap, null);
         WhiteBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null) {
-                    world.destroyBody(SpaceBird.getBirdBody());
+                if (SpaceBird != null && SpaceBird.isIslaunched()) {
+                    SpaceBird.selfdestroy();
+                    if (birdsAvailable <= 0) {
+                        flag = true;
+                    }
+                    else {
+                        SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world,"Mars");
+                        birdsAvailable--;
+                        BirdX  = SpaceBird.getX();
+                        BirdY = SpaceBird.getY();
+
+                    }
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world,"Mars");
-                else {flag = false; return true;}
-//                birdsAvailable--;
-                flag = false;
-                BirdX  = SpaceBird.getX();
-                BirdY = SpaceBird.getY();
+                else if (SpaceBird != null && !SpaceBird.isIslaunched()) {
+                    SpaceBird.selfdestroy();
+                    SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world,"Mars");
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+                else if (SpaceBird == null && birdsAvailable <= 0 && allBlockRested()) {
+                    flag = true;
+                }else {
+                    SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world,"Mars");
+                    birdsAvailable--;
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
                 return true;
             }
 
@@ -455,14 +561,14 @@ public class MarsLevel  implements Screen, Serializable {
         for (Piggy pig : bodiesToDestroy) {
             pig.getPiggyBody().setActive(false);
         }
-//        if(SpaceBird != null && SpaceBird.isRemoved()){
-//            SpaceBird = null;
-//        }
-        if(birdsAvailable<=0){
-            Game.removeFile("MarsLevel");
-//            Game.removeFile("MarsLevelScore");
-            Game.setScreen(new SpaceLevelEnd(Game,player,"Mars"));
+        if(SpaceBird != null && SpaceBird.isRemoved()){
+            SpaceBird = null;
         }
+//        if(birdsAvailable<=0){
+//            Game.removeFile("MarsLevel");
+////            Game.removeFile("MarsLevelScore");
+//            Game.setScreen(new SpaceLevelEnd(Game,player,"Mars"));
+//        }
         if (!isSerialized) cleanupDestroyedBodies();
         updateScore();
         endGame();
@@ -474,10 +580,15 @@ public class MarsLevel  implements Screen, Serializable {
 //        debugRenderer.render(world,camera.combined);
         if (SpaceBird != null && !SpaceBird.isRemoved()) {
             SpaceBird.updateSprite();
-            if (SpaceBird.isIslaunched() && !flag) {
-                birdsAvailable--;
-                flag = true;
-            }
+//            if (SpaceBird.isIslaunched() && !flag) {
+//                birdsAvailable--;
+//                flag = true;
+//            }
+        }
+        if (SpaceBird == null && birdsAvailable <= 0 && allBlockRested()) {
+            Game.removeFile("MarsLevel");
+//            Game.removeFile("NeptuneLevelScore");
+            Game.setScreen(new SpaceLevelEnd(Game,player,"Mars"));
         }
 
         for(Piggy pig: PigList){
@@ -496,6 +607,13 @@ public class MarsLevel  implements Screen, Serializable {
 
         batch.begin();
 
+        if (SpaceBird == null && flag){
+            Game.removeFile("MarsLevel");
+//            Game.removeFile("NeptuneLevelScore");
+            Game.setScreen(new SpaceLevelEnd(Game,player,"Mars"));
+//            dispose();
+        }
+
         for(Piggy pig: PigList){
             if(pig != null && !pig.isRemoved()) {
                 pig.getPiggySprite().draw(batch);
@@ -510,14 +628,14 @@ public class MarsLevel  implements Screen, Serializable {
                 SpaceBird.DrawTrajectory();
             }
             batch.begin();
-            SpaceBird.getBirdSprite().draw(batch);
+            if (SpaceBird.getBirdSprite() != null) SpaceBird.getBirdSprite().draw(batch);
             if (SpaceBird.getBirdAbility() instanceof SplitAbility && SpaceBird.isAbilityTriggered){
                 SplitAbility birdAbility = (SplitAbility)SpaceBird.getBirdAbility();
-                birdAbility.newBlueBird1.getBirdSprite().draw(batch);
-                birdAbility.newBlueBird2.getBirdSprite().draw(batch);
+                if (birdAbility.newBlueBird1 != null && !birdAbility.newBlueBird1.isRemoved() && birdAbility.newBlueBird1.getBirdSprite() != null) birdAbility.newBlueBird1.getBirdSprite().draw(batch);
+                if (birdAbility.newBlueBird1 != null && !birdAbility.newBlueBird1.isRemoved() && birdAbility.newBlueBird2.getBirdSprite() != null) birdAbility.newBlueBird2.getBirdSprite().draw(batch);
             }else if (SpaceBird.getBirdAbility() instanceof EggAbility && SpaceBird.isAbilityTriggered){
                 EggAbility eggAbility = (EggAbility)SpaceBird.getBirdAbility();
-                eggAbility.egg.getBirdSprite().draw(batch);
+                if (eggAbility.egg != null && !eggAbility.egg.isRemoved() && eggAbility.egg.getBirdSprite() != null) eggAbility.egg.getBirdSprite().draw(batch);
             }
             batch.end();
         }
@@ -558,7 +676,7 @@ public class MarsLevel  implements Screen, Serializable {
         batch.dispose();
         stage.dispose();
         sprite.getTexture().dispose();
-        SpaceBird.getBirdSprite().getTexture().dispose();
+//        if (SpaceBird != null) SpaceBird.getBirdSprite().getTexture().dispose();
     }
 
     public ArrayList<Piggy> getDeadPiggyList() {

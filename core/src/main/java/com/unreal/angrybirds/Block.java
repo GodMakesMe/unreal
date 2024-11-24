@@ -32,6 +32,7 @@ public class Block implements Serializable {
     private transient Music DamageSFX;
     private transient Music DeathSFX;
     private String Material;
+    private int Frames;
 
     Block(String Material,String imageFile, float scalex, float scaley, World world, float mass, float pos_x, float pos_y, float angle, int health) {
         this.Material = Material;
@@ -55,6 +56,7 @@ public class Block implements Serializable {
         blockSprite.setRotation(angle);
         ini_pos_x = pos_x;
         ini_pos_y = pos_y;
+        this.Frames = 0;
         this.angle = angle;
         blockBodydef.type = BodyDef.BodyType.DynamicBody;
         blockBody = worldInstance.createBody(blockBodydef);
@@ -137,6 +139,12 @@ public class Block implements Serializable {
             if (health <= 0){ selfdestroy(); return;}
             x = blockBody.getPosition().x;
             y = blockBody.getPosition().y;
+            if (y < -getblockSprite().getHeight()/2) {selfdestroy(); return;}
+            if (getBlockBody().getLinearVelocity().len() < 0.1f) {
+                Frames++;
+            } else {
+                Frames = 0;
+            }
             angle = blockBody.getAngle();
             getblockSprite().setPosition(x-blockSprite.getWidth()/2,y-blockSprite.getHeight()/2);
             blockSprite.setOriginCenter();
@@ -146,6 +154,10 @@ public class Block implements Serializable {
         else{
             getblockSprite().getTexture().dispose();
         }
+    }
+    boolean isRested(){
+        if (Frames >= 60) return true;
+        return false;
     }
 
     protected Sprite getblockSprite() {

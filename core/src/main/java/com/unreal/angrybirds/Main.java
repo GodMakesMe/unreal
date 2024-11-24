@@ -17,7 +17,20 @@ import static com.badlogic.gdx.scenes.scene2d.InputEvent.Type.exit;
 import static java.lang.System.exit;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
+@SuppressWarnings("all")
 public class Main extends Game implements Serializable {
+    Float spaceGravityByPlantName(String Planet){
+        if (Planet.equals("Mars")) return -3.73f;
+        else if (Planet.equals("Earth")) return -9.81f;
+        else if (Planet.equals("Jupiter")) return -23.1f;
+        else if (Planet.equals("Saturn")) return -9.05f;
+        else if (Planet.equals("Uranus")) return -8.69f;
+        else if (Planet.equals("Moon")) return -1.62f;
+        else if (Planet.equals("Neptune")) return -11f;
+        else if (Planet.equals("Mercury")) return -3.7f;
+        else if (Planet.equals("Venus")) return -8.87f;
+        return -3.73f;
+    }
     public transient Music ost_theme;
     String musicFile;
     boolean paused = true;
@@ -68,9 +81,6 @@ public class Main extends Game implements Serializable {
         }
     }
     public void resumeMusic() {
-//        if(ost_theme.isPlaying() && ost_theme!=null){
-//            ost_theme.play();
-//        }
         if (paused) {
             ost_theme.play();
             ost_theme.setVolume(0.5f);
@@ -217,7 +227,7 @@ public class Main extends Game implements Serializable {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("GameSaves/"+fileName))) {
             out.writeObject(screen);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -226,7 +236,7 @@ public class Main extends Game implements Serializable {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("GameSaves/" + fileName))) {
             return (Screen) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -235,7 +245,7 @@ public class Main extends Game implements Serializable {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("GameSaves/" + fileName))) {
             out.writeObject(screen);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -244,7 +254,7 @@ public class Main extends Game implements Serializable {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("GameSaves/" + fileName))) {
             return (Player) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return null;
         }
     }

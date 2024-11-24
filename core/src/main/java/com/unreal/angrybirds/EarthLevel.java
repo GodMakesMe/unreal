@@ -2,6 +2,7 @@ package com.unreal.angrybirds;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
@@ -15,6 +16,9 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -96,12 +100,15 @@ public class EarthLevel  implements Screen, Serializable {
 //            SpaceBird.processSerialization(null, world);
         }else {
             player = new Player();
-            birdsAvailable = 3;
+            birdsAvailable = 2;
         }
     }
 
     public EarthLevel() {
     }
+//    public static float (float pixels) {
+//        return pixels / 100;
+//    }
 
     public void markForRemoval(Piggy pig) {
         if (pig != null && !bodiesToDestroy.contains(pig) && !pig.dead) {
@@ -133,6 +140,36 @@ public class EarthLevel  implements Screen, Serializable {
         }
         bodiesToDestroy.clear();
     }
+
+
+    //    // Flag to indicate loading state
+//    public void cleanupDestroyedBodies() {
+//        if (!world.isLocked() && !bodiesToDestroy.isEmpty()) {
+//            synchronized (bodiesToDestroy) {
+//                Iterator<Piggy> iterator = bodiesToDestroy.iterator();
+//                while (iterator.hasNext()) {
+//                    Piggy pig = iterator.next();
+//
+//                    // Ensure body is eligible for cleanup
+//                    if (pig.getPiggyBody() != null && pig.getPiggyBody().getUserData() != null) {
+//                        deadPiggyList.add(pig);
+//                        pig.dead = true;
+//                        Array<Fixture> fixtures = pig.getPiggyBody().getFixtureList();
+//                        while (fixtures.size > 0) {
+//                            pig.getPiggyBody().destroyFixture(fixtures.first());
+//                        }
+//
+//                        // Score updates only upon actual destruction
+//                        iterator.remove();
+//                        world.destroyBody(pig.getPiggyBody());
+//                        // If score reaches threshold, trigger level end
+//
+//                    }
+//                }
+//            }
+//        }
+//        bodiesToDestroy.clear();
+//    }
     public void updateScore(){
         int scoreToAdd = 0;
         for (Piggy i : deadPiggyList){
@@ -146,10 +183,18 @@ public class EarthLevel  implements Screen, Serializable {
         player.setScore(scoreToAdd);
     }
 
-public void endGame(){
+    boolean allBlockRested(){
+        for (Block i : blockList){
+            if ( i != null && !i.isRemoved && !i.isRested()){
+                return false;
+            }
+        }
+        return true;
+    }
+    public void endGame(){
         if (player.getScore() >= allPigScore && deadPiggyList.size() == initialPiggyCount) {
-            if ((int) SpaceBird.getBirdBody().getLinearVelocity().x <= 1 && SpaceBird.getBirdBody().getLinearVelocity().y <= 1) {
-                Player oldRecord = Game.loadGameScore("EarthLeveScore");
+            if (SpaceBird == null && allBlockRested()) {
+                Player oldRecord = Game.loadGameScore("EarthLevelScore");
                 if (oldRecord == null || oldRecord.getScore() < player.getScore()) {
                     Game.saveGameScore(player, "EarthLevelScore");
                 }
@@ -159,6 +204,11 @@ public void endGame(){
         }
     }
 
+
+
+    public static float meterstopixels(float meters) {
+        return meters * 100;
+    }
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
         Texture ButtonTexture = new Texture(Path);
         Texture HoverButtonTexture = new Texture(HoverPath);
@@ -182,8 +232,8 @@ public void endGame(){
         if (batch == null) batch = new SpriteBatch();
 
         if (world == null) {
-            world = new World(new Vector2(0, -9.81f), false);
-            world.setGravity(new Vector2(0, -9.81f));
+            world = new World(new Vector2(0, Game.spaceGravityByPlantName("Earth")), false);
+            world.setGravity(new Vector2(0, Game.spaceGravityByPlantName("Earth")));
             world.setContactListener(new CollisionDetector());
             if (PigList == null && !isSerialized) {
                 PigList = new ArrayList<Piggy>();
@@ -229,7 +279,7 @@ public void endGame(){
             }
 //            world.setGravity(new Vector2(0, 0f));
         }
-        world.setGravity(new Vector2(0, -9.81f));
+        world.setGravity(new Vector2(0, Game.spaceGravityByPlantName("Earth")));
         if (isSerialized) {
             if (SpaceBird != null) SpaceBird.processSerialization(null, world);
             assert PigList != null;
@@ -273,15 +323,37 @@ public void endGame(){
         Game.clickHandling(RedBirdButton, redBirdButtonPixmap, null);
         RedBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null) {
-                    world.destroyBody(SpaceBird.getBirdBody());
+                if (SpaceBird != null && SpaceBird.isIslaunched()) {
+//                    world.destroyBody(SpaceBird.getBirdBody());
+                    SpaceBird.selfdestroy();
+                    if (birdsAvailable <= 0) {
+                        flag = true;
+                    }
+                    else {
+                        SpaceBird = new Bird("Red", 20, new WarCryAbility(), "assets/RedBirdMain.png",world,"Earth");
+                        birdsAvailable--;
+                        BirdX  = SpaceBird.getX();
+                        BirdY = SpaceBird.getY();
+
+                    }
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Red", 20, new WarCryAbility(), "assets/RedBirdMain.png",world,"Earth");
-                else {flag = false; return true;}
-//                birdsAvailable--;
-                flag = false;
-                BirdX  = SpaceBird.getX();
-                BirdY = SpaceBird.getY();
+                else if (SpaceBird != null && !SpaceBird.isIslaunched()) {
+                    SpaceBird.selfdestroy();
+                    SpaceBird = new Bird("Red", 20, new WarCryAbility(), "assets/RedBirdMain.png",world,"Earth");
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+                else if (SpaceBird == null && birdsAvailable <= 0) {
+                    flag = true;
+                }else {
+                    SpaceBird = new Bird("Red", 20, new WarCryAbility(), "assets/RedBirdMain.png",world,"Earth");
+//                else {flag = false; return true;}
+//                    flag = false;
+                    birdsAvailable--;
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+
                 return true;
             }
 
@@ -293,18 +365,38 @@ public void endGame(){
         Game.clickHandling(YellowBirdButton, yellowBirdButtonPixmap, null);
         YellowBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null) {
-                    world.destroyBody(SpaceBird.getBirdBody());
+                if (SpaceBird != null && SpaceBird.isIslaunched()) {
+//                    world.destroyBody(SpaceBird.getBirdBody());
+                    SpaceBird.selfdestroy();
+                    if (birdsAvailable <= 0) {
+                        flag = true;
+                    }
+                    else {
+                        SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world,"Earth");
+                        birdsAvailable--;
+                        BirdX  = SpaceBird.getX();
+                        BirdY = SpaceBird.getY();
+
+                    }
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world,"Earth");
-                else {flag = false; return true;}
-//                birdsAvailable--;
-                flag = false;
-                BirdX  = SpaceBird.getX();
-                BirdY = SpaceBird.getY();
+                else if (SpaceBird != null && !SpaceBird.isIslaunched()) {
+                    SpaceBird.selfdestroy();
+                    SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world,"Earth");
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+                else if (SpaceBird == null && birdsAvailable <= 0) {
+                    flag = true;
+                }else {
+                    SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world,"Earth");
+//                    else {flag = false; return true;}
+//                    flag = false;
+                    birdsAvailable--;
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
                 return true;
             }
-
         });
 
         BlueBirdButton= createButton("assets/BlueBird.png","assets/HoverBlueBird.png",299, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
@@ -313,60 +405,119 @@ public void endGame(){
         Game.clickHandling(BlueBirdButton, blueBirdButtonPixmap, null);
         BlueBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null) {
-                    world.destroyBody(SpaceBird.getBirdBody());
+                if (SpaceBird != null && SpaceBird.isIslaunched()) {
+//                    world.destroyBody(SpaceBird.getBirdBody());
+                    SpaceBird.selfdestroy();
+                    if (birdsAvailable <= 0) {
+                        flag = true;
+                    }
+                    else {
+                        SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world,"Earth");
+                        birdsAvailable--;
+                        BirdX  = SpaceBird.getX();
+                        BirdY = SpaceBird.getY();
+
+                    }
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world,"Earth");
-                else{ flag = false; return true;}
-//                birdsAvailable--;
-                flag = false;
-                BirdX  = SpaceBird.getX();
-                BirdY = SpaceBird.getY();
+                else if (SpaceBird != null && !SpaceBird.isIslaunched()) {
+                    SpaceBird.selfdestroy();
+                    SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world,"Earth");
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+                else if (SpaceBird == null && birdsAvailable <= 0) {
+                    flag = true;
+                }else {
+                    SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world,"Earth");
+                    birdsAvailable--;
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+                return true;
+            }
+
+        });
+//        SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world,"Earth");
+//        BombBirdButton= createButton("assets/BombBirdNotAvailable.png","assets/BombBirdNotAvailable.png",377, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+//        stage.addActor(BombBirdButton);
+//        WhiteBirdButton= createButton("assets/WhiteBirdNotAvailable.png","assets/WhiteBirdNotAvailable.png",454, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+//        stage.addActor(WhiteBirdButton);
+        BombBirdButton= createButton("assets/BombBird.png","assets/HoverBombBird.png",377, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+        bombBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/BombBird.png"));
+        stage.addActor(BombBirdButton);
+        Game.clickHandling(BombBirdButton, bombBirdButtonPixmap, null);
+
+        BombBirdButton.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (SpaceBird != null && SpaceBird.isIslaunched()) {
+                    SpaceBird.selfdestroy();
+                    if (birdsAvailable <= 0) {
+                        flag = true;
+                    }
+                    else {
+                        SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world,"Earth");
+                        birdsAvailable--;
+                        BirdX  = SpaceBird.getX();
+                        BirdY = SpaceBird.getY();
+
+                    }
+                }
+                else if (SpaceBird != null && !SpaceBird.isIslaunched()) {
+                    SpaceBird.selfdestroy();
+                    SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world,"Earth");
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+                else if (SpaceBird == null && birdsAvailable <= 0) {
+                    flag = true;
+                }else {
+                    SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world,"Earth");
+                    birdsAvailable--;
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
                 return true;
             }
 
         });
 
-        BombBirdButton= createButton("assets/BombBirdNotAvailable.png","assets/BombBirdNotAvailable.png",377, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
-        stage.addActor(BombBirdButton);
-        WhiteBirdButton= createButton("assets/WhiteBirdNotAvailable.png","assets/WhiteBirdNotAvailable.png",454, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+        WhiteBirdButton= createButton("assets/WhiteBird.png","assets/HoverWhiteBird.png",454, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+        whiteBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/WhiteBird.png"));
         stage.addActor(WhiteBirdButton);
-//        BombBirdButton= createButton("assets/BombBird.png","assets/HoverBombBird.png",377, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
-//        bombBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/BombBird.png"));
-//        stage.addActor(BombBirdButton);
-//        Game.clickHandling(BombBirdButton, bombBirdButtonPixmap, null);
-//        BombBirdButton.addListener(new InputListener() {
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//                if (SpaceBird != null) {
-//                    world.destroyBody(SpaceBird.getBirdBody());
-//
-//                }
-//                SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world,"Earth");
-//                birdsAvailable--;
-//                BirdX  = SpaceBird.getX();
-//                BirdY = SpaceBird.getY();
-//                return true;
-//            }
-//
-//        });
-//
-//        WhiteBirdButton= createButton("assets/WhiteBird.png","assets/HoverWhiteBird.png",454, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
-//        whiteBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/WhiteBird.png"));
-//        stage.addActor(WhiteBirdButton);
-//        Game.clickHandling(WhiteBirdButton, whiteBirdButtonPixmap, null);
-//        WhiteBirdButton.addListener(new InputListener() {
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//                if (SpaceBird != null) {
-//                    world.destroyBody(SpaceBird.getBirdBody());
-//                }
-//                SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world,"Earth");
-//                birdsAvailable--;
-//                BirdX  = SpaceBird.getX();
-//                BirdY = SpaceBird.getY();
-//                return true;
-//            }
-//
-//        });
+        Game.clickHandling(WhiteBirdButton, whiteBirdButtonPixmap, null);
+        WhiteBirdButton.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (SpaceBird != null && SpaceBird.isIslaunched()) {
+                    SpaceBird.selfdestroy();
+                    if (birdsAvailable <= 0) {
+                        flag = true;
+                    }
+                    else {
+                        SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world,"Earth");
+                        birdsAvailable--;
+                        BirdX  = SpaceBird.getX();
+                        BirdY = SpaceBird.getY();
+
+                    }
+                }
+                else if (SpaceBird != null && !SpaceBird.isIslaunched()) {
+                    SpaceBird.selfdestroy();
+                    SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world,"Earth");
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+                else if (SpaceBird == null && birdsAvailable <= 0 && allBlockRested()) {
+                    flag = true;
+                }else {
+                    SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world,"Earth");
+                    birdsAvailable--;
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+                return true;
+            }
+
+        });
 
 //        world = SpaceBird.getWorldInstance();
 
@@ -410,11 +561,14 @@ public void endGame(){
         for (Piggy pig : bodiesToDestroy) {
             pig.getPiggyBody().setActive(false);
         }
-        if(birdsAvailable<=0){
-            Game.removeFile("EarthLevel");
-//            Game.removeFile("EarthLevelScore");
-            Game.setScreen(new SpaceLevelEnd(Game, player,"Earth"));
+        if(SpaceBird != null && SpaceBird.isRemoved()){
+            SpaceBird = null;
         }
+//        if(birdsAvailable<=0){
+//            Game.removeFile("EarthLevel");
+////            Game.removeFile("EarthLevelScore");
+//            Game.setScreen(new SpaceLevelEnd(Game,player,"Earth"));
+//        }
         if (!isSerialized) cleanupDestroyedBodies();
         updateScore();
         endGame();
@@ -423,13 +577,18 @@ public void endGame(){
                 markForRemoval(pig);
             }
         }
-        debugRenderer.render(world,camera.combined);
+//        debugRenderer.render(world,camera.combined);
         if (SpaceBird != null && !SpaceBird.isRemoved()) {
             SpaceBird.updateSprite();
-            if (SpaceBird.isIslaunched() && !flag) {
-                birdsAvailable--;
-                flag = true;
-            }
+//            if (SpaceBird.isIslaunched() && !flag) {
+//                birdsAvailable--;
+//                flag = true;
+//            }
+        }
+        if (SpaceBird == null && birdsAvailable <= 0 && allBlockRested()) {
+            Game.removeFile("EarthLevel");
+//            Game.removeFile("NeptuneLevelScore");
+            Game.setScreen(new SpaceLevelEnd(Game,player,"Earth"));
         }
 
         for(Piggy pig: PigList){
@@ -448,6 +607,13 @@ public void endGame(){
 
         batch.begin();
 
+        if (SpaceBird == null && flag){
+            Game.removeFile("EarthLevel");
+//            Game.removeFile("NeptuneLevelScore");
+            Game.setScreen(new SpaceLevelEnd(Game,player,"Earth"));
+//            dispose();
+        }
+
         for(Piggy pig: PigList){
             if(pig != null && !pig.isRemoved()) {
                 pig.getPiggySprite().draw(batch);
@@ -462,7 +628,15 @@ public void endGame(){
                 SpaceBird.DrawTrajectory();
             }
             batch.begin();
-            SpaceBird.getBirdSprite().draw(batch);
+            if (SpaceBird.getBirdSprite() != null) SpaceBird.getBirdSprite().draw(batch);
+            if (SpaceBird.getBirdAbility() instanceof SplitAbility && SpaceBird.isAbilityTriggered){
+                SplitAbility birdAbility = (SplitAbility)SpaceBird.getBirdAbility();
+                if (birdAbility.newBlueBird1 != null && !birdAbility.newBlueBird1.isRemoved() && birdAbility.newBlueBird1.getBirdSprite() != null) birdAbility.newBlueBird1.getBirdSprite().draw(batch);
+                if (birdAbility.newBlueBird1 != null && !birdAbility.newBlueBird1.isRemoved() && birdAbility.newBlueBird2.getBirdSprite() != null) birdAbility.newBlueBird2.getBirdSprite().draw(batch);
+            }else if (SpaceBird.getBirdAbility() instanceof EggAbility && SpaceBird.isAbilityTriggered){
+                EggAbility eggAbility = (EggAbility)SpaceBird.getBirdAbility();
+                if (eggAbility.egg != null && !eggAbility.egg.isRemoved() && eggAbility.egg.getBirdSprite() != null) eggAbility.egg.getBirdSprite().draw(batch);
+            }
             batch.end();
         }
         batch.begin();
@@ -474,6 +648,7 @@ public void endGame(){
         batch.end();
         stage.act(delta);
         stage.draw();
+        debugRenderer.render(world,camera.combined);
     }
 
     @Override
@@ -501,5 +676,14 @@ public void endGame(){
         batch.dispose();
         stage.dispose();
         sprite.getTexture().dispose();
+//        if (SpaceBird != null) SpaceBird.getBirdSprite().getTexture().dispose();
+    }
+
+    public ArrayList<Piggy> getDeadPiggyList() {
+        return deadPiggyList;
+    }
+
+    public void setDeadPiggyList(ArrayList<Piggy> deadPiggyList) {
+        this.deadPiggyList = deadPiggyList;
     }
 }

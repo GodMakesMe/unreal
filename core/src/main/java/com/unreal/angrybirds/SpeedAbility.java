@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 public class SpeedAbility implements Ability {
     Bird bird;
+    int count = 10;
     float velocityx;
     float velocityy;
     @Override
@@ -28,9 +29,11 @@ public class SpeedAbility implements Ability {
     }
     public void applyUpdate(){
 //        bird.getBirdBody().setGravityScale(0f);
+        if (count < 0) return;
         bird.getBirdBody().setLinearVelocity(new Vector2(velocityx, velocityy));
         velocityx = bird.getBirdBody().getLinearVelocity().x;
         velocityy = bird.getBirdBody().getLinearVelocity().y;
+        count--;
 //        velocityx = bird.x_velocity;
 //        velocityy = bird.y_velocity;
 //        bird.x_velocity *= 20;

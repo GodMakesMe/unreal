@@ -9,10 +9,16 @@ public class SplitAbility implements Ability{
     @Override
     public void triggerAbility(Bird myBirdLovely) {
         Music AbilitySFX = Gdx.audio.newMusic(Gdx.files.internal("BlueAbilitySFX.mp3"));
-        newBlueBird1 = new Bird(myBirdLovely, myBirdLovely.getX(), myBirdLovely.getY()+10);
+        newBlueBird1 = new Bird(myBirdLovely, myBirdLovely.getX()+10, myBirdLovely.getY()+10);
+//        newBlueBird1.x_velocity = myBirdLovely.getBirdBody().getLinearVelocity().x;
+//        newBlueBird1.y_velocity = myBirdLovely.getBirdBody().getLinearVelocity().y;
+//        newBlueBird1.getBirdBody().setLinearVelocity(myBirdLovely.x_velocity, myBirdLovely.y_velocity);
 //        newBlueBird1.updateSprite();
         newBlueBird1.setLaunched();
-        newBlueBird2 = new Bird(myBirdLovely, myBirdLovely.getX(), myBirdLovely.getY()-10);
+        newBlueBird2 = new Bird(myBirdLovely, myBirdLovely.getX()+5, myBirdLovely.getY()-20);
+//        newBlueBird2.x_velocity = myBirdLovely.getBirdBody().getLinearVelocity().x;
+//        newBlueBird2.y_velocity = myBirdLovely.getBirdBody().getLinearVelocity().y;
+//        newBlueBird2.getBirdBody().setLinearVelocity(myBirdLovely.x_velocity, myBirdLovely.y_velocity);
 //        newBlueBird1.updateSprite();
         newBlueBird2.setLaunched();
 //        newBlueBird.isAbilityTriggered = true;

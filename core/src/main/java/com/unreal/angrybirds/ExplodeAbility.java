@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 
 public class ExplodeAbility implements Ability {
+    int counter = 80;
     Bird myBird;
     @Override
     public void triggerAbility(Bird myBirdLovely) {
@@ -15,6 +16,6 @@ public class ExplodeAbility implements Ability {
         myBirdLovely.isAbilityTriggered = true;
     }
     public void update(){
-        myBird.getBirdBody().setLinearVelocity(myBird.x_velocity*20, myBird.y_velocity*20);
+        if (counter-- > 0) myBird.getBirdBody().setLinearVelocity(myBird.x_velocity*20, myBird.y_velocity*20);
     }
 }

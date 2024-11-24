@@ -16,7 +16,6 @@ public class EggAbility implements Ability{
         egg.isAbilityTriggered = true;
         egg.getBirdBody().setLinearVelocity(0f, -50);
         egg.getBirdSprite().setTexture(new Texture("assets/Egg.png"));
-
     }
     void updateEgg(){
         egg.getBirdBody().setLinearVelocity(0f, egg.getBirdBody().getLinearVelocity().y);
