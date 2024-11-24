@@ -2,13 +2,8 @@ package com.unreal.angrybirds;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -30,10 +25,23 @@ public class NormalLevelEnd  implements Screen {
     private Pixmap homeButtonPixmap;
     private ImageButton NextLevelButton;
     private Pixmap nextLevelButtonPixmap;
+    private Player player;
+    BitmapFont Scorefont;
+    private String Level;
 
     public NormalLevelEnd(Main Game) {
         this.Game = Game;
     }
+
+    public NormalLevelEnd(Main game, Player player, String level) {
+        this.Game = game;
+        this.player = player;
+        Scorefont = new BitmapFont(Gdx.files.internal("angrybirds.fnt"));
+        Scorefont.setColor(Color.WHITE);
+        this.Level = level;
+
+    }
+
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
         Texture ButtonTexture = new Texture(Path);
         Texture HoverButtonTexture = new Texture(HoverPath);
@@ -61,7 +69,16 @@ public class NormalLevelEnd  implements Screen {
         ReplayButton = createButton("assets/Retry.png","assets/HoverRetry.png",506, 720 -572-67, 70, 67);
         replayButtonPixmap = new Pixmap(Gdx.files.internal("assets/Retry.png"));
         stage.addActor(ReplayButton);
-        Game.clickHandling(ReplayButton, replayButtonPixmap, new EarthLevelPage(Game));
+        Screen mainScreen = null;
+        if(Level.equals("level1")){
+            mainScreen = new NormalLevel1(Game);
+        }else if(Level.equals("level2")){
+            mainScreen = new NormalLevel2(Game);
+        }else if(Level.equals("level3")){
+            mainScreen = new NormalLevel3(Game);
+        }
+        Game.clickHandling(ReplayButton, replayButtonPixmap, mainScreen);
+
 
         HomeButton = createButton("assets/BacktoHome.png","assets/HoverBacktoHome.png",601, 720 -572-67, 70, 67);
         homeButtonPixmap = new Pixmap(Gdx.files.internal("assets/BacktoHome.png"));
@@ -72,6 +89,15 @@ public class NormalLevelEnd  implements Screen {
         nextLevelButtonPixmap = new Pixmap(Gdx.files.internal("assets/NextLevel.png"));
         stage.addActor(NextLevelButton);
         Game.clickHandling(NextLevelButton, nextLevelButtonPixmap, new EarthLevelPage(Game));
+        Screen nextScreen = null;
+        if(Level.equals("level1")){
+            nextScreen = new NormalLevel2(Game);
+        }else if(Level.equals("level2")){
+            nextScreen = new NormalLevel3(Game);
+        }else if(Level.equals("level3")){
+            nextScreen = new NormalLevelCommingSoon(Game);
+        }
+        Game.clickHandling(ReplayButton, replayButtonPixmap, nextScreen);
     }
     @Override
     public void render(float delta) {
@@ -80,6 +106,10 @@ public class NormalLevelEnd  implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         sprite.draw(batch);
+        batch.end();
+        batch.begin();
+        GlyphLayout ScoreLayout = new GlyphLayout(Scorefont,""+String.format("%08d", player.getScore()));
+        Scorefont.draw(batch,ScoreLayout,574,780-485-62);
         batch.end();
 
         stage.act(delta);

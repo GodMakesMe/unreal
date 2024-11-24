@@ -227,6 +227,62 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
         isAbilityTriggered = false;
     }
 
+    public Bird(String Name, int Mass, Ability BirdAbility,String BirdPath,World world) {
+        this.Name = Name;
+        this.Mass = Mass;
+        this.BirdAbility = BirdAbility;
+        this.Health = 100;
+        this.worldInstance = world;
+//        world.setGravity(new Vector2(0, 0f));
+        this.birdPath = BirdPath;
+        BirdTexture = new Texture(birdPath);
+        BirdSprite = new Sprite(BirdTexture);
+        BirdSprite.setSize(39, 38);
+        BirdSprite.setOrigin(0, 0);
+        this.x = 143;
+        this.y = 720-BirdSprite.getHeight()-494;
+        this.BirdBodydef = new BodyDef();
+        this.BirdBodydef.type = BodyDef.BodyType.DynamicBody;
+        this.BirdBodydef.position.x = x;
+        this.BirdBodydef.position.y =y;
+        this.iniX = x; this.iniY = y;
+        this.BirdBody = world.createBody(BirdBodydef);
+        BirdSprite.setPosition(x, y);
+        this.GlobalX = 0;
+        this.GlobalY = 0;
+        PolygonShape BirdShape = new PolygonShape();
+        BirdShape.setAsBox(BirdSprite.getWidth()/2,BirdSprite.getHeight()/2);
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = BirdShape;
+        fixtureDef.density = 2;
+        System.out.println("Density of the Bird: "+fixtureDef.density);
+//        fixtureDef.density = f;
+        fixtureDef.friction = 0.05f;
+        fixtureDef.restitution = 0.05f;
+        BirdBody.setFixedRotation(false);
+        this.islaunched = false;
+        this.BirdBody.setGravityScale(1f);
+        BirdBody.setLinearDamping(0);
+        BirdBody.setAngularDamping(0);
+        Fixture fixture = this.BirdBody.createFixture(fixtureDef);
+        this.BirdBody.setUserData(this);
+        fixture.setUserData(this);
+        BirdShape.dispose();
+        this.Planet = "EarthSurface";
+        BirdBody.setGravityScale(0f);
+        BirdSpawnSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Name+"SpawnSFX.mp3"));
+        BirdSpawnSFX.play();
+        BirdLaunchSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Name+"LaunchSFX.mp3"));
+        BirdHitSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Name+"HitSFX.mp3"));
+        BirdDeathSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Name+"DeathSFX.mp3"));
+        Frames=0;
+        isRemoved = false;
+        isStretched = false;
+        StretchSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/StretchSFX.mp3"));
+        StretchLaunchSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/SlingLaunchSFX.mp3"));
+        isAbilityTriggered = false;
+    }
+
     public Bird() {
     }
 
@@ -364,7 +420,11 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
     public void DrawTrajectory(){
         ShapeRenderer ShapeRenderer =  new ShapeRenderer();
         ShapeRenderer.begin(com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType.Line);
-        ShapeRenderer.setColor(Color.WHITE);
+        if(this.Planet.equals("EarthSurface")){
+            ShapeRenderer.setColor(Color.BLACK);
+        }else{
+            ShapeRenderer.setColor(Color.WHITE);
+        }
         Vector2[] TrajectoryPoints = this.getTrajectoryPoints();
         for(int i = 0;  i<TrajectoryPoints.length;i++){
             if (TrajectoryPoints[i] != null) {
@@ -473,13 +533,24 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
 //        }if (Planet.equals("Venus")){
 //            gravity = -9.8f*0.9f;
 //        }
-            float changeX = -BirdBody.getPosition().x + 268;
-            float changeY = -BirdBody.getPosition().y + 720 - BirdSprite.getHeight() - 320;
-            float angle = (float) Math.atan2(changeY, changeX);
-            float dist = (float) Math.sqrt(changeX * changeX + changeY * changeY);
-            float velocity = dist * 3f;
-            x_velocity = BirdBody.getLinearVelocity().x;
-            y_velocity = BirdBody.getLinearVelocity().y;
+        float velocity,angle;
+            if(this.Planet.equals("EarthSurface")){
+                float changeX = -BirdBody.getPosition().x + 143;
+                float changeY = -BirdBody.getPosition().y + 720 - BirdSprite.getHeight() - 494;
+                angle = (float) Math.atan2(changeY, changeX);
+                float dist = (float) Math.sqrt(changeX * changeX + changeY * changeY);
+                velocity = dist * 3f;
+                x_velocity = BirdBody.getLinearVelocity().x;
+                y_velocity = BirdBody.getLinearVelocity().y;
+            }else {
+                float changeX = -BirdBody.getPosition().x + 268;
+                float changeY = -BirdBody.getPosition().y + 720 - BirdSprite.getHeight() - 320;
+                angle = (float) Math.atan2(changeY, changeX);
+                float dist = (float) Math.sqrt(changeX * changeX + changeY * changeY);
+                velocity = dist * 3f;
+                x_velocity = BirdBody.getLinearVelocity().x;
+                y_velocity = BirdBody.getLinearVelocity().y;
+            }
 //        if (!islaunched) {
             CreateTrajectory(new Vector2(BirdBody.getPosition().x, BirdBody.getPosition().y), velocity, angle, worldInstance.getGravity().y, 100);
 //        }

@@ -99,7 +99,7 @@ public class MarsLevel  implements Screen, Serializable {
 //            SpaceBird.processSerialization(null, world);
         }else {
             player = new Player();
-            birdsAvailable = 2;
+            birdsAvailable = 3;
         }
     }
 
@@ -203,29 +203,16 @@ public class MarsLevel  implements Screen, Serializable {
         }
     }
     void fastForward(){
-        float timeStep = 1 / 60f; // Normal time step (60Hz)
+        float timeStep = 1 / 60f;
         int velocityIterations = 6;
         int positionIterations = 2;
-
-// Fast forward time by adjusting the timeStep
-        float fastForwardFactor = 5f; // Adjust this value to control the speed
+        float fastForwardFactor = 5f;
         timeStep = timeStep / fastForwardFactor;
-
-// In your render loop, update the physics world
         world.step(timeStep, velocityIterations, positionIterations);
-
-        // Original deltaTime passed to Box2D
         float deltaTime = Gdx.graphics.getDeltaTime();
-
-// Scale the deltaTime to speed up physics
-        fastForwardFactor = 2f; // Factor by which to speed up
+        fastForwardFactor = 2f;
         deltaTime *= fastForwardFactor;
-
-// Pass the scaled deltaTime to the physics world
         world.step(deltaTime, velocityIterations, positionIterations);
-
-
-
     }
 
 
