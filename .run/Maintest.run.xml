@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Maintest" type="JUnit" factoryName="JUnit">
+    <module name="unreal.core.test" />
+    <option name="PACKAGE_NAME" value="com.unreal.angrybirds" />
+    <option name="MAIN_CLASS_NAME" value="com.unreal.angrybirds.MainTest" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

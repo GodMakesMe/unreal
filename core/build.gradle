@@ -10,5 +10,8 @@ dependencies {
   if(enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
   }
+//   https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
+  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.11.3'
+  testImplementation "com.badlogicgames.gdx:gdx-backend-headless:1.12.1"
 }
 

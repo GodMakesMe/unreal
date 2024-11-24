@@ -9,15 +9,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 
 public class  EarthLevelPage implements Screen {
@@ -102,7 +98,15 @@ public class  EarthLevelPage implements Screen {
             Level1Button.setPosition(205 + i*148.4f, 720 - 201.79f - 116);
             Level1Button.setSize(Level1.getWidth() / 4f, Level1.getHeight() / 4f);
             stage.addActor(Level1Button);
-            Game.clickHandling(Level1Button, Level1ButtonPixmap, new NormalLevel(Game));
+            if(i==0){
+                Game.clickHandling(Level1Button, Level1ButtonPixmap, new NormalGuidePage(Game));
+            } else if (i==1) {
+                Game.clickHandling(Level1Button, Level1ButtonPixmap, new NormalLevel2(Game));
+            }else if(i==2){
+                Game.clickHandling(Level1Button, Level1ButtonPixmap, new NormalLevel3(Game));
+            }else{
+                Game.clickHandling(Level1Button, Level1ButtonPixmap, new NormalLevelCommingSoon(Game));
+            }
         }
 
         for (int i = 0; i < 6; i++) {
@@ -116,7 +120,7 @@ public class  EarthLevelPage implements Screen {
             Level1Button.setPosition(205 + i*148.4f, 720 - 348.67f - 116);
             Level1Button.setSize(Level1.getWidth() / 4f, Level1.getHeight() / 4f);
             stage.addActor(Level1Button);
-            Game.clickHandling(Level1Button, Level1ButtonPixmap, new NormalLevel(Game));
+            Game.clickHandling(Level1Button, Level1ButtonPixmap, new NormalLevelCommingSoon(Game));
         }
         for (int i = 0; i < 6; i++) {
             Level1 = new Texture("assets/Level.png");
@@ -129,7 +133,7 @@ public class  EarthLevelPage implements Screen {
             Level1Button.setPosition(205 + i*148.4f, 720 - 491.91f - 116);
             Level1Button.setSize(Level1.getWidth() / 4f, Level1.getHeight() / 4f);
             stage.addActor(Level1Button);
-            Game.clickHandling(Level1Button, Level1ButtonPixmap, new NormalLevel(Game));
+            Game.clickHandling(Level1Button, Level1ButtonPixmap, new NormalLevelCommingSoon(Game));
         }
 
         Backbutton = createButton("assets/Back.png","assets/HoverBack.png",47,720-635-55,55,55);

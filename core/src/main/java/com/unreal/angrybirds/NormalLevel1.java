@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class EarthLevel  implements Screen, Serializable {
+public class NormalLevel1 implements Screen, Serializable {
     private Main Game;
     private transient OrthographicCamera camera;
     private transient Stage stage;
@@ -53,7 +53,7 @@ public class EarthLevel  implements Screen, Serializable {
     private transient Box2DDebugRenderer debugRenderer;
 
     private transient BodyDef bodyDef;
-    private transient FixtureDef FixtureDef;
+    private transient com.badlogic.gdx.physics.box2d.FixtureDef FixtureDef;
     private int initialPiggyCount;
 
     private ArrayList<Piggy> PigList;
@@ -66,19 +66,19 @@ public class EarthLevel  implements Screen, Serializable {
     boolean isSerialized;
     private int allPigScore;
 
-    public EarthLevel(Main game) {
+    public NormalLevel1(Main game) {
         this.Game = game;
         Scorefont = new BitmapFont(Gdx.files.internal("angrybirds.fnt"));
-        Scorefont.setColor(Color.BLACK);
+        Scorefont.setColor(Color.WHITE);
         Screen serializedLevel = null;
 //        Scorefont.getData().setScale(1.2f);
         try{
-            serializedLevel = Game.loadGameScreen("EarthLevel");
+            serializedLevel = Game.loadGameScreen("NormalLevel1");
         }catch(Exception e){
             Gdx.app.log("loadMessage", "Game State Not Found!!");
         }
-        if (serializedLevel instanceof EarthLevel) {
-            EarthLevel level = (EarthLevel) serializedLevel;
+        if (serializedLevel instanceof NormalLevel1) {
+            NormalLevel1 level = (NormalLevel1) serializedLevel;
             player = level.player;
 //            birdsAvailable = level.birdsAvailable;
             BirdX = level.BirdX;
@@ -92,15 +92,23 @@ public class EarthLevel  implements Screen, Serializable {
             bodiesToDestroy = level.bodiesToDestroy;
             blockList = level.blockList;
             isSerialized = true;
-//            Game.removeFile("EarthLevel");
+//            Game.removeFile("MarsLevel");
 //            SpaceBird.processSerialization(null, world);
         }else {
             player = new Player();
             birdsAvailable = 3;
         }
     }
-
-    public EarthLevel() {
+    public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
+        Texture ButtonTexture = new Texture(Path);
+        Texture HoverButtonTexture = new Texture(HoverPath);
+        ImageButton.ImageButtonStyle ButtonTextureStyle = new ImageButton.ImageButtonStyle();
+        ButtonTextureStyle.up = new TextureRegionDrawable(new TextureRegion(ButtonTexture));
+        ButtonTextureStyle.over = new TextureRegionDrawable(new TextureRegion(HoverButtonTexture));
+        ImageButton button = new ImageButton(ButtonTextureStyle);
+        button.setPosition(X,Y);
+        button.setSize(W,H);
+        return button;
     }
 
     public void markForRemoval(Piggy pig) {
@@ -133,6 +141,7 @@ public class EarthLevel  implements Screen, Serializable {
         }
         bodiesToDestroy.clear();
     }
+
     public void updateScore(){
         int scoreToAdd = 0;
         for (Piggy i : deadPiggyList){
@@ -146,39 +155,33 @@ public class EarthLevel  implements Screen, Serializable {
         player.setScore(scoreToAdd);
     }
 
-public void endGame(){
+    public void endGame(){
         if (player.getScore() >= allPigScore && deadPiggyList.size() == initialPiggyCount) {
             if ((int) SpaceBird.getBirdBody().getLinearVelocity().x <= 1 && SpaceBird.getBirdBody().getLinearVelocity().y <= 1) {
-                Player oldRecord = Game.loadGameScore("EarthLevelScore");
+                Player oldRecord = Game.loadGameScore("NormalLevel1Score");
                 if (oldRecord == null || oldRecord.getScore() < player.getScore()) {
-                    Game.saveGameScore(player, "EarthLevelScore");
+                    Game.saveGameScore(player, "NormalLevel1Score");
                 }
-                Game.removeFile("EarthLevel");
-                Game.setScreen(new SpaceLevelEnd(Game, player,"Earth"));
+                Game.removeFile("NormalLevel1");
+                Game.setScreen(new NormalLevelEnd(Game, player,"level1"));
             }
         }
     }
 
-    public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
-        Texture ButtonTexture = new Texture(Path);
-        Texture HoverButtonTexture = new Texture(HoverPath);
-        ImageButton.ImageButtonStyle ButtonTextureStyle = new ImageButton.ImageButtonStyle();
-        ButtonTextureStyle.up = new TextureRegionDrawable(new TextureRegion(ButtonTexture));
-        ButtonTextureStyle.over = new TextureRegionDrawable(new TextureRegion(HoverButtonTexture));
-        ImageButton button = new ImageButton(ButtonTextureStyle);
-        button.setPosition(X,Y);
-        button.setSize(W,H);
-        return button;
+    public static float meterstopixels(float meters) {
+        return meters * 100;
     }
+
+
 
     @Override
     public void show() {
         if (stage == null) stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         if (camera == null) camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.position.set((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2, 0); // Set camera position to center
+        camera.position.set((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2, 0);
         camera.update();
-        if (sprite == null) sprite = new Sprite(new Texture("assets/EarthLevel.png"));
+        if (sprite == null) sprite = new Sprite(new Texture("assets/NormalLevel.png"));
         if (batch == null) batch = new SpriteBatch();
 
         if (world == null) {
@@ -187,11 +190,7 @@ public void endGame(){
             world.setContactListener(new CollisionDetector());
             if (PigList == null && !isSerialized) {
                 PigList = new ArrayList<Piggy>();
-                PigList.add(new Piggy("First Piggy",5, null,"assets/MushPig.png",world,"Earth", (int) (955+47/2f), (int) (720-617-47/2f),47,47,5000));
-                PigList.add(new Piggy("Second Piggy",3,null,"assets/ProfPig.png",world,"Earth",(int) (1042+47/2f), (int) (720-441-47/2f),47,47,10000));
-                PigList.add(new Piggy("Third Piggy",7,null,"assets/KingPig.png",world,"Earth",(int) (1038+47/2f), (int) (720-537-47/2f),47,57,20000));
-//                PigList.add(new Piggy("Fourth Piggy",4,null,"assets/CorpPig.png",world,"Earth",(int) (939+47/2f), (int) (720-615-47/2f),47,43,9000));
-                PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Earth",(int) (1129+47/2f), (int) (720-615-47/2f),47,47,20000));
+                PigList.add(new Piggy("First Piggy",5,null,"assets/FirstPiggy.png",world,"Earth",(int) (954+47/2f), (int) (720-439-47/2f+100),47,47,20000));
                 initialPiggyCount = PigList.size();
                 AtomicInteger tempScore =  new AtomicInteger();
                 PigList.forEach(pig -> {tempScore.getAndAdd(pig.getScore());});
@@ -200,32 +199,23 @@ public void endGame(){
             }
             if (blockList == null && !isSerialized) {
                 blockList = new ArrayList<Block>();
-                blockList.add(new Block("Stone","assets/StoneCube.png", 38, 37, world, 2, 893+38/2f, 720-682-37/2f, 0, 200));
-                blockList.add(new Block("Stone","assets/StoneCube.png", 38, 37, world, 2, 1039+38/2f, 720-682-37/2f, 0, 200));
-                blockList.add(new Block("Stone","assets/StoneCube.png", 38, 37, world, 2, 1197+38/2f, 720-682-37/2f, 0, 200));
-                blockList.add(new Block("Stone","assets/StoneLongVer.png", 194, 22, world, 2, 866+194/2f, 720-662-22/2f, 0, 200));
-                blockList.add(new Block("Stone","assets/StoneLongVer.png", 194, 22, world, 2, 1059+194/2f, 720-662-22/2f, 0, 200));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 927+21/2f, 720-625-40/2f, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 927+21/2f, 720-586-40/2f, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1179+21/2f, 720-625-40/2f, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1179+21/2f, 720-586-40/2f, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1004+21/2f, 720-625-40/2f, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1004+21/2f, 720-586-40/2f, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1105+21/2f, 720-625-40/2f, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1105+21/2f, 720-586-40/2f, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodMediumHor.png", 20, 80, world, 0.25f, 1050+20/2f, 720-586-80/2f, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodLeftTriangle.png", 77, 79, world, 0.5f, 938+77/2f, 720-507-79/2f, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodRightTriangle.png", 77, 79, world, 0.5f, 1116+77/2f, 720-507-79/2f, 0, 150));
-                blockList.add(new Block("Glass","assets/GlassMediumVer.png", 160, 21, world, 0.75f, 986+160/2f, 720-488-21/2f, 0, 75));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1017+21/2f, 720-451-40/2f, 0, 100));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1017+21/2f, 720-412-40/2f, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1093+21/2f, 720-451-40/2f, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1093+21/2f, 720-412-40/2f, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodHTriangle.png", 80, 81, world, 0.25f, 1026+80/2f, 720-329-81/2f, 0, 150));
-//                blockList.add(new Block("assets/MediumGlass.png", 50, 15, world, 1, 1001, 60, 3.14f/2f, 100));
-//                blockList.add(new Block("assets/MediumGlass.png", 46, 10, world, 1, 1001, 60, 3.14f/2f, 100));
-//                blockList.add(new Block("assets/MediumGlass.png", 47, 10, world, 1, 1001, 60, 3.14f/2f, 100));
-//                blockList.add(new Block("assets/MediumGlass.png", 49, 10, world, 1, 1001, 60, 3.14f/2f, 100));
+                blockList.add(new Block("Stone","assets/StoneSmallCube.png", 21, 19, world, 1, 801+21/2f, 720-701-19/2f+100, 0, 200));
+                blockList.add(new Block("Stone","assets/StoneSmallCube.png", 21, 19, world, 1, 969+21/2f, 720-701-19/2f+100, 0, 200));
+                blockList.add(new Block("Stone","assets/StoneSmallCube.png", 21, 19, world, 1, 1143+21/2f, 720-701-19/2f+100, 0, 200));
+                blockList.add(new Block("Stone","assets/StoneLongVer.png", 194, 22, world, 2, 785+194/2f, 720-681-22/2f+100, 0, 200));
+                blockList.add(new Block("Stone","assets/StoneLongVer.png", 194, 22, world, 2, 979+194/2f, 720-681-22/2f+100, 0, 200));
+                blockList.add(new Block("Wood","assets/WoodLongHor.png", 20, 159, world, 1f, 883+20/2f, 720-525-159/2f+100, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodLongHor.png", 20, 159, world, 1f, 1055+20/2f, 720-525-159/2f+100, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodXLongVer.png", 193, 19, world, 2, 883+193/2f, 720-507-19/2f+100, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodLongHor.png", 20, 159, world, 1f, 928+20/2f, 720-351-159/2f+100, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodLongHor.png", 20, 159, world, 1f, 1011+20/2f, 720-351-159/2f+100, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodMediumVer.png", 80, 20, world, 2, 939+80/2f, 720-332-20/2f+100, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodSmallVer.png", 40, 20, world, 0.25f, 958+40/2f, 720-486-20/2f+100, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 968+21/2f, 720-293-40/2f+100, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodMediumVer.png", 80, 20, world, 2, 939+80/2f, 720-560-20/2f+100, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodMediumVer.png", 80, 20, world, 2, 939+80/2f, 720-661-20/2f+100, 0, 150));
+                blockList.add(new Block("Glass","assets/GlassMediumHor.png", 20, 80, world, 0.25f, 939+20/2f, 720-580-80/2f+100, 0, 150));
+                blockList.add(new Block("Glass","assets/GlassMediumHor.png", 20, 80, world, 0.25f, 999+20/2f, 720-580-80/2f+100, 0, 150));
             }
 //            world.setGravity(new Vector2(0, 0f));
         }
@@ -248,24 +238,18 @@ public void endGame(){
         debugRenderer = new Box2DDebugRenderer();
 
 
-        SlingShotFront = new Sprite(new Texture("assets/SlingShotFront.png"));
-        SlingShotFront.setPosition(257, 720-333-99);
-        SlingShotFront.setSize(32, 99);
+        SlingShotFront = new Sprite(new Texture("assets/SlingShotFrontEarth.png"));
+        SlingShotFront.setPosition(136, 720-488-126);
+        SlingShotFront.setSize(53, 126);
 
         sprite.setPosition(0, 0);
         sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-//        Nextbutton = createButton("assets/Next.png","assets/HoverNext.png",1167, (int) (720 -612-78.3), (int) 78.3, (int) 78.3);
-//        nextButtonPixmap = new Pixmap(Gdx.files.internal("assets/Next.png"));
-//        stage.addActor(Nextbutton);
-//        Game.clickHandling(Nextbutton, nextButtonPixmap, new SpaceLevelEnd(Game));
 
-
-
-        PauseButton = createButton("assets/Pause.png","assets/HoverPause.png",47, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+        PauseButton = createButton("assets/Pause.png","assets/HoverPause.png",47, (int) (720 -39-78.3), (int) 78.4, (int) 78.4);
         pauseButtonPixmap = new Pixmap(Gdx.files.internal("assets/Pause.png"));
         stage.addActor(PauseButton);
-        Game.clickHandling(PauseButton, pauseButtonPixmap, new SpacePauseScreen(Game, "assets/EarthBig.png","Earth", this));
+        Game.clickHandling(PauseButton, pauseButtonPixmap, new NormalPauseScreen(Game, this));
 
         RedBirdButton= createButton("assets/RedBird.png","assets/HoverRedBird.png",141, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
         redBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/RedBird.png"));
@@ -276,7 +260,7 @@ public void endGame(){
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Red", 20, new WarCryAbility(), "assets/RedBirdMain.png",world,"Earth");
+                if (birdsAvailable > 1) SpaceBird = new Bird("Red", 20, new WarCryAbility(), "assets/RedBirdMain.png",world);
                 else {flag = false; return true;}
 //                birdsAvailable--;
                 flag = false;
@@ -296,7 +280,7 @@ public void endGame(){
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world,"Earth");
+                if (birdsAvailable > 1) SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world);
                 else {flag = false; return true;}
 //                birdsAvailable--;
                 flag = false;
@@ -316,7 +300,7 @@ public void endGame(){
                 if (SpaceBird != null) {
                     world.destroyBody(SpaceBird.getBirdBody());
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world,"Earth");
+                if (birdsAvailable > 1) SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world);
                 else{ flag = false; return true;}
 //                birdsAvailable--;
                 flag = false;
@@ -327,49 +311,49 @@ public void endGame(){
 
         });
 
-        BombBirdButton= createButton("assets/BombBirdNotAvailable.png","assets/BombBirdNotAvailable.png",377, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
-        stage.addActor(BombBirdButton);
-        WhiteBirdButton= createButton("assets/WhiteBirdNotAvailable.png","assets/WhiteBirdNotAvailable.png",454, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
-        stage.addActor(WhiteBirdButton);
-//        BombBirdButton= createButton("assets/BombBird.png","assets/HoverBombBird.png",377, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
-//        bombBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/BombBird.png"));
+//        BombBirdButton= createButton("assets/BombBirdNotAvailable.png","assets/BombBirdNotAvailable.png",377, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
 //        stage.addActor(BombBirdButton);
-//        Game.clickHandling(BombBirdButton, bombBirdButtonPixmap, null);
-//        BombBirdButton.addListener(new InputListener() {
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//                if (SpaceBird != null) {
-//                    world.destroyBody(SpaceBird.getBirdBody());
-//
-//                }
-//                SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world,"Earth");
-//                birdsAvailable--;
-//                BirdX  = SpaceBird.getX();
-//                BirdY = SpaceBird.getY();
-//                return true;
-//            }
-//
-//        });
-//
-//        WhiteBirdButton= createButton("assets/WhiteBird.png","assets/HoverWhiteBird.png",454, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
-//        whiteBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/WhiteBird.png"));
+//        WhiteBirdButton= createButton("assets/WhiteBirdNotAvailable.png","assets/WhiteBirdNotAvailable.png",454, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
 //        stage.addActor(WhiteBirdButton);
-//        Game.clickHandling(WhiteBirdButton, whiteBirdButtonPixmap, null);
-//        WhiteBirdButton.addListener(new InputListener() {
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//                if (SpaceBird != null) {
-//                    world.destroyBody(SpaceBird.getBirdBody());
-//                }
-//                SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world,"Earth");
+        BombBirdButton= createButton("assets/BombBird.png","assets/HoverBombBird.png",377, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+        bombBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/BombBird.png"));
+        stage.addActor(BombBirdButton);
+        Game.clickHandling(BombBirdButton, bombBirdButtonPixmap, null);
+        BombBirdButton.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (SpaceBird != null) {
+                    world.destroyBody(SpaceBird.getBirdBody());
+                }
+                if (birdsAvailable > 1) SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world);
+                else {flag = false; return true;}
 //                birdsAvailable--;
-//                BirdX  = SpaceBird.getX();
-//                BirdY = SpaceBird.getY();
-//                return true;
-//            }
-//
-//        });
+                flag = false;
+                BirdX  = SpaceBird.getX();
+                BirdY = SpaceBird.getY();
+                return true;
+            }
 
-//        world = SpaceBird.getWorldInstance();
+        });
 
+        WhiteBirdButton= createButton("assets/WhiteBird.png","assets/HoverWhiteBird.png",454, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+        whiteBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/WhiteBird.png"));
+        stage.addActor(WhiteBirdButton);
+        Game.clickHandling(WhiteBirdButton, whiteBirdButtonPixmap, null);
+        WhiteBirdButton.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (SpaceBird != null) {
+                    world.destroyBody(SpaceBird.getBirdBody());
+                }
+                if (birdsAvailable > 1) SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world);
+                else {flag = false; return true;}
+//                birdsAvailable--;
+                flag = false;
+                BirdX  = SpaceBird.getX();
+                BirdY = SpaceBird.getY();
+                return true;
+            }
+
+        });
         if (bodyDef == null) bodyDef = new BodyDef();
         if (FixtureDef == null) FixtureDef = new FixtureDef();
 
@@ -377,7 +361,7 @@ public void endGame(){
         bodyDef.position.set(0,0);
 
         ChainShape GroundShape = new ChainShape();
-        GroundShape.createChain(new Vector2[] {new Vector2((835),0),new Vector2((1280),0),new Vector2((1280),(527))});
+        GroundShape.createChain(new Vector2[] {new Vector2((0),100),new Vector2((1280),100),new Vector2((1280),(720))});
 
         FixtureDef.shape = GroundShape;
         FixtureDef.friction = 0.5f;
@@ -391,7 +375,7 @@ public void endGame(){
         bodyDef.position.set(0,0);
 
         ChainShape GroundShape1 = new ChainShape();
-        GroundShape1.createChain(new Vector2[] {new Vector2((271),(325)),new Vector2((273),(325))});
+        GroundShape1.createChain(new Vector2[] {new Vector2((175),(720-547)),new Vector2((177),(720-547))});
 
         FixtureDef.shape = GroundShape1;
         FixtureDef.friction = 0.5f;
@@ -410,10 +394,13 @@ public void endGame(){
         for (Piggy pig : bodiesToDestroy) {
             pig.getPiggyBody().setActive(false);
         }
+//        if(SpaceBird != null && SpaceBird.isRemoved()){
+//            SpaceBird = null;
+//        }
         if(birdsAvailable<=0){
-            Game.removeFile("EarthLevel");
-//            Game.removeFile("EarthLevelScore");
-            Game.setScreen(new SpaceLevelEnd(Game, player,"Earth"));
+            Game.removeFile("NormalLevel1");
+//            Game.removeFile("MarsLevelScore");
+            Game.setScreen(new NormalLevelEnd(Game,player,"level1"));
         }
         if (!isSerialized) cleanupDestroyedBodies();
         updateScore();
@@ -423,7 +410,7 @@ public void endGame(){
                 markForRemoval(pig);
             }
         }
-        debugRenderer.render(world,camera.combined);
+//        debugRenderer.render(world,camera.combined);
         if (SpaceBird != null && !SpaceBird.isRemoved()) {
             SpaceBird.updateSprite();
             if (SpaceBird.isIslaunched() && !flag) {
@@ -463,6 +450,14 @@ public void endGame(){
             }
             batch.begin();
             SpaceBird.getBirdSprite().draw(batch);
+            if (SpaceBird.getBirdAbility() instanceof SplitAbility && SpaceBird.isAbilityTriggered){
+                SplitAbility birdAbility = (SplitAbility)SpaceBird.getBirdAbility();
+                birdAbility.newBlueBird1.getBirdSprite().draw(batch);
+                birdAbility.newBlueBird2.getBirdSprite().draw(batch);
+            }else if (SpaceBird.getBirdAbility() instanceof EggAbility && SpaceBird.isAbilityTriggered){
+                EggAbility eggAbility = (EggAbility)SpaceBird.getBirdAbility();
+                eggAbility.egg.getBirdSprite().draw(batch);
+            }
             batch.end();
         }
         batch.begin();
@@ -474,6 +469,7 @@ public void endGame(){
         batch.end();
         stage.act(delta);
         stage.draw();
+        debugRenderer.render(world,camera.combined);
     }
 
     @Override
