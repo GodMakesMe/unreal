@@ -10,15 +10,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Disposable;
 
 import java.io.Serializable;
 
 public class Bird implements Serializable {
     private String Name;
     private int Mass;
-    private transient Ability BirdAbility;
+    private Ability BirdAbility;
     private int Health;
     private transient Sprite BirdSprite;
     private transient Texture BirdTexture;
@@ -105,7 +103,7 @@ public class Bird implements Serializable {
         Fixture fixture = this.BirdBody.createFixture(fixtureDef);
         this.BirdBody.setUserData(this);
         this.BirdBody.setTransform(x, y, getBirdBody().getAngle());
-        this.BirdBody.setLinearVelocity(oldBirdInstance.x, oldBirdInstance.y*0f);
+        this.BirdBody.setLinearVelocity(oldBirdInstance.x_velocity, oldBirdInstance.y_velocity*0f);
         fixture.setUserData(this);
         BirdShape.dispose();
         this.Planet = oldBirdInstance.Planet;
@@ -234,14 +232,14 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
 
     public void playHitSound() {
 //        if ()
-        BirdHitSFX.play();
+        if (BirdHitSFX!=null)BirdHitSFX.play();
     }
     public void playDeathSound() {
-        BirdDeathSFX.play();
+        if (BirdDeathSFX != null) BirdDeathSFX.play();
     }
 
     public void processSerialization(Ability birdAbility, World world){
-        this.BirdAbility = BirdAbility;
+//        this.BirdAbility = BirdAbility;
         this.worldInstance = world;
 //        world.setGravity(new Vector2(0, 0f));
         if (BirdTexture == null) BirdTexture = new Texture(birdPath);
@@ -270,7 +268,7 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
         fixture.setUserData(this);
         BirdShape.dispose();
         this.BirdBody.setLinearVelocity(new Vector2(x_velocity, y_velocity));
-        if (!isIslaunched()) BirdBody.setGravityScale(0f);
+        if (!isItLaunched()) BirdBody.setGravityScale(0f);
         BirdSpawnSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Name+"SpawnSFX.mp3"));
 //        BirdSpawnSFX.play();
         BirdLaunchSFX = Gdx.audio.newMusic(Gdx.files.internal("assets/"+Name+"LaunchSFX.mp3"));
@@ -316,7 +314,7 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
         return BirdBody;
     }
 
-    public boolean isIslaunched() {
+    public boolean isItLaunched() {
         return islaunched;
     }
 
@@ -387,6 +385,7 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
 //    public float min(float a, float b){
 //        return Math.min(a,b);
 //    }
+
     public void updateSprite(){
         float posX=0,posY=0;
 //        && !(posX*posX+posY*posY<=1,681)
@@ -421,7 +420,7 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
             posX += x_s;
             posY += y_s;
         }
-        if(islaunched) {
+        if(islaunched && BirdBody != null) {
             if (BirdBody.getLinearVelocity().len() < 0.1f) {
                 Frames++;
             } else {
@@ -430,17 +429,18 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
         }
         if (Frames >= 60) {
             if (!isRemoved) playDeathSound();
-            selfdestroy();
-            isRemoved = true;
             if (BirdAbility instanceof EggAbility){
                 EggAbility eggAbility = (EggAbility)BirdAbility;
-                eggAbility.egg.isRemoved = true;
+                eggAbility.egg.selfdestroy();
             }else if (BirdAbility instanceof SplitAbility){
                 SplitAbility splitAbility = (SplitAbility)BirdAbility;
-                splitAbility.newBlueBird1.isRemoved = true;
-                splitAbility.newBlueBird2.isRemoved = true;
+                splitAbility.newBlueBird1.selfdestroy();
+                splitAbility.newBlueBird2.selfdestroy();
             }
+            selfdestroy();
+            return;
         }else {
+            if (getBirdSprite() == null || isRemoved) return;
             BirdBody.setTransform(BirdBody.getPosition().x + posX, BirdBody.getPosition().y + posY, BirdBody.getAngle());
             getBirdSprite().setPosition(BirdBody.getPosition().x - BirdSprite.getWidth() / 2, BirdBody.getPosition().y - BirdSprite.getHeight() / 2);
             BirdSprite.setOriginCenter();
@@ -449,6 +449,10 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
 //        y = BirdBody.getPosition().y - BirdSprite.getHeight()/2;
             x = BirdBody.getPosition().x;
             y = BirdBody.getPosition().y;
+            if (y < -getBirdSprite().getHeight()/2) {
+                selfdestroy();
+                return;
+            }
 //        float gravity = -3.73f;
 //        if(Planet.equals("Mars")){
 //            gravity = -3.73f;
@@ -525,7 +529,11 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
                     splitAbility.newBlueBird1.selfdestroy();
                     splitAbility.newBlueBird2.selfdestroy();
                 }
-//                BirdSprite = null;
+                if (BirdAbility instanceof EggAbility && isAbilityTriggered){
+                    EggAbility eggAbility = (EggAbility) BirdAbility;
+                    eggAbility.egg.selfdestroy();
+                }
+                BirdSprite = null;
 //            BirdSprite.setPosition(-1000, -1000);
                 isRemoved = true;
 
