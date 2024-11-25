@@ -601,7 +601,7 @@ public class MercuryLevel  implements Screen, Serializable {
                 markForRemoval(pig);
             }
         }
-        debugRenderer.render(world,camera.combined);
+                //  debugRenderer.render(world,camera.combined);
         if (SpaceBird != null && !SpaceBird.isRemoved()) {
             SpaceBird.updateSprite();
 //            if (SpaceBird.isItLaunched() && !flag) {

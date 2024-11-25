@@ -601,7 +601,7 @@ public class VenusLevel  implements Screen, Serializable {
                 markForRemoval(pig);
             }
         }
-//        debugRenderer.render(world,camera.combined);
+                //  debugRenderer.render(world,camera.combined);
         if (SpaceBird != null && !SpaceBird.isRemoved()) {
             SpaceBird.updateSprite();
 //            if (SpaceBird.isItLaunched() && !flag) {
@@ -685,7 +685,7 @@ public class VenusLevel  implements Screen, Serializable {
         batch.end();
         stage.act(delta);
         stage.draw();
-        debugRenderer.render(world,camera.combined);
+                //  debugRenderer.render(world,camera.combined);
     }
 
     @Override
