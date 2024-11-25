@@ -244,7 +244,7 @@ public class Main extends Game implements Serializable {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath))) {
             out.writeObject(screen);
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             System.out.println("Error saving file: " + e.getMessage());
         }
     }
@@ -254,7 +254,7 @@ public class Main extends Game implements Serializable {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
             return (Screen) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             System.out.println("Error loading file: " + e.getMessage());
             return null;
         }
