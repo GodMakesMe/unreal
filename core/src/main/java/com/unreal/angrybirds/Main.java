@@ -286,4 +286,16 @@ public class Main extends Game implements Serializable {
             file.delete();
         }
     }
+
+    void removeAllSavesGamesAndScores(){
+        String[] nameOfFiles = new String[]{"MarsLevel", "JupiterLevel", "MoonLevel", "MercuryLevel", "EarthLevel", "SaturnLevel", "VenusLevel", "NeptuneLevel", "UranusLevel"};
+        for (int i = 1; i < 4; i++){
+            removeFile("NormalLevel" + i);
+            removeFile("NormalLevel" + i + "Score");
+        }
+        for (String i : nameOfFiles) {
+            removeFile(i);
+            removeFile(i+"Score");
+        }
+    }
 }

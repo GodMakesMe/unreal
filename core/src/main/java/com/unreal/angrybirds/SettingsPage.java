@@ -101,7 +101,7 @@ public class SettingsPage implements Screen {
 
         GoBackButton = createButton("assets/GoBackButton.png", "assets/HoverGoBackButton.png", 554, 720 -312 - 67, 268, 67);
         goBackButtonPixmap = new Pixmap(Gdx.files.internal("assets/GoBackButton.png"));
-        RestartButton = createButton("assets/RestartButton.png", "assets/HoverRestartButton.png", 554, 720-394-67, 268, 67);
+        RestartButton = createButton("assets/ResetButton.png", "assets/HoverResetButton.png", 554, 720-394-67, 268, 67);
         restartButtonPixmap = new Pixmap(Gdx.files.internal("assets/GoBackButton.png"));
         ExitButton = createButton("assets/ExitButton.png", "assets/HoverExitButton.png", 554, 720-476-67, 268, 67);
         exitButtonPixmap = new Pixmap(Gdx.files.internal("assets/GoBackButton.png"));
@@ -110,7 +110,8 @@ public class SettingsPage implements Screen {
         stage.addActor(ExitButton);
         stage.addActor(musicButton);
         Game.clickHandling(ExitButton, exitButtonPixmap, new Exit(Game));
-        Game.clickHandling(RestartButton, restartButtonPixmap, new HomePage(Game));
+//        Game.clickHandling(RestartButton, restartButtonPixmap, new HomePage(Game));
+        Game.clickHandling(RestartButton, restartButtonPixmap, new Reset(Game));
         Game.clickHandling(GoBackButton, goBackButtonPixmap, previousScreen);
         musicHandling();
 
