@@ -29,9 +29,9 @@ public class NormalLevelEnd  implements Screen {
     BitmapFont Scorefont;
     private String Level;
 
-    public NormalLevelEnd(Main Game) {
-        this.Game = Game;
-    }
+//    public NormalLevelEnd(Main Game) {
+//        this.Game = Game;
+//    }
 
     public NormalLevelEnd(Main game, Player player, String level) {
         this.Game = game;

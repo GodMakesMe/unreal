@@ -140,35 +140,6 @@ public class MarsLevel  implements Screen, Serializable {
         bodiesToDestroy.clear();
     }
 
-
-//    // Flag to indicate loading state
-//    public void cleanupDestroyedBodies() {
-//        if (!world.isLocked() && !bodiesToDestroy.isEmpty()) {
-//            synchronized (bodiesToDestroy) {
-//                Iterator<Piggy> iterator = bodiesToDestroy.iterator();
-//                while (iterator.hasNext()) {
-//                    Piggy pig = iterator.next();
-//
-//                    // Ensure body is eligible for cleanup
-//                    if (pig.getPiggyBody() != null && pig.getPiggyBody().getUserData() != null) {
-//                        deadPiggyList.add(pig);
-//                        pig.dead = true;
-//                        Array<Fixture> fixtures = pig.getPiggyBody().getFixtureList();
-//                        while (fixtures.size > 0) {
-//                            pig.getPiggyBody().destroyFixture(fixtures.first());
-//                        }
-//
-//                        // Score updates only upon actual destruction
-//                        iterator.remove();
-//                        world.destroyBody(pig.getPiggyBody());
-//                        // If score reaches threshold, trigger level end
-//
-//                    }
-//                }
-//            }
-//        }
-//        bodiesToDestroy.clear();
-//    }
     public void updateScore(){
         int scoreToAdd = 0;
         for (Piggy i : deadPiggyList){

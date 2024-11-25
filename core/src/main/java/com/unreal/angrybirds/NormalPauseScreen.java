@@ -38,7 +38,7 @@ public class NormalPauseScreen  implements Screen {
         this.Game = game;
         this.PreviousScreen = PreviousScreen;
         this.Level = Level;
-        Game.saveGameScreen(PreviousScreen, "Normal" + Level);
+
 
     }
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
@@ -67,16 +67,17 @@ public class NormalPauseScreen  implements Screen {
 
 
         ResumeButton = createButton("assets/ResumeEarth.png","assets/HoverResumeEarth.png",234, 720 -217-67, 268, 67);
+        Game.saveGameScreen(PreviousScreen, "Normal" + Level);
         resumeButtonPixmap = new Pixmap(Gdx.files.internal("assets/ResumeEarth.png"));
         stage.addActor(ResumeButton);
         Game.clickHandling(ResumeButton, resumeButtonPixmap, PreviousScreen);
-        Screen screen = new EarthLevelPage(Game);
 
         SettingsButton = createButton("assets/Settings1Earth.png","assets/HoverSettings1Earth.png",235, 720 -299-67, 268, 67);
         settingsButtonPixmap = new Pixmap(Gdx.files.internal("assets/Settings1Earth.png"));
         stage.addActor(SettingsButton);
         Game.clickHandling(SettingsButton, settingsButtonPixmap, new SettingsPage(Game, "assets/NormalPause.png", this));
 
+        Screen screen = new EarthLevelPage(Game);
         BacktoMenuButton = createButton("assets/BacktoMenuEarth.png","assets/HoverBacktoMenuEarth.png",234, 720 -381-67, 268, 67);
         backtoMenuPixmap = new Pixmap(Gdx.files.internal("assets/BacktoMenuEarth.png"));
         stage.addActor(BacktoMenuButton);

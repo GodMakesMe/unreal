@@ -15,7 +15,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -55,7 +54,7 @@ public class NormalLevel1 implements Screen, Serializable {
     private transient Box2DDebugRenderer debugRenderer;
 
     private transient BodyDef bodyDef;
-    private transient com.badlogic.gdx.physics.box2d.FixtureDef FixtureDef;
+    private transient FixtureDef FixtureDef;
     private int initialPiggyCount;
 
     private ArrayList<Piggy> PigList;
@@ -70,13 +69,6 @@ public class NormalLevel1 implements Screen, Serializable {
 
     public NormalLevel1(Main game) {
         this.Game = game;
-//        File fontFile = new File("path/to/font.fnt");
-//        if (fontFile.exists()) {
-//            bitmapFont = new BitmapFont(Gdx.files.internal("path/to/font.fnt"));
-//        } else {
-//            // Handle the case where the font file is missing
-//            System.out.println("Font file not found!");
-//        }
         try{
             Scorefont = new BitmapFont(Gdx.files.internal("angrybirds.fnt"));
             Scorefont.setColor(Color.WHITE);
@@ -84,8 +76,6 @@ public class NormalLevel1 implements Screen, Serializable {
         }catch(Exception e){
 //            e.printStackTrace();
         }
-
-
         Screen serializedLevel = null;
 //        Scorefont.getData().setScale(1.2f);
         try{
@@ -108,7 +98,7 @@ public class NormalLevel1 implements Screen, Serializable {
             bodiesToDestroy = level.bodiesToDestroy;
             blockList = level.blockList;
             isSerialized = true;
-//            Game.removeFile("MarsLevel");
+//            Game.removeFile("NormalLevel1");
 //            SpaceBird.processSerialization(null, world);
         }else {
             player = new Player();
@@ -118,24 +108,11 @@ public class NormalLevel1 implements Screen, Serializable {
     public NormalLevel1(){
     }
 
-    public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
-        Texture ButtonTexture = new Texture(Path);
-        Texture HoverButtonTexture = new Texture(HoverPath);
-        ImageButton.ImageButtonStyle ButtonTextureStyle = new ImageButton.ImageButtonStyle();
-        ButtonTextureStyle.up = new TextureRegionDrawable(new TextureRegion(ButtonTexture));
-        ButtonTextureStyle.over = new TextureRegionDrawable(new TextureRegion(HoverButtonTexture));
-        ImageButton button = new ImageButton(ButtonTextureStyle);
-        button.setPosition(X,Y);
-        button.setSize(W,H);
-        return button;
-    }
-
     public void markForRemoval(Piggy pig) {
         if (pig != null && !bodiesToDestroy.contains(pig) && !pig.dead) {
             bodiesToDestroy.add(pig);
         }
     }
-
     public void cleanupDestroyedBodies() {
         if (!world.isLocked() && !bodiesToDestroy.isEmpty()) {
             synchronized (bodiesToDestroy) {
@@ -161,6 +138,9 @@ public class NormalLevel1 implements Screen, Serializable {
         bodiesToDestroy.clear();
     }
 
+
+
+
     public void updateScore(){
         int scoreToAdd = 0;
         for (Piggy i : deadPiggyList){
@@ -182,7 +162,6 @@ public class NormalLevel1 implements Screen, Serializable {
         }
         return true;
     }
-
     public void endGame(){
         if (player.getScore() >= allPigScore && deadPiggyList.size() == initialPiggyCount) {
             if ((SpaceBird == null || !SpaceBird.isItLaunched()) && allBlockRested()) {
@@ -208,11 +187,18 @@ public class NormalLevel1 implements Screen, Serializable {
         world.step(deltaTime, velocityIterations, positionIterations);
     }
 
-    public static float meterstopixels(float meters) {
-        return meters * 100;
+    public static float meterstopixels(float meters) { return meters * 100; }
+    public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
+        Texture ButtonTexture = new Texture(Path);
+        Texture HoverButtonTexture = new Texture(HoverPath);
+        ImageButton.ImageButtonStyle ButtonTextureStyle = new ImageButton.ImageButtonStyle();
+        ButtonTextureStyle.up = new TextureRegionDrawable(new TextureRegion(ButtonTexture));
+        ButtonTextureStyle.over = new TextureRegionDrawable(new TextureRegion(HoverButtonTexture));
+        ImageButton button = new ImageButton(ButtonTextureStyle);
+        button.setPosition(X,Y);
+        button.setSize(W,H);
+        return button;
     }
-
-
 
     @Override
     public void show() {
@@ -270,7 +256,7 @@ public class NormalLevel1 implements Screen, Serializable {
             for (Block block : blockList) {
                 if (block != null) block.processSerialization(world);
             }
-            birdsAvailable++;
+
             isSerialized = false;
         }
 
@@ -541,7 +527,7 @@ public class NormalLevel1 implements Screen, Serializable {
         }
 //        if(birdsAvailable<=0){
 //            Game.removeFile("NormalLevel1");
-////            Game.removeFile("MarsLevelScore");
+////            Game.removeFile("NormalLevel1Score");
 //            Game.setScreen(new NormalLevelEnd(Game,player,"level1"));
 //        }
         if (!isSerialized) cleanupDestroyedBodies();
@@ -561,7 +547,7 @@ public class NormalLevel1 implements Screen, Serializable {
 //            }
         }
         if (SpaceBird == null && birdsAvailable <= 0 && allBlockRested()) {
-            Game.removeFile("MarsLevel");
+            Game.removeFile("NormalLevel1");
 //            Game.removeFile("NeptuneLevelScore");
             Game.setScreen(new NormalLevelEnd(Game,player,"level1"));
         }

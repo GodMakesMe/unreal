@@ -94,7 +94,7 @@ public class NormalLevel2 implements Screen, Serializable {
             bodiesToDestroy = level.bodiesToDestroy;
             blockList = level.blockList;
             isSerialized = true;
-//            Game.removeFile("MarsLevel");
+//            Game.removeFile("NormalLevel2");
 //            SpaceBird.processSerialization(null, world);
         }else {
             player = new Player();
@@ -215,11 +215,11 @@ public class NormalLevel2 implements Screen, Serializable {
             world.setContactListener(new CollisionDetector());
             if (PigList == null && !isSerialized) {
                 PigList = new ArrayList<Piggy>();
-                PigList.add(new Piggy("First Piggy",5, null,"assets/MushPig.png",world,"Mars", (int) (955+47/2f), (int) (720-617-47/2f+100),47,47,5000));
-                PigList.add(new Piggy("Second Piggy",3,null,"assets/ProfPig.png",world,"Mars",(int) (1042+47/2f), (int) (720-441-47/2f+100),47,47,10000));
-                PigList.add(new Piggy("Third Piggy",7,null,"assets/KingPig.png",world,"Mars",(int) (1038+47/2f), (int) (720-537-47/2f+100),47,57,20000));
-//                PigList.add(new Piggy("Fourth Piggy",4,null,"assets/CorpPig.png",world,"Mars",(int) (939+47/2f), (int) (720-615-47/2f),47,43,9000));
-                PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Mars",(int) (1129+47/2f), (int) (720-615-47/2f+100),47,47,20000));
+                PigList.add(new Piggy("First Piggy",5, null,"assets/MushPig.png",world,"Earth", (int) (955+47/2f), (int) (720-617-47/2f+100),47,47,5000));
+                PigList.add(new Piggy("Second Piggy",3,null,"assets/ProfPig.png",world,"Earth",(int) (1042+47/2f), (int) (720-441-47/2f+100),47,47,10000));
+                PigList.add(new Piggy("Third Piggy",7,null,"assets/KingPig.png",world,"Earth",(int) (1038+47/2f), (int) (720-537-47/2f+100),47,57,20000));
+//                PigList.add(new Piggy("Fourth Piggy",4,null,"assets/CorpPig.png",world,"Earth",(int) (939+47/2f), (int) (720-615-47/2f),47,43,9000));
+                PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Earth",(int) (1129+47/2f), (int) (720-615-47/2f+100),47,47,20000));
                 initialPiggyCount = PigList.size();
                 AtomicInteger tempScore =  new AtomicInteger();
                 PigList.forEach(pig -> {tempScore.getAndAdd(pig.getScore());});
@@ -535,7 +535,7 @@ public class NormalLevel2 implements Screen, Serializable {
         }
 //        if(birdsAvailable<=0){
 //            Game.removeFile("NormalLevel2");
-////            Game.removeFile("MarsLevelScore");
+////            Game.removeFile("NormalLevel2Score");
 //            Game.setScreen(new NormalLevelEnd(Game,player,"level2"));
 //        }
         if (!isSerialized) cleanupDestroyedBodies();
@@ -555,7 +555,7 @@ public class NormalLevel2 implements Screen, Serializable {
 //            }
         }
         if (SpaceBird == null && birdsAvailable <= 0 && allBlockRested()) {
-            Game.removeFile("MarsLevel");
+            Game.removeFile("NormalLevel2");
 //            Game.removeFile("NeptuneLevelScore");
             Game.setScreen(new NormalLevelEnd(Game,player,"level2"));
         }
