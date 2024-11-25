@@ -4,11 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class Block implements Serializable {
     int health;
@@ -33,6 +33,7 @@ public class Block implements Serializable {
     private transient Music DeathSFX;
     private String Material;
     private int Frames;
+    private Vector2[] fixtureCoordinates;
 
     Block(String Material,String imageFile, float scalex, float scaley, World world, float mass, float pos_x, float pos_y, float angle, int health) {
         this.Material = Material;
@@ -62,7 +63,8 @@ public class Block implements Serializable {
         blockBody = worldInstance.createBody(blockBodydef);
         blockBody.setTransform(pos_x, pos_y, angle);
         PolygonShape blockShape = new PolygonShape();
-        blockShape.setAsBox(blockSprite.getWidth()/2, blockSprite.getHeight()/2);
+        if (fixtureCoordinates == null) blockShape.setAsBox(blockSprite.getWidth()/2, blockSprite.getHeight()/2);
+        else blockShape.set(fixtureCoordinates);
         blockBody.setFixedRotation(false);
         blockBody.setGravityScale(1);
         FixtureDef fixtureDef = new FixtureDef();
@@ -105,7 +107,8 @@ public class Block implements Serializable {
         blockBody = worldInstance.createBody(blockBodydef);
         blockBody.setTransform(x, y, angle);
         PolygonShape blockShape = new PolygonShape();
-        blockShape.setAsBox(blockSprite.getWidth()/2, blockSprite.getHeight()/2);
+        if (fixtureCoordinates == null) blockShape.setAsBox(blockSprite.getWidth()/2, blockSprite.getHeight()/2);
+        else blockShape.set(fixtureCoordinates);
         blockBody.setFixedRotation(false);
         blockBody.setGravityScale(1);
         FixtureDef fixtureDef = new FixtureDef();
@@ -124,6 +127,20 @@ public class Block implements Serializable {
     }
 
     public Block() {
+        PolygonShape blockShape = new PolygonShape();
+        blockShape.setAsBox(blockSprite.getWidth()/2, blockSprite.getHeight()/2);
+        blockBody.setFixedRotation(false);
+        blockBody.setGravityScale(1);
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = blockShape;
+        fixtureDef.density = 1.0f;
+        fixtureDef.friction = 0.1f;
+        fixtureDef.restitution = 0.1f;
+        Fixture fixture = blockBody.createFixture(fixtureDef);
+        blockBody.createFixture(fixtureDef);
+        blockBody.setUserData(this);
+        fixture.setUserData(this);
+        blockShape.dispose();
     }
 
     void placeBlock(int x, int y) {
@@ -135,6 +152,29 @@ public class Block implements Serializable {
         width = x;
     }
 
+    Block setShape(Vector2[] coordinates){
+        Array<Fixture> fixtures = getBlockBody().getFixtureList();
+        while (fixtures.size > 0) {
+            getBlockBody().destroyFixture(fixtures.first());
+        }
+        fixtureCoordinates = coordinates;
+        PolygonShape blockShape = new PolygonShape();
+        blockShape.set(fixtureCoordinates);
+//        blockBody.setFixedRotation(false);
+//        blockBody.setGravityScale(1);
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = blockShape;
+        fixtureDef.density = 1.0f;
+        fixtureDef.friction = 0.3f;
+        fixtureDef.restitution = 0.2f;
+        Fixture fixture = blockBody.createFixture(fixtureDef);
+        blockBody.createFixture(fixtureDef);
+        blockBody.setUserData(this);
+        fixture.setUserData(this);
+        blockShape.dispose();
+
+        return this;
+    }
     public void updateSprite() {
         if(blockBody != null) {
             if (health <= 0){ selfdestroy(); return;}

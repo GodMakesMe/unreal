@@ -287,14 +287,14 @@ public class NeptuneLevel  implements Screen, Serializable {
                 blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1105+21/2f, 720-625-40/2f, 0, 150));
                 blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1105+21/2f, 720-586-40/2f, 0, 150));
                 blockList.add(new Block("Wood","assets/WoodMediumHor.png", 20, 80, world, 0.25f, 1050+20/2f, 720-586-80/2f, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodLeftTriangle.png", 77, 79, world, 0.5f, 938+77/2f, 720-507-79/2f, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodRightTriangle.png", 77, 79, world, 0.5f, 1116+77/2f, 720-507-79/2f, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodLeftTriangle.png", 77, 79, world, 0.5f, 938+77/2f+1, 720-507-79/2f, 0, 150).setShape(new Vector2[]{new Vector2(-77f/2f,-79f/2f), new Vector2(+77f/2f,+79f/2f), new Vector2(+77f/2f,-79f/2f)}));
+                blockList.add(new Block("Wood","assets/WoodRightTriangle.png", 77, 79, world, 0.5f, 1116+77/2f-1.5f, 720-507-79/2f, 0, 150).setShape(new Vector2[]{new Vector2(-77f/2f,-79f/2f), new Vector2(-77f/2f,+79f/2f), new Vector2(+77f/2f,-79f/2f)}));
                 blockList.add(new Block("Glass","assets/GlassMediumVer.png", 160, 21, world, 0.75f, 986+160/2f, 720-488-21/2f, 0, 75));
                 blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1017+21/2f, 720-451-40/2f, 0, 100));
                 blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1017+21/2f, 720-412-40/2f, 0, 150));
                 blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1093+21/2f, 720-451-40/2f, 0, 150));
                 blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1093+21/2f, 720-412-40/2f, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodHTriangle.png", 80, 81, world, 0.25f, 1026+80/2f, 720-329-81/2f, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodHTriangle.png", 80, 81, world, 0.25f, 1026+80/2f, 720-329-81/2f, 0, 150).setShape(new Vector2[]{new Vector2(0, 81/2f),new Vector2(40, -81/2f),new Vector2(-40, -81/2f)}));
 //                blockList.add(new Block("assets/MediumGlass.png", 50, 15, world, 1, 1001, 60, 3.14f/2f, 100));
 //                blockList.add(new Block("assets/MediumGlass.png", 46, 10, world, 1, 1001, 60, 3.14f/2f, 100));
 //                blockList.add(new Block("assets/MediumGlass.png", 47, 10, world, 1, 1001, 60, 3.14f/2f, 100));

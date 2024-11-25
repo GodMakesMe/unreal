@@ -18,6 +18,8 @@ public class ExplodeAbility implements Ability, Serializable {
         myBirdLovely.isAbilityTriggered = true;
     }
     public void update(){
-        if (counter-- > 0) myBird.getBirdBody().setLinearVelocity(myBird.x_velocity*20, myBird.y_velocity*20);
+//        if (counter-- > 0) myBird.getBirdBody().setLinearVelocity(myBird.x_velocity*20, myBird.y_velocity*20);
+        if (counter-- > 0) myBird.getBirdBody().setLinearVelocity(myBird.x_velocity*20*(int)Math.pow(-1,counter/20), myBird.y_velocity*20*(int)Math.pow(-1,counter/5));
+        else myBird.getBirdBody().setFixedRotation(false);
     }
 }
