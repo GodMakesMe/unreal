@@ -74,6 +74,7 @@ public class NormalLevelEnd  implements Screen {
         replayButtonPixmap = new Pixmap(Gdx.files.internal("assets/Retry.png"));
         stage.addActor(ReplayButton);
         Screen mainScreen = null;
+        System.out.println("Going to Level:\t" + Level);
         if(Level.equals("level1")){
             mainScreen = new NormalLevel1(Game);
         }else if(Level.equals("level2")){
@@ -81,6 +82,7 @@ public class NormalLevelEnd  implements Screen {
         }else if(Level.equals("level3")){
             mainScreen = new NormalLevel3(Game);
         }
+
         Game.clickHandling(ReplayButton, replayButtonPixmap, mainScreen);
 
 
@@ -92,7 +94,6 @@ public class NormalLevelEnd  implements Screen {
         NextLevelButton = createButton("assets/NextLevel.png","assets/HoverNextLevel.png",701, 720 -572-67, 70, 67);
         nextLevelButtonPixmap = new Pixmap(Gdx.files.internal("assets/NextLevel.png"));
         stage.addActor(NextLevelButton);
-        Game.clickHandling(NextLevelButton, nextLevelButtonPixmap, new EarthLevelPage(Game));
         Screen nextScreen = null;
         if(Level.equals("level1")){
             nextScreen = new NormalLevel2(Game);
@@ -101,7 +102,7 @@ public class NormalLevelEnd  implements Screen {
         }else if(Level.equals("level3")){
             nextScreen = new NormalLevelCommingSoon(Game);
         }
-        Game.clickHandling(ReplayButton, replayButtonPixmap, nextScreen);
+        Game.clickHandling(NextLevelButton, nextLevelButtonPixmap, nextScreen);
     }
     @Override
     public void render(float delta) {

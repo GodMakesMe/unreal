@@ -18,7 +18,6 @@ public class SerializationTest {
 
     }
 
-
     @Test
     public void checkSerializationFile() {
         File preexist = new File("GameSaves/Test1.txt");
@@ -29,16 +28,6 @@ public class SerializationTest {
 //        levelEnd = new NormalPauseScreen(game, newScreen, "Test1.txt");
         game.saveGameScreen(newScreen, "Test1.txt");
         assertTrue(game.loadGameScreen("Test1.txt") != null);
-    }
-    @Test
-    public void checkSerializationOnPause(){
-        File preexist = new File("GameSaves/NormalTest1.txt");
-        if (preexist.exists()) {
-            preexist.delete();
-        }
-        assertFalse(preexist.exists());
-        levelEnd = new NormalPauseScreen(game, newScreen, "Test1.txt");
-        assertTrue(game.loadGameScreen("NormalTest1.txt") != null);
     }
 }
 

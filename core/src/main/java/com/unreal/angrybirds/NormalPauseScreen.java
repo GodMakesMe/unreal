@@ -67,10 +67,10 @@ public class NormalPauseScreen  implements Screen {
 
 
         ResumeButton = createButton("assets/ResumeEarth.png","assets/HoverResumeEarth.png",234, 720 -217-67, 268, 67);
-        Game.saveGameScreen(PreviousScreen, "Normal" + Level);
         resumeButtonPixmap = new Pixmap(Gdx.files.internal("assets/ResumeEarth.png"));
         stage.addActor(ResumeButton);
         Game.clickHandling(ResumeButton, resumeButtonPixmap, PreviousScreen);
+        Game.saveGameScreen(PreviousScreen, "Normal" + Level);
 
         SettingsButton = createButton("assets/Settings1Earth.png","assets/HoverSettings1Earth.png",235, 720 -299-67, 268, 67);
         settingsButtonPixmap = new Pixmap(Gdx.files.internal("assets/Settings1Earth.png"));
