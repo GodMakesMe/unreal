@@ -39,6 +39,7 @@ public class SpaceIntroduction implements Screen, Serializable {
     private transient Sprite endStar;
     public int stars;
     public String Planet;
+    Player prev;
 
     public SpaceIntroduction(Main game, String Planet) {
         this.Game = game;
@@ -85,7 +86,6 @@ public class SpaceIntroduction implements Screen, Serializable {
             Game.setScreen(new SpaceLevelScreen(Game));
         });
 //        Game.clickHandling(Backbutton, backButtonPixmap, new SpaceLevelScreen(Game)));
-
         Screen mainScreen = null;
         if(Planet.equals("Mercury")){
             mainScreen = new MercuryLevel(Game);
@@ -106,10 +106,13 @@ public class SpaceIntroduction implements Screen, Serializable {
         }else if (Planet.equals("Moon")) {
             mainScreen = new MoonLevel(Game);
         }
+        Screen guidePage = new GuidePage(Game, "assets/" + Planet + "Level.png", mainScreen);
         PlayButton = createButton("assets/Play.png","assets/HoverPlay.png",680,720-420-159,159,159);
         playButtonPixmap = new Pixmap(Gdx.files.internal("assets/Play.png"));
         stage.addActor(PlayButton);
-        Game.clickHandling(PlayButton, playButtonPixmap, mainScreen);
+        Game.clickHandling(PlayButton, playButtonPixmap, guidePage);
+
+        prev = Game.loadGameScore(Planet+"LevelScore");
     }
 
     @Override
@@ -117,15 +120,14 @@ public class SpaceIntroduction implements Screen, Serializable {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         ScreenUtils.clear(1, 1, 1, 1);
         batch.setProjectionMatrix(camera.combined);
-        Player prev;
-        prev = Game.loadGameScore(Planet+"LevelScore");
+
         batch.begin();
         sprite.draw(batch);
         if (prev != null && prev.hasWin()) {
 //            Batch batch1 = new SpriteBatch();
-            middleStar.draw(batch);
-            startStar.draw(batch);
-            endStar.draw(batch);
+            if (prev.calculateStar() > 0) startStar.draw(batch);
+            if (prev.calculateStar() > 1) middleStar.draw(batch);
+            if (prev.calculateStar() > 2) endStar.draw(batch);
         }
         batch.end();
         stage.act(delta);

@@ -100,6 +100,7 @@ public class JupiterLevel  implements Screen, Serializable {
         }else {
             player = new Player();
             birdsAvailable = 2;
+            player.totalBirds = birdsAvailable;
         }
     }
 
@@ -180,6 +181,7 @@ public class JupiterLevel  implements Screen, Serializable {
             }
         }
         player.setScore(scoreToAdd);
+        player.birdsLeft = birdsAvailable;
     }
 
     boolean allBlockRested(){
@@ -227,7 +229,14 @@ public class JupiterLevel  implements Screen, Serializable {
 
 
     }
-
+    int getAllBlockScore(){
+        int score = 0;
+        if (blockList == null) return score;
+        for (Block i : blockList){
+            score += (i.mass*i.height*i.width);
+        }
+        return score;
+    }
 
     public static float meterstopixels(float meters) {
         return meters * 100;
@@ -295,6 +304,7 @@ public class JupiterLevel  implements Screen, Serializable {
                 blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1093+21/2f, 720-451-40/2f, 0, 150));
                 blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1093+21/2f, 720-412-40/2f, 0, 150));
                 blockList.add(new Block("Wood","assets/WoodHTriangle.png", 80, 81, world, 0.25f, 1026+80/2f, 720-329-81/2f, 0, 150).setShape(new Vector2[]{new Vector2(0, 81/2f),new Vector2(40, -81/2f),new Vector2(-40, -81/2f)}));
+                player.setMaxScore(getAllBlockScore() + allPigScore);
 //                blockList.add(new Block("assets/MediumGlass.png", 50, 15, world, 1, 1001, 60, 3.14f/2f, 100));
 //                blockList.add(new Block("assets/MediumGlass.png", 46, 10, world, 1, 1001, 60, 3.14f/2f, 100));
 //                blockList.add(new Block("assets/MediumGlass.png", 47, 10, world, 1, 1001, 60, 3.14f/2f, 100));

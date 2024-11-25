@@ -98,7 +98,8 @@ public class NormalLevel2 implements Screen, Serializable {
 //            SpaceBird.processSerialization(null, world);
         }else {
             player = new Player();
-            birdsAvailable = 3;
+            birdsAvailable = 2;
+            player.totalBirds = birdsAvailable;
         }
     }
     public NormalLevel2(){
@@ -146,7 +147,14 @@ public class NormalLevel2 implements Screen, Serializable {
         }
         bodiesToDestroy.clear();
     }
-
+    int getAllBlockScore(){
+        int score = 0;
+        if (blockList == null) return score;
+        for (Block i : blockList){
+            score += (i.mass*i.height*i.width);
+        }
+        return score;
+    }
     public void updateScore(){
         int scoreToAdd = 0;
         for (Piggy i : deadPiggyList){
@@ -158,6 +166,7 @@ public class NormalLevel2 implements Screen, Serializable {
             }
         }
         player.setScore(scoreToAdd);
+        player.birdsLeft = birdsAvailable;
     }
     boolean allBlockRested(){
         for (Block i : blockList){

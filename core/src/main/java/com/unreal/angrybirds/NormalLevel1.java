@@ -67,6 +67,15 @@ public class NormalLevel1 implements Screen, Serializable {
     boolean isSerialized;
     private int allPigScore;
 
+    int getAllBlockScore(){
+        int score = 0;
+        if (blockList == null) return score;
+        for (Block i : blockList){
+            score += (i.mass*i.height*i.width);
+        }
+        return score;
+    }
+
     public NormalLevel1(Main game) {
         this.Game = game;
         try{
@@ -102,7 +111,8 @@ public class NormalLevel1 implements Screen, Serializable {
 //            SpaceBird.processSerialization(null, world);
         }else {
             player = new Player();
-            birdsAvailable = 3;
+            birdsAvailable = 2;
+            player.totalBirds = birdsAvailable;
         }
     }
     public NormalLevel1(){
@@ -152,6 +162,7 @@ public class NormalLevel1 implements Screen, Serializable {
             }
         }
         player.setScore(scoreToAdd);
+        player.birdsLeft = birdsAvailable;
     }
     boolean allBlockRested(){
         if (blockList == null) return true;
@@ -242,6 +253,7 @@ public class NormalLevel1 implements Screen, Serializable {
                 blockList.add(new Block("Wood","assets/WoodMediumVer.png", 80, 20, world, 2, 939+80/2f, 720-661-20/2f+100, 0, 150));
                 blockList.add(new Block("Glass","assets/GlassMediumHor.png", 20, 80, world, 0.25f, 939+20/2f, 720-580-80/2f+100, 0, 150));
                 blockList.add(new Block("Glass","assets/GlassMediumHor.png", 20, 80, world, 0.25f, 999+20/2f, 720-580-80/2f+100, 0, 150));
+                player.setMaxScore(getAllBlockScore() + allPigScore);
             }
 //            world.setGravity(new Vector2(0, 0f));
         }
