@@ -31,12 +31,15 @@ public class NormalPauseScreen  implements Screen {
     private Pixmap settingsButtonPixmap;
     private ImageButton BacktoMenuButton;
     private Pixmap backtoMenuPixmap;
-
+    private String Level;
     private Screen PreviousScreen;
 
-    public NormalPauseScreen(Main game, Screen PreviousScreen) {
+    public NormalPauseScreen(Main game, Screen PreviousScreen, String Level) {
         this.Game = game;
         this.PreviousScreen = PreviousScreen;
+        this.Level = Level;
+        Game.saveGameScreen(PreviousScreen, "Normal" + Level);
+
     }
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
         Texture ButtonTexture = new Texture(Path);

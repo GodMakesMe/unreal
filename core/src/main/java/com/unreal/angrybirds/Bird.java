@@ -283,7 +283,44 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
         isAbilityTriggered = false;
     }
 
-    public Bird() {
+    public Bird(String Name, int Mass,float x,float y,float Vx,float Vy,World world) {
+        this.Name = Name;
+        this.Mass = Mass;
+        this.BirdAbility = null;
+        this.worldInstance = world;
+        this.x = x;
+        this.y = y;
+        this.BirdBodydef = new BodyDef();
+        this.BirdBodydef.type = BodyDef.BodyType.DynamicBody;
+        this.BirdBodydef.position.x = x;
+        this.BirdBodydef.position.y =y;
+        this.iniX = x; this.iniY = y;
+        this.BirdBody = world.createBody(BirdBodydef);
+        this.GlobalX = 0;
+        this.GlobalY = 0;
+        PolygonShape BirdShape = new PolygonShape();
+        BirdShape.setAsBox(1,1);
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = BirdShape;
+        fixtureDef.density = 2;
+        fixtureDef.friction = 0.05f;
+        fixtureDef.restitution = 0.05f;
+        BirdBody.setFixedRotation(false);
+        this.islaunched = false;
+        this.BirdBody.setGravityScale(1f);
+        BirdBody.setLinearDamping(0);
+        BirdBody.setAngularDamping(0);
+        Fixture fixture = this.BirdBody.createFixture(fixtureDef);
+        this.BirdBody.setUserData(this);
+        fixture.setUserData(this);
+        this.BirdBody.setLinearVelocity(Vx, Vy);
+        BirdShape.dispose();
+        this.Planet = "EarthSurface";
+        BirdBody.setGravityScale(0f);
+        Frames=0;
+        isRemoved = false;
+        isStretched = false;
+        isAbilityTriggered = false;
     }
 
     public void playHitSound() {
@@ -622,6 +659,9 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
 
     public World getWorldInstance() {
         return worldInstance;
+    }
+    public void setPosition(Vector2 position) {
+
     }
 
 

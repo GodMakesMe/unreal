@@ -26,6 +26,7 @@ public class NormalLevel2 implements Screen, Serializable {
     private transient Stage stage;
     private transient SpriteBatch batch;
     private transient Sprite sprite;
+    private transient Sprite fastforwardSpriteBatch;
     protected Player player;
     //    private ImageButton Nextbutton;
 //    private Pixmap nextButtonPixmap;
@@ -70,6 +71,7 @@ public class NormalLevel2 implements Screen, Serializable {
         this.Game = game;
         Scorefont = new BitmapFont(Gdx.files.internal("angrybirds.fnt"));
         Scorefont.setColor(Color.WHITE);
+        fastforwardSpriteBatch = new Sprite(new Texture("FastForward1.png"));
         Screen serializedLevel = null;
 //        Scorefont.getData().setScale(1.2f);
         try{
@@ -99,6 +101,9 @@ public class NormalLevel2 implements Screen, Serializable {
             birdsAvailable = 3;
         }
     }
+    public NormalLevel2(){
+    }
+
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
         Texture ButtonTexture = new Texture(Path);
         Texture HoverButtonTexture = new Texture(HoverPath);
@@ -154,18 +159,38 @@ public class NormalLevel2 implements Screen, Serializable {
         }
         player.setScore(scoreToAdd);
     }
+    boolean allBlockRested(){
+        for (Block i : blockList){
+            if ( i != null && !i.isRemoved && !i.isRested()){
+                return false;
+            }
+        }
+        return true;
+    }
 
     public void endGame(){
         if (player.getScore() >= allPigScore && deadPiggyList.size() == initialPiggyCount) {
-            if ((int) SpaceBird.getBirdBody().getLinearVelocity().x <= 1 && SpaceBird.getBirdBody().getLinearVelocity().y <= 1) {
+            if ((SpaceBird == null || !SpaceBird.isItLaunched()) && allBlockRested()) {
                 Player oldRecord = Game.loadGameScore("NormalLevel2Score");
                 if (oldRecord == null || oldRecord.getScore() < player.getScore()) {
                     Game.saveGameScore(player, "NormalLevel2Score");
                 }
                 Game.removeFile("NormalLevel2");
-                Game.setScreen(new NormalLevelEnd(Game, player,"level2"));
+                Game.setScreen(new NormalLevelEnd(Game, player, "level2"));
             }
         }
+    }
+    void fastForward(){
+        float timeStep = 1 / 60f;
+        int velocityIterations = 6;
+        int positionIterations = 2;
+        float fastForwardFactor = 5f;
+        timeStep = timeStep / fastForwardFactor;
+        world.step(timeStep, velocityIterations, positionIterations);
+        float deltaTime = Gdx.graphics.getDeltaTime();
+        fastForwardFactor = 2f;
+        deltaTime *= fastForwardFactor;
+        world.step(deltaTime, velocityIterations, positionIterations);
     }
 
     public static float meterstopixels(float meters) {
@@ -190,11 +215,11 @@ public class NormalLevel2 implements Screen, Serializable {
             world.setContactListener(new CollisionDetector());
             if (PigList == null && !isSerialized) {
                 PigList = new ArrayList<Piggy>();
-                PigList.add(new Piggy("First Piggy",5, null,"assets/MushPig.png",world,"Earth", (int) (955+47/2f), (int) (720-617-47/2f+100),47,47,5000));
-                PigList.add(new Piggy("Second Piggy",3,null,"assets/ProfPig.png",world,"Earth",(int) (1042+47/2f), (int) (720-441-47/2f+100),47,47,10000));
-                PigList.add(new Piggy("Third Piggy",7,null,"assets/KingPig.png",world,"Earth",(int) (1038+47/2f), (int) (720-537-47/2f+100),47,57,20000));
+                PigList.add(new Piggy("First Piggy",5, null,"assets/MushPig.png",world,"Mars", (int) (955+47/2f), (int) (720-617-47/2f+100),47,47,5000));
+                PigList.add(new Piggy("Second Piggy",3,null,"assets/ProfPig.png",world,"Mars",(int) (1042+47/2f), (int) (720-441-47/2f+100),47,47,10000));
+                PigList.add(new Piggy("Third Piggy",7,null,"assets/KingPig.png",world,"Mars",(int) (1038+47/2f), (int) (720-537-47/2f+100),47,57,20000));
 //                PigList.add(new Piggy("Fourth Piggy",4,null,"assets/CorpPig.png",world,"Mars",(int) (939+47/2f), (int) (720-615-47/2f),47,43,9000));
-                PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Earth",(int) (1129+47/2f), (int) (720-615-47/2f+100),47,47,20000));
+                PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Mars",(int) (1129+47/2f), (int) (720-615-47/2f+100),47,47,20000));
                 initialPiggyCount = PigList.size();
                 AtomicInteger tempScore =  new AtomicInteger();
                 PigList.forEach(pig -> {tempScore.getAndAdd(pig.getScore());});
@@ -225,10 +250,6 @@ public class NormalLevel2 implements Screen, Serializable {
                 blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1093+21/2f, 720-451-40/2f+100, 0, 150));
                 blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 1093+21/2f, 720-412-40/2f+100, 0, 150));
                 blockList.add(new Block("Wood","assets/WoodHTriangle.png", 80, 81, world, 0.25f, 1026+80/2f, 720-329-81/2f+100, 0, 150));
-//                blockList.add(new Block("assets/MediumGlass.png", 50, 15, world, 1, 1001, 60, 3.14f/2f, 100));
-//                blockList.add(new Block("assets/MediumGlass.png", 46, 10, world, 1, 1001, 60, 3.14f/2f, 100));
-//                blockList.add(new Block("assets/MediumGlass.png", 47, 10, world, 1, 1001, 60, 3.14f/2f, 100));
-//                blockList.add(new Block("assets/MediumGlass.png", 49, 10, world, 1, 1001, 60, 3.14f/2f, 100));
             }
 //            world.setGravity(new Vector2(0, 0f));
         }
@@ -262,23 +283,46 @@ public class NormalLevel2 implements Screen, Serializable {
         PauseButton = createButton("assets/Pause.png","assets/HoverPause.png",47, (int) (720 -39-78.3), (int) 78.4, (int) 78.4);
         pauseButtonPixmap = new Pixmap(Gdx.files.internal("assets/Pause.png"));
         stage.addActor(PauseButton);
-        Game.clickHandling(PauseButton, pauseButtonPixmap, new NormalPauseScreen(Game, this));
+        Game.clickHandling(PauseButton, pauseButtonPixmap, new NormalPauseScreen(Game, this, "Level2"));
 
         RedBirdButton= createButton("assets/RedBird.png","assets/HoverRedBird.png",141, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
         redBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/RedBird.png"));
         stage.addActor(RedBirdButton);
         Game.clickHandling(RedBirdButton, redBirdButtonPixmap, null);
+
         RedBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null) {
-                    world.destroyBody(SpaceBird.getBirdBody());
+                if (SpaceBird != null && SpaceBird.isItLaunched()) {
+//                    world.destroyBody(SpaceBird.getBirdBody());
+                    SpaceBird.selfdestroy();
+                    if (birdsAvailable <= 0) {
+                        flag = true;
+                    }
+                    else {
+                        SpaceBird = new Bird("Red", 20, new WarCryAbility(), "assets/RedBirdMain.png",world);
+                        birdsAvailable--;
+                        BirdX  = SpaceBird.getX();
+                        BirdY = SpaceBird.getY();
+
+                    }
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Red", 20, new WarCryAbility(), "assets/RedBirdMain.png",world);
-                else {flag = false; return true;}
-//                birdsAvailable--;
-                flag = false;
-                BirdX  = SpaceBird.getX();
-                BirdY = SpaceBird.getY();
+                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
+                    SpaceBird.selfdestroy();
+                    SpaceBird = new Bird("Red", 20, new WarCryAbility(), "assets/RedBirdMain.png",world);
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+                else if (SpaceBird == null && birdsAvailable <= 0) {
+                    flag = true;
+                }else {
+                    SpaceBird = new Bird("Red", 20, new WarCryAbility(), "assets/RedBirdMain.png",world);
+//                else {flag = false; return true;}
+//                    flag = false;
+                    birdsAvailable--;
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+
                 return true;
             }
 
@@ -288,20 +332,44 @@ public class NormalLevel2 implements Screen, Serializable {
         yellowBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/YellowBird.png"));
         stage.addActor(YellowBirdButton);
         Game.clickHandling(YellowBirdButton, yellowBirdButtonPixmap, null);
+        YellowBirdButton= createButton("assets/YellowBird.png","assets/HoverYellowBird.png",220, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+        yellowBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/YellowBird.png"));
+        stage.addActor(YellowBirdButton);
+        Game.clickHandling(YellowBirdButton, yellowBirdButtonPixmap, null);
         YellowBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null) {
-                    world.destroyBody(SpaceBird.getBirdBody());
+                if (SpaceBird != null && SpaceBird.isItLaunched()) {
+//                    world.destroyBody(SpaceBird.getBirdBody());
+                    SpaceBird.selfdestroy();
+                    if (birdsAvailable <= 0) {
+                        flag = true;
+                    }
+                    else {
+                        SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world);
+                        birdsAvailable--;
+                        BirdX  = SpaceBird.getX();
+                        BirdY = SpaceBird.getY();
+
+                    }
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world);
-                else {flag = false; return true;}
-//                birdsAvailable--;
-                flag = false;
-                BirdX  = SpaceBird.getX();
-                BirdY = SpaceBird.getY();
+                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
+                    SpaceBird.selfdestroy();
+                    SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world);
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+                else if (SpaceBird == null && birdsAvailable <= 0) {
+                    flag = true;
+                }else {
+                    SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world);
+//                    else {flag = false; return true;}
+//                    flag = false;
+                    birdsAvailable--;
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
                 return true;
             }
-
         });
 
         BlueBirdButton= createButton("assets/BlueBird.png","assets/HoverBlueBird.png",299, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
@@ -310,15 +378,34 @@ public class NormalLevel2 implements Screen, Serializable {
         Game.clickHandling(BlueBirdButton, blueBirdButtonPixmap, null);
         BlueBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null) {
-                    world.destroyBody(SpaceBird.getBirdBody());
+                if (SpaceBird != null && SpaceBird.isItLaunched()) {
+//                    world.destroyBody(SpaceBird.getBirdBody());
+                    SpaceBird.selfdestroy();
+                    if (birdsAvailable <= 0) {
+                        flag = true;
+                    }
+                    else {
+                        SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world);
+                        birdsAvailable--;
+                        BirdX  = SpaceBird.getX();
+                        BirdY = SpaceBird.getY();
+
+                    }
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world);
-                else{ flag = false; return true;}
-//                birdsAvailable--;
-                flag = false;
-                BirdX  = SpaceBird.getX();
-                BirdY = SpaceBird.getY();
+                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
+                    SpaceBird.selfdestroy();
+                    SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world);
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+                else if (SpaceBird == null && birdsAvailable <= 0) {
+                    flag = true;
+                }else {
+                    SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world);
+                    birdsAvailable--;
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
                 return true;
             }
 
@@ -334,15 +421,33 @@ public class NormalLevel2 implements Screen, Serializable {
         Game.clickHandling(BombBirdButton, bombBirdButtonPixmap, null);
         BombBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null) {
-                    world.destroyBody(SpaceBird.getBirdBody());
+                if (SpaceBird != null && SpaceBird.isItLaunched()) {
+                    SpaceBird.selfdestroy();
+                    if (birdsAvailable <= 0) {
+                        flag = true;
+                    }
+                    else {
+                        SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world);
+                        birdsAvailable--;
+                        BirdX  = SpaceBird.getX();
+                        BirdY = SpaceBird.getY();
+
+                    }
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world);
-                else {flag = false; return true;}
-//                birdsAvailable--;
-                flag = false;
-                BirdX  = SpaceBird.getX();
-                BirdY = SpaceBird.getY();
+                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
+                    SpaceBird.selfdestroy();
+                    SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world);
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+                else if (SpaceBird == null && birdsAvailable <= 0) {
+                    flag = true;
+                }else {
+                    SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world);
+                    birdsAvailable--;
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
                 return true;
             }
 
@@ -354,15 +459,33 @@ public class NormalLevel2 implements Screen, Serializable {
         Game.clickHandling(WhiteBirdButton, whiteBirdButtonPixmap, null);
         WhiteBirdButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null) {
-                    world.destroyBody(SpaceBird.getBirdBody());
+                if (SpaceBird != null && SpaceBird.isItLaunched()) {
+                    SpaceBird.selfdestroy();
+                    if (birdsAvailable <= 0) {
+                        flag = true;
+                    }
+                    else {
+                        SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world);
+                        birdsAvailable--;
+                        BirdX  = SpaceBird.getX();
+                        BirdY = SpaceBird.getY();
+
+                    }
                 }
-                if (birdsAvailable > 1) SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world);
-                else {flag = false; return true;}
-//                birdsAvailable--;
-                flag = false;
-                BirdX  = SpaceBird.getX();
-                BirdY = SpaceBird.getY();
+                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
+                    SpaceBird.selfdestroy();
+                    SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world);
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
+                else if (SpaceBird == null && birdsAvailable <= 0 && allBlockRested()) {
+                    flag = true;
+                }else {
+                    SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world);
+                    birdsAvailable--;
+                    BirdX  = SpaceBird.getX();
+                    BirdY = SpaceBird.getY();
+                }
                 return true;
             }
 
@@ -388,7 +511,7 @@ public class NormalLevel2 implements Screen, Serializable {
         bodyDef.position.set(0,0);
 
         ChainShape GroundShape1 = new ChainShape();
-        GroundShape1.createChain(new Vector2[] {new Vector2((175),(720-547)),new Vector2((177),(720-547))});
+        GroundShape1.createChain(new Vector2[] {new Vector2((175),(720-547-10)),new Vector2((177),(720-547-10))});
 
         FixtureDef.shape = GroundShape1;
         FixtureDef.friction = 0.5f;
@@ -407,14 +530,14 @@ public class NormalLevel2 implements Screen, Serializable {
         for (Piggy pig : bodiesToDestroy) {
             pig.getPiggyBody().setActive(false);
         }
-//        if(SpaceBird != null && SpaceBird.isRemoved()){
-//            SpaceBird = null;
-//        }
-        if(birdsAvailable<=0){
-            Game.removeFile("NormalLevel2");
-//            Game.removeFile("MarsLevelScore");
-            Game.setScreen(new NormalLevelEnd(Game,player,"level2"));
+        if(SpaceBird != null && SpaceBird.isRemoved()){
+            SpaceBird = null;
         }
+//        if(birdsAvailable<=0){
+//            Game.removeFile("NormalLevel2");
+////            Game.removeFile("MarsLevelScore");
+//            Game.setScreen(new NormalLevelEnd(Game,player,"level2"));
+//        }
         if (!isSerialized) cleanupDestroyedBodies();
         updateScore();
         endGame();
@@ -426,10 +549,15 @@ public class NormalLevel2 implements Screen, Serializable {
 //        debugRenderer.render(world,camera.combined);
         if (SpaceBird != null && !SpaceBird.isRemoved()) {
             SpaceBird.updateSprite();
-            if (SpaceBird.isIslaunched() && !flag) {
-                birdsAvailable--;
-                flag = true;
-            }
+//            if (SpaceBird.isItLaunched() && !flag) {
+//                birdsAvailable--;
+//                flag = true;
+//            }
+        }
+        if (SpaceBird == null && birdsAvailable <= 0 && allBlockRested()) {
+            Game.removeFile("MarsLevel");
+//            Game.removeFile("NeptuneLevelScore");
+            Game.setScreen(new NormalLevelEnd(Game,player,"level2"));
         }
 
         for(Piggy pig: PigList){
@@ -448,6 +576,13 @@ public class NormalLevel2 implements Screen, Serializable {
 
         batch.begin();
 
+        if (SpaceBird == null && flag){
+            Game.removeFile("NormalLevel2");
+//            Game.removeFile("NeptuneLevelScore");
+            Game.setScreen(new NormalLevelEnd(Game,player,"Level1"));
+//            dispose();
+        }
+
         for(Piggy pig: PigList){
             if(pig != null && !pig.isRemoved()) {
                 pig.getPiggySprite().draw(batch);
@@ -458,21 +593,33 @@ public class NormalLevel2 implements Screen, Serializable {
         }
         batch.end();
         if (SpaceBird != null && !SpaceBird.isRemoved()) {
-            if(!SpaceBird.isIslaunched() && SpaceBird.notInOrigin()){
+            if(!SpaceBird.isItLaunched() && SpaceBird.notInOrigin()){
                 SpaceBird.DrawTrajectory();
             }
             batch.begin();
-            SpaceBird.getBirdSprite().draw(batch);
+            if (SpaceBird.getBirdSprite() != null) SpaceBird.getBirdSprite().draw(batch);
             if (SpaceBird.getBirdAbility() instanceof SplitAbility && SpaceBird.isAbilityTriggered){
                 SplitAbility birdAbility = (SplitAbility)SpaceBird.getBirdAbility();
-                birdAbility.newBlueBird1.getBirdSprite().draw(batch);
-                birdAbility.newBlueBird2.getBirdSprite().draw(batch);
+                if (birdAbility.newBlueBird1 != null && !birdAbility.newBlueBird1.isRemoved() && birdAbility.newBlueBird1.getBirdSprite() != null) birdAbility.newBlueBird1.getBirdSprite().draw(batch);
+                if (birdAbility.newBlueBird1 != null && !birdAbility.newBlueBird1.isRemoved() && birdAbility.newBlueBird2.getBirdSprite() != null) birdAbility.newBlueBird2.getBirdSprite().draw(batch);
             }else if (SpaceBird.getBirdAbility() instanceof EggAbility && SpaceBird.isAbilityTriggered){
                 EggAbility eggAbility = (EggAbility)SpaceBird.getBirdAbility();
-                eggAbility.egg.getBirdSprite().draw(batch);
+                if (eggAbility.egg != null && !eggAbility.egg.isRemoved() && eggAbility.egg.getBirdSprite() != null) eggAbility.egg.getBirdSprite().draw(batch);
             }
             batch.end();
         }
+        boolean draw = false;
+        if (deadPiggyList.size() == initialPiggyCount){
+            draw = true;
+
+            fastForward();
+
+        }
+
+//            fastforwardSpriteBatch.setSize(1014, 720);
+        batch.begin();
+        if (draw) batch.draw(fastforwardSpriteBatch, 0, 0, 1280, 720);
+        batch.end();
         batch.begin();
         SlingShotFront.draw(batch);
         batch.end();
@@ -510,5 +657,12 @@ public class NormalLevel2 implements Screen, Serializable {
         batch.dispose();
         stage.dispose();
         sprite.getTexture().dispose();
+    }
+    public ArrayList<Piggy> getDeadPiggyList() {
+        return deadPiggyList;
+    }
+
+    public void setDeadPiggyList(ArrayList<Piggy> deadPiggyList) {
+        this.deadPiggyList = deadPiggyList;
     }
 }

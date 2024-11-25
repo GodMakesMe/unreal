@@ -5,10 +5,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.io.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -19,6 +22,17 @@ import static java.lang.System.exit;
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 @SuppressWarnings("all")
 public class Main extends Game implements Serializable {
+    public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
+        Texture ButtonTexture = new Texture(Path);
+        Texture HoverButtonTexture = new Texture(HoverPath);
+        ImageButton.ImageButtonStyle ButtonTextureStyle = new ImageButton.ImageButtonStyle();
+        ButtonTextureStyle.up = new TextureRegionDrawable(new TextureRegion(ButtonTexture));
+        ButtonTextureStyle.over = new TextureRegionDrawable(new TextureRegion(HoverButtonTexture));
+        ImageButton button = new ImageButton(ButtonTextureStyle);
+        button.setPosition(X,Y);
+        button.setSize(W,H);
+        return button;
+    }
     Float spaceGravityByPlantName(String Planet){
         if (Planet.equals("Mars")) return -3.73f;
         else if (Planet.equals("Earth")) return -9.81f;
@@ -224,19 +238,24 @@ public class Main extends Game implements Serializable {
     }
 
     protected void saveGameScreen(Screen screen, String fileName) {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("GameSaves/"+fileName))) {
+        String filePath = System.getProperty("user.dir") + "/GameSaves/" + fileName; // Absolute path
+        File file = new File(filePath);
+        file.getParentFile().mkdirs(); // Create directories if they don't exist
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath))) {
             out.writeObject(screen);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+            System.out.println("Error saving file: " + e.getMessage());
         }
     }
 
-    // Deserialize method
     protected Screen loadGameScreen(String fileName) {
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("GameSaves/" + fileName))) {
+        String filePath = System.getProperty("user.dir") + "/GameSaves/" + fileName; // Absolute path
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
             return (Screen) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+            System.out.println("Error loading file: " + e.getMessage());
             return null;
         }
     }
@@ -248,6 +267,9 @@ public class Main extends Game implements Serializable {
             System.out.println(e.getMessage());
         }
     }
+
+
+
 
     // Deserialize method
     protected Player loadGameScore(String fileName) {

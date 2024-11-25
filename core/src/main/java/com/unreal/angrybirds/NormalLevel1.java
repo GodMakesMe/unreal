@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -69,9 +70,22 @@ public class NormalLevel1 implements Screen, Serializable {
 
     public NormalLevel1(Main game) {
         this.Game = game;
-        Scorefont = new BitmapFont(Gdx.files.internal("angrybirds.fnt"));
-        Scorefont.setColor(Color.WHITE);
-        fastforwardSpriteBatch = new Sprite(new Texture("FastForward1.png"));
+//        File fontFile = new File("path/to/font.fnt");
+//        if (fontFile.exists()) {
+//            bitmapFont = new BitmapFont(Gdx.files.internal("path/to/font.fnt"));
+//        } else {
+//            // Handle the case where the font file is missing
+//            System.out.println("Font file not found!");
+//        }
+        try{
+            Scorefont = new BitmapFont(Gdx.files.internal("angrybirds.fnt"));
+            Scorefont.setColor(Color.WHITE);
+            fastforwardSpriteBatch = new Sprite(new Texture("FastForward1.png"));
+        }catch(Exception e){
+//            e.printStackTrace();
+        }
+
+
         Screen serializedLevel = null;
 //        Scorefont.getData().setScale(1.2f);
         try{
@@ -274,7 +288,7 @@ public class NormalLevel1 implements Screen, Serializable {
         PauseButton = createButton("assets/Pause.png","assets/HoverPause.png",47, (int) (720 -39-78.3), (int) 78.4, (int) 78.4);
         pauseButtonPixmap = new Pixmap(Gdx.files.internal("assets/Pause.png"));
         stage.addActor(PauseButton);
-        Game.clickHandling(PauseButton, pauseButtonPixmap, new NormalPauseScreen(Game, this));
+        Game.clickHandling(PauseButton, pauseButtonPixmap, new NormalPauseScreen(Game, this, "Level1"));
 
         RedBirdButton= createButton("assets/RedBird.png","assets/HoverRedBird.png",141, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
         redBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/RedBird.png"));

@@ -10,7 +10,6 @@ buildscript {
   }
   dependencies {
     classpath "org.docstr:gwt-gradle-plugin:$gwtPluginVersion"
-
   }
 }
 
@@ -68,6 +67,12 @@ subprojects {
     maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
     maven { url 'https://jitpack.io' }
   }
+  dependencies {
+    // Use testImplementation for test dependencies in the subprojects
+    testImplementation 'org.mockito:mockito-core:5.1.0'
+  }
 }
+
+
 
 eclipse.project.name = 'AngryBirds' + '-parent'
