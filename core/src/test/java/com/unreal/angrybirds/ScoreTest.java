@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,7 +28,10 @@ public class ScoreTest {
             preexist.delete();
         }
         assertFalse(preexist.exists());
-        game.saveGameScreen(newScreen, "ScoreTest1.txt");
-        assertTrue(game.loadGameScreen("ScoreTest1.txt") != null);
+        game.saveGameScore(newScreen.player, "ScoreTest1.txt");
+
+        assertTrue(game.loadGameScore("ScoreTest1.txt") != null);
+        assertTrue(game.loadGameScore("ScoreTest1.txt").getScore() == 2398);
     }
+
 }

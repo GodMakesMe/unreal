@@ -36,8 +36,12 @@ public class NormalLevelEnd  implements Screen {
     public NormalLevelEnd(Main game, Player player, String level) {
         this.Game = game;
         this.player = player;
-        Scorefont = new BitmapFont(Gdx.files.internal("angrybirds.fnt"));
-        Scorefont.setColor(Color.WHITE);
+        try {
+            Scorefont = new BitmapFont(Gdx.files.internal("angrybirds.fnt"));
+            Scorefont.setColor(Color.WHITE);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         this.Level = level;
 
     }

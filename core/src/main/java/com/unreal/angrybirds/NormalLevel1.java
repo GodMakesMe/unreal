@@ -174,6 +174,7 @@ public class NormalLevel1 implements Screen, Serializable {
         player.setScore(scoreToAdd);
     }
     boolean allBlockRested(){
+        if (blockList == null) return true;
         for (Block i : blockList){
             if ( i != null && !i.isRemoved && !i.isRested()){
                 return false;
@@ -669,5 +670,8 @@ public class NormalLevel1 implements Screen, Serializable {
 
     public void setDeadPiggyList(ArrayList<Piggy> deadPiggyList) {
         this.deadPiggyList = deadPiggyList;
+    }
+    public ArrayList<Piggy> getPiggyList(){
+        return PigList;
     }
 }

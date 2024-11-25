@@ -250,7 +250,7 @@ public class Main extends Game implements Serializable {
     }
 
     protected Screen loadGameScreen(String fileName) {
-        String filePath = System.getProperty("user.dir") + "/GameSaves/" + fileName; // Absolute path
+        String filePath = System.getProperty("user.dir").replace('\\', '/') + "/GameSaves/" + fileName; // Absolute path
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
             return (Screen) in.readObject();
         } catch (IOException | ClassNotFoundException e) {

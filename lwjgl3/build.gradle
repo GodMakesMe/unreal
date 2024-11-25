@@ -28,10 +28,12 @@ if (JavaVersion.current().isJava9Compatible()) {
 }
 
 dependencies {
+  implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
   implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
   implementation "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
   implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
   implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+
 
   implementation project(':core')
 
@@ -134,3 +136,8 @@ startScripts.classpath = project.tasks.jar.outputs.files
 if(enableGraalNative == 'true') {
   apply from: file("nativeimage.gradle")
 }
+
+//test {
+//  jvmArgs += ["-Djava.library.path=$projectDir/libs"]
+//}
+
