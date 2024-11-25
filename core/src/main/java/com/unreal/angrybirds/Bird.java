@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 
 import java.io.Serializable;
 
@@ -45,6 +46,7 @@ public class Bird implements Serializable {
     private transient Music StretchSFX;
     private transient Music StretchLaunchSFX;
     public boolean isfirstCollided;
+    private Vector2[] fixtureCoordinates;
 
     public boolean isAbilityTriggered;
 
@@ -52,6 +54,7 @@ public class Bird implements Serializable {
         this.worldInstance = oldBirdInstance.worldInstance;
         this.x = x;
         this.y = y;
+        this.fixtureCoordinates = oldBirdInstance.fixtureCoordinates;
         this.Name = oldBirdInstance.Name;
         this.Mass = oldBirdInstance.Mass;
 //        this.BirdAbility = oldBirdInstance.BirdAbility;
@@ -88,7 +91,8 @@ public class Bird implements Serializable {
         this.GlobalX = 0;
         this.GlobalY = 0;
         PolygonShape BirdShape = new PolygonShape();
-        BirdShape.setAsBox(BirdSprite.getWidth()/2,BirdSprite.getHeight()/2);
+        if (fixtureCoordinates == null) BirdShape.setAsBox(BirdSprite.getWidth()/2,BirdSprite.getHeight()/2);
+        else BirdShape.set(fixtureCoordinates);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = BirdShape;
         fixtureDef.density = 2;
@@ -115,6 +119,7 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
         this.y = y;
         this.Name = oldBirdInstance.Name;
         this.Mass = oldBirdInstance.Mass;
+        this.fixtureCoordinates = oldBirdInstance.fixtureCoordinates;
 //        this.BirdAbility = oldBirdInstance.BirdAbility;
         this.Health = oldBirdInstance.Health;
         this.BirdSprite = oldBirdInstance.BirdSprite;
@@ -149,7 +154,8 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
         this.GlobalX = 0;
         this.GlobalY = 0;
         PolygonShape BirdShape = new PolygonShape();
-        BirdShape.setAsBox(BirdSprite.getWidth()/2,BirdSprite.getHeight()/2);
+        if (fixtureCoordinates == null) BirdShape.setAsBox(BirdSprite.getWidth()/2,BirdSprite.getHeight()/2);
+        else BirdShape.set(fixtureCoordinates);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = BirdShape;
         fixtureDef.density = 2;
@@ -195,7 +201,8 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
         this.GlobalX = 0;
         this.GlobalY = 0;
         PolygonShape BirdShape = new PolygonShape();
-        BirdShape.setAsBox(BirdSprite.getWidth()/2,BirdSprite.getHeight()/2);
+        if (fixtureCoordinates == null) BirdShape.setAsBox(BirdSprite.getWidth()/2,BirdSprite.getHeight()/2);
+        else BirdShape.set(fixtureCoordinates);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = BirdShape;
         fixtureDef.density = 2;
@@ -251,7 +258,8 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
         this.GlobalX = 0;
         this.GlobalY = 0;
         PolygonShape BirdShape = new PolygonShape();
-        BirdShape.setAsBox(BirdSprite.getWidth()/2,BirdSprite.getHeight()/2);
+        if (fixtureCoordinates == null) BirdShape.setAsBox(BirdSprite.getWidth()/2,BirdSprite.getHeight()/2);
+        else BirdShape.set(fixtureCoordinates);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = BirdShape;
         fixtureDef.density = 2;
@@ -299,7 +307,8 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
         this.GlobalX = 0;
         this.GlobalY = 0;
         PolygonShape BirdShape = new PolygonShape();
-        BirdShape.setAsBox(1,1);
+        if (fixtureCoordinates == null) BirdShape.setAsBox(1,1);
+        else BirdShape.set(fixtureCoordinates);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = BirdShape;
         fixtureDef.density = 2;
@@ -321,6 +330,9 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
         isRemoved = false;
         isStretched = false;
         isAbilityTriggered = false;
+    }
+
+    public Bird() {
     }
 
     public void playHitSound() {
@@ -346,7 +358,8 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
         this.BirdBody = world.createBody(BirdBodydef);
         BirdSprite.setPosition(x, y);
         PolygonShape BirdShape = new PolygonShape();
-        BirdShape.setAsBox(BirdSprite.getWidth()/2,BirdSprite.getHeight()/2);
+        if (fixtureCoordinates == null) BirdShape.setAsBox(BirdSprite.getWidth()/2,BirdSprite.getHeight()/2);
+        else BirdShape.set(fixtureCoordinates);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = BirdShape;
         fixtureDef.density = 2;
@@ -476,6 +489,30 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
             isStretched = true;
         }
     }
+    Bird setShape(Vector2[] coordinates){
+        Array<Fixture> fixtures = getBirdBody().getFixtureList();
+        while (fixtures.size > 0) {
+            getBirdBody().destroyFixture(fixtures.first());
+        }
+        fixtureCoordinates = coordinates;
+        PolygonShape BirdShape = new PolygonShape();
+        BirdShape.set(fixtureCoordinates);
+//        BirdBody.setFixedRotation(false);
+//        BirdBody.setGravityScale(1);
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = BirdShape;
+        fixtureDef.density = 2;
+        fixtureDef.friction = 0.05f;
+        fixtureDef.restitution = 0.05f;
+        Fixture fixture = BirdBody.createFixture(fixtureDef);
+        BirdBody.createFixture(fixtureDef);
+        BirdBody.setUserData(this);
+        fixture.setUserData(this);
+        BirdShape.dispose();
+
+        return this;
+    }
+
 //    public float max(float a, float b){
 //        return Math.max(a,b);
 //    }
