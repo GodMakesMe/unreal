@@ -2,6 +2,7 @@ package com.unreal.angrybirds;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -97,7 +98,11 @@ public class SeasonPage implements Screen {
         EarthButton.setPosition(362,720-205-275);
         EarthButton.setSize(285,275);
         stage.addActor(EarthButton);
-        Game.clickHandlingByFunction(EarthButton, earthButtonPixmap, new EarthLevelPage(Game), () -> {dispose();});
+        Game.clickHandlingByFunction(EarthButton, earthButtonPixmap, new EarthLevelPage(Game), () -> {
+            dispose();
+//            Game.resumeMusic();
+//            Game.playMusic();
+        });
     }
 
     @Override

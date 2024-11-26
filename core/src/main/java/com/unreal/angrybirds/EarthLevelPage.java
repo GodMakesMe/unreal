@@ -15,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import java.util.Objects;
+
 
 public class  EarthLevelPage implements Screen {
     private Main Game;
@@ -64,6 +66,11 @@ public class  EarthLevelPage implements Screen {
 
     @Override
     public void show() {
+//        Game.playMusic("assets/TitleTheme.mp3");
+        if (Objects.equals(Game.musicFile, "assets/TitleTheme.mp3") && !Game.paused) {
+            Game.ost_theme.setVolume(0.5f);
+            Game.ost_theme.play();
+        }
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

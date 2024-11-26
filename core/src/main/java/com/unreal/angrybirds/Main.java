@@ -71,6 +71,7 @@ public class Main extends Game implements Serializable {
     public void playMusic(){
         if(ost_theme.isPlaying() && ost_theme!=null){
             ost_theme.play();
+            ost_theme.setVolume(0.5f);
             paused = false;
         }
     }
@@ -106,8 +107,8 @@ public class Main extends Game implements Serializable {
     }
     public void resumeMusic() {
         if (paused) {
-            ost_theme.play();
             ost_theme.setVolume(0.5f);
+            ost_theme.play();
         }
 
     }
