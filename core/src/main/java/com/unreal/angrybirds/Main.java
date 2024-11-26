@@ -45,6 +45,16 @@ public class Main extends Game implements Serializable {
         else if (Planet.equals("Venus")) return -8.87f;
         return -3.73f;
     }
+
+    Vector2[] getCircleVectors(float radius, int iterator){
+        Vector2[] vector2s = new Vector2[360/iterator];
+        int a = 0;
+        for (int angle = 0; angle < 360; angle += iterator) {
+            vector2s[a] = new Vector2((float) (radius*Math.cos(Math.toRadians(angle))), (float) ( radius*Math.sin(Math.toRadians(angle))));
+            a++;
+        }
+        return vector2s;
+    }
     public transient Music ost_theme;
     String musicFile;
     boolean paused = true;

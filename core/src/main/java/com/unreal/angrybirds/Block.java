@@ -151,6 +151,25 @@ public class Block implements Serializable {
         height = y;
         width = x;
     }
+    Block setCircle(float radius){
+        Array<Fixture> fixtures = getBlockBody().getFixtureList();
+        while (fixtures.size > 0) {
+            getBlockBody().destroyFixture(fixtures.first());
+        }
+        CircleShape circleShape = new CircleShape();
+        circleShape.setRadius(radius);
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = circleShape;
+        fixtureDef.density = 1.0f;
+        fixtureDef.friction = 0.3f;
+        fixtureDef.restitution = 0.2f;
+        Fixture fixture = blockBody.createFixture(fixtureDef);
+        blockBody.createFixture(fixtureDef);
+        blockBody.setUserData(this);
+        fixture.setUserData(this);
+        circleShape.dispose();
+        return this;
+    }
 
     Block setShape(Vector2[] coordinates){
         Array<Fixture> fixtures = getBlockBody().getFixtureList();

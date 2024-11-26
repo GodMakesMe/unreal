@@ -561,15 +561,15 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
                 Frames = 0;
             }
         }
-        if (Frames >= 60 || getHealth() < 0) {
+        if (Frames >= 60) {
             if (!isRemoved) playDeathSound();
             if (BirdAbility instanceof EggAbility){
                 EggAbility eggAbility = (EggAbility)BirdAbility;
-                eggAbility.egg.selfdestroy();
+                if (eggAbility.egg != null) eggAbility.egg.selfdestroy();
             }else if (BirdAbility instanceof SplitAbility){
                 SplitAbility splitAbility = (SplitAbility)BirdAbility;
-                splitAbility.newBlueBird1.selfdestroy();
-                splitAbility.newBlueBird2.selfdestroy();
+                if (splitAbility.newBlueBird1 != null) splitAbility.newBlueBird1.selfdestroy();
+                if (splitAbility.newBlueBird2 != null) splitAbility.newBlueBird2.selfdestroy();
             }
             selfdestroy();
             return;
@@ -671,12 +671,12 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
                 worldInstance.destroyBody(BirdBody);
                 if (BirdAbility instanceof SplitAbility && isAbilityTriggered){
                     SplitAbility splitAbility = (SplitAbility) BirdAbility;
-                    splitAbility.newBlueBird1.selfdestroy();
-                    splitAbility.newBlueBird2.selfdestroy();
+                    if (splitAbility.newBlueBird1 != null) splitAbility.newBlueBird1.selfdestroy();
+                    if (splitAbility.newBlueBird2 != null) splitAbility.newBlueBird2.selfdestroy();
                 }
                 if (BirdAbility instanceof EggAbility && isAbilityTriggered){
                     EggAbility eggAbility = (EggAbility) BirdAbility;
-                    eggAbility.egg.selfdestroy();
+                    if (eggAbility.egg != null) eggAbility.egg.selfdestroy();
                 }
                 BirdSprite = null;
 //            BirdSprite.setPosition(-1000, -1000);
