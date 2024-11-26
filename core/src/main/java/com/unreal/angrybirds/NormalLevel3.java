@@ -230,11 +230,12 @@ public boolean allPigDead(){
             world.setContactListener(new CollisionDetector());
             if (PigList == null && !isSerialized) {
                 PigList = new ArrayList<Piggy>();
-                PigList.add(new Piggy("First Piggy",5, null,"assets/MushPig.png",world,"Earth", (int) (955+47/2f), (int) (720-617-47/2f+100),47,47,5000));
-                PigList.add(new Piggy("Second Piggy",3,null,"assets/ProfPig.png",world,"Earth",(int) (1042+47/2f), (int) (720-441-47/2f+100),47,47,10000));
-                PigList.add(new Piggy("Third Piggy",7,null,"assets/KingPig.png",world,"Earth",(int) (1038+47/2f), (int) (720-537-47/2f+100),47,57,20000));
-//                PigList.add(new Piggy("Fourth Piggy",4,null,"assets/CorpPig.png",world,"Earth",(int) (939+47/2f), (int) (720-615-47/2f),47,43,9000));
-                PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Earth",(int) (1129+47/2f), (int) (720-615-47/2f+100),47,47,20000));
+                PigList.add(new Piggy("Small Piggy",1, null,"assets/FirstPiggy.png",world,"Earth", (int) (918+24/2f), (int) (720-696-24/2f+100),24,24,2000));
+                PigList.add(new Piggy("Small Piggy",1, null,"assets/FirstPiggy.png",world,"Earth", (int) (1015+24/2f), (int) (720-696-24/2f+100),24,24,2000));
+//                PigList.add(new Piggy("Second Piggy",3,null,"assets/ProfPig.png",world,"Earth",(int) (1042+47/2f), (int) (720-441-47/2f+100),47,47,10000));
+//                PigList.add(new Piggy("Third Piggy",7,null,"assets/KingPig.png",world,"Earth",(int) (1038+47/2f), (int) (720-537-47/2f+100),47,57,20000));
+////                PigList.add(new Piggy("Fourth Piggy",4,null,"assets/CorpPig.png",world,"Earth",(int) (939+47/2f), (int) (720-615-47/2f),47,43,9000));
+//                PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Earth",(int) (1129+47/2f), (int) (720-615-47/2f+100),47,47,20000));
                 initialPiggyCount = PigList.size(); player.initialPigs = PigList.size();
                 AtomicInteger tempScore =  new AtomicInteger();
                 PigList.forEach(pig -> {tempScore.getAndAdd(pig.getScore());});
@@ -243,28 +244,40 @@ public boolean allPigDead(){
             }
             if (blockList == null && !isSerialized) {
                 blockList = new ArrayList<Block>();
-                blockList.add(new Block("Stone","assets/StoneCube.png", 38, 37, world, 4, 893+38/2f, 720-682-37/2f+100, 0, 200*5));
-                blockList.add(new Block("Stone","assets/StoneCube.png", 38, 37, world, 4, 1039+38/2f, 720-682-37/2f+100, 0, 200*5));
-                blockList.add(new Block("Stone","assets/StoneCube.png", 38, 37, world, 4, 1197+38/2f, 720-682-37/2f+100, 0, 200*5));
-                blockList.add(new Block("Stone","assets/StoneLongVer.png", 194, 22, world, 10f, 866+194/2f, 720-662-22/2f+100, 0, 200*5));
-                blockList.add(new Block("Stone","assets/StoneLongVer.png", 194, 22, world, 10f, 1059+194/2f, 720-662-22/2f+100, 0, 200*5));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 927+21/2f, 720-625-40/2f+100, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 927+21/2f, 720-586-40/2f+100, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1179+21/2f, 720-625-40/2f+100, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1179+21/2f, 720-586-40/2f+100, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1004+21/2f, 720-625-40/2f+100, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1004+21/2f, 720-586-40/2f+100, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1105+21/2f, 720-625-40/2f+100, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1105+21/2f, 720-586-40/2f+100, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodMediumHor.png", 20, 80, world, 7f, 1050+20/2f, 720-586-80/2f+100, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodLeftTriangle.png", 77, 79, world, 8f, 938+77/2f+1, 720-507-79/2f+100, 0, 150).setShape(new Vector2[]{new Vector2(-77f/2f,-79f/2f), new Vector2(77f/2f,79f/2f), new Vector2(77f/2f,-79f/2f)}));
-                blockList.add(new Block("Wood","assets/WoodRightTriangle.png", 77, 79, world, 8f, 1116+77/2f-1.5f, 720-507-79/2f+100, 0, 150).setShape(new Vector2[]{new Vector2(-77f/2f,-79f/2f), new Vector2(-77f/2f,79f/2f), new Vector2(77f/2f,-79f/2f)}));
-                blockList.add(new Block("Glass","assets/GlassMediumVer.png", 160, 21, world, 2f, 986+160/2f, 720-488-21/2f+100, 0, 75));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1017+21/2f, 720-451-40/2f+100, 0, 100));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1017+21/2f, 720-412-40/2f+100, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1093+21/2f, 720-451-40/2f+100, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1093+21/2f, 720-412-40/2f+100, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodHTriangle.png", 80, 81, world, 8f, 1026+80/2f, 720-329-81/2f+100, 0, 150).setShape(new Vector2[]{new Vector2(0, 81/2f),new Vector2(40, -81/2f),new Vector2(-40, -81/2f)}));
+                blockList.add(new Block("Stone","assets/StoneSmallCube.png", 20, 20, world, 2f, 994+10, 720-700-10+100, 0, 50*5));
+                blockList.add(new Block("Glass","assets/GlassSmallCube.png", 20, 20, world, 0.5f, 897+10, 720-700-10+100, 0, 50));
+                blockList.add(new Block("Wood","assets/WoodSmallCube.png", 20, 20, world, 1, 1093+10, 720-700-10+100, 0, 50*2));
+                blockList.add(new Block("Stone","assets/StoneHTriangle.png", 20, 20, world, 2f, 1041+10, 720-700-10+100, 0, 50*5).setShape(new Vector2[]{new Vector2(0, 10f),new Vector2(10, -10),new Vector2(-10, -10f)}));
+                blockList.add(new Block("Glass","assets/GlassHTriangle.png", 20, 20, world, 0.5f, 943+10, 720-700-10+100, 0, 50).setShape(new Vector2[]{new Vector2(0, 10f),new Vector2(10, -10),new Vector2(-10, -10f)}));
+                blockList.add(new Block("Wood","assets/WoodHTriangle.png", 20, 20, world, 1f, 846+10, 720-700-10+100, 0, 50*2).setShape(new Vector2[]{new Vector2(0, 10f),new Vector2(10, -10),new Vector2(-10, -10f)}));
+                blockList.add(new Block("Stone", "assets/StoneSmallSphere.png", 30, 30, world, 3, 964+10, 720-690-15 +100, 0, 100*5).setCircle(15));
+                blockList.add(new Block("Glass", "assets/GlassSmallSphere.png", 30, 30, world, 3, 866+10, 720-690-15+100, 0, 100*2).setCircle(15));
+                blockList.add(new Block("Wood", "assets/WoodSmallSphere.png", 30, 30, world, 3, 1061+10, 720-690-15+100, 0, 100).setCircle(15));
+                blockList.add(new Block("Glass", "assets/GlassWindow.png", 79, 79, world, 3, 751 + 79f/2, 720-641-79f/2+100,0,100));
+                blockList.add(new Block("Glass", "assets/GlassWindow.png", 79, 79,world, 3, 1128 + 79f/2, 720-641-79f/2+100,0,100));
+                blockList.add(new Block("Wood", "assets/WoodBrick.png", 80, 40, world, 10, 751+40,720-601-20+100, 0, 100*2));
+                blockList.add(new Block("Wood", "assets/WoodBrick.png", 80, 40, world, 10, 1126+40,720-601-20+100, 0, 100*2));
+
+
+//                blockList.add(new Block("Stone","assets/StoneLongVer.png", 194, 22, world, 10f, 866+194/2f, 720-662-22/2f+100, 0, 200*5));
+//                blockList.add(new Block("Stone","assets/StoneLongVer.png", 194, 22, world, 10f, 1059+194/2f, 720-662-22/2f+100, 0, 200*5));
+//                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 927+21/2f, 720-625-40/2f+100, 0, 150));
+//                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 927+21/2f, 720-586-40/2f+100, 0, 150));
+//                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1179+21/2f, 720-625-40/2f+100, 0, 150));
+//                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1179+21/2f, 720-586-40/2f+100, 0, 150));
+//                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1004+21/2f, 720-625-40/2f+100, 0, 150));
+//                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1004+21/2f, 720-586-40/2f+100, 0, 150));
+//                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1105+21/2f, 720-625-40/2f+100, 0, 150));
+//                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1105+21/2f, 720-586-40/2f+100, 0, 150));
+//                blockList.add(new Block("Wood","assets/WoodMediumHor.png", 20, 80, world, 7f, 1050+20/2f, 720-586-80/2f+100, 0, 150));
+//                blockList.add(new Block("Wood","assets/WoodLeftTriangle.png", 77, 79, world, 8f, 938+77/2f+1, 720-507-79/2f+100, 0, 150).setShape(new Vector2[]{new Vector2(-77f/2f,-79f/2f), new Vector2(77f/2f,79f/2f), new Vector2(77f/2f,-79f/2f)}));
+//                blockList.add(new Block("Wood","assets/WoodRightTriangle.png", 77, 79, world, 8f, 1116+77/2f-1.5f, 720-507-79/2f+100, 0, 150).setShape(new Vector2[]{new Vector2(-77f/2f,-79f/2f), new Vector2(-77f/2f,79f/2f), new Vector2(77f/2f,-79f/2f)}));
+//                blockList.add(new Block("Glass","assets/GlassMediumVer.png", 160, 21, world, 2f, 986+160/2f, 720-488-21/2f+100, 0, 75));
+//                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1017+21/2f, 720-451-40/2f+100, 0, 100));
+//                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1017+21/2f, 720-412-40/2f+100, 0, 150));
+//                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1093+21/2f, 720-451-40/2f+100, 0, 150));
+//                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1093+21/2f, 720-412-40/2f+100, 0, 150));
+//                blockList.add(new Block("Wood","assets/WoodHTriangle.png", 80, 81, world, 8f, 1026+80/2f, 720-329-81/2f+100, 0, 150).setShape(new Vector2[]{new Vector2(0, 81/2f),new Vector2(40, -81/2f),new Vector2(-40, -81/2f)}));
             }
 //            world.setGravity(new Vector2(0, 0f));
         }
