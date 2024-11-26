@@ -132,7 +132,6 @@ public class NormalLevel3 implements Screen, Serializable {
                     Piggy pig = iterator.next();
                     //pig.getPiggySprite().getTexture().dispose();
                     if (pig.getPiggyBody() != null && pig.getPiggyBody().getUserData() != null) {
-                        // Remove all fixtures first
                         pig.dead = true;
                         deadPiggyList.add(pig);
                         Array<Fixture> fixtures = pig.getPiggyBody().getFixtureList();

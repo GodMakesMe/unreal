@@ -125,7 +125,6 @@ public class MarsLevel  implements Screen, Serializable {
                     Piggy pig = iterator.next();
                     //pig.getPiggySprite().getTexture().dispose();
                     if (pig.getPiggyBody() != null && pig.getPiggyBody().getUserData() != null) {
-                        // Remove all fixtures first
                         pig.dead = true;
                         deadPiggyList.add(pig);
                         Array<Fixture> fixtures = pig.getPiggyBody().getFixtureList();
@@ -221,7 +220,7 @@ public class MarsLevel  implements Screen, Serializable {
         if (stage == null) stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         if (camera == null) camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.position.set((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2, 0); // Set camera position to center
+        camera.position.set((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2, 0);
         camera.update();
         if (sprite == null) sprite = new Sprite(new Texture("assets/MarsLevel.png"));
         if (batch == null) batch = new SpriteBatch();

@@ -152,7 +152,6 @@ public class Main extends Game implements Serializable {
                 float localX = -(buttonX - localCoords.x);  float localY = ButtonCopy.getHeight() + (buttonY - localCoords.y);
 
 //                Gdx.app.log("Click", "Local Coordinates: (" + localX + ", " + localY + ")");
-                // Check if the pixel is opaque
                 if (isPixelOpaque((int) (localX/scaleX), (int) (localY/scaleY), PixmapCopy)) {
                     Gdx.app.log("Click", "Button clicked inside shape!");
                     if (toGo != null){
@@ -187,12 +186,10 @@ public class Main extends Game implements Serializable {
                 float buttonY = ButtonCopy.getY();
                 float localX = -(buttonX - localCoords.x);
                 float localY = ButtonCopy.getHeight() + (buttonY - localCoords.y);
-
-                // Check if the pixel is opaque
                 if (isPixelOpaque((int) (localX / scaleX), (int) (localY / scaleY), PixmapCopy)) {
                     Gdx.app.log("Click", "Button clicked inside shape!");
                     if (action != null) {
-                        action.run();  // Run the provided function instead of changing screen
+                        action.run();
                     }
                 } else {
                     Gdx.app.log("Click", "Clicked outside the button shape");
@@ -223,11 +220,10 @@ public class Main extends Game implements Serializable {
                 float localX = -(buttonX - localCoords.x);
                 float localY = ButtonCopy.getHeight() + (buttonY - localCoords.y);
 
-                // Check if the pixel is opaque
                 if (isPixelOpaque((int) (localX / scaleX), (int) (localY / scaleY), PixmapCopy)) {
                     Gdx.app.log("Click", "Button clicked inside shape!");
                     if (action != null) {
-                        action.run();  // Run the provided function instead of changing screen
+                        action.run();
                         setScreen(toGo);
                     }
                 } else {
@@ -242,16 +238,16 @@ public class Main extends Game implements Serializable {
     protected boolean isPixelOpaque(int x, int y, Pixmap a) {
 //        Gdx.app.log("getWidth, getHeight", "(" + a.getWidth() + ", " + a.getHeight() + ")");
         if (x < 0 || x >= a.getWidth() || y < 0 || y >= a.getHeight()) {
-            return false;  // Click is outside the button boundaries
+            return false;
         }
         int pixel = a.getPixel(x, y);
-        return (pixel & 0x000000ff) != 0;  // Check alpha value (non-zero is opaque)
+        return (pixel & 0x000000ff) != 0;
     }
 
     protected void saveGameScreen(Screen screen, String fileName) {
-        String filePath = System.getProperty("user.dir") + "/GameSaves/" + fileName; // Absolute path
+        String filePath = System.getProperty("user.dir") + "/GameSaves/" + fileName;
         File file = new File(filePath);
-        file.getParentFile().mkdirs(); // Create directories if they don't exist
+        file.getParentFile().mkdirs();
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath))) {
             out.writeObject(screen);
         } catch (IOException e) {
@@ -261,7 +257,7 @@ public class Main extends Game implements Serializable {
     }
 
     protected Screen loadGameScreen(String fileName) {
-        String filePath = System.getProperty("user.dir").replace('\\', '/') + "/GameSaves/" + fileName; // Absolute path
+        String filePath = System.getProperty("user.dir").replace('\\', '/') + "/GameSaves/" + fileName;
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
             return (Screen) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
@@ -279,10 +275,6 @@ public class Main extends Game implements Serializable {
         }
     }
 
-
-
-
-    // Deserialize method
     protected Player loadGameScore(String fileName) {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("GameSaves/" + fileName))) {
             return (Player) in.readObject();

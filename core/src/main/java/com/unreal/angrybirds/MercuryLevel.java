@@ -125,7 +125,6 @@ public class MercuryLevel  implements Screen, Serializable {
                     Piggy pig = iterator.next();
                     //pig.getPiggySprite().getTexture().dispose();
                     if (pig.getPiggyBody() != null && pig.getPiggyBody().getUserData() != null) {
-                        // Remove all fixtures first
                         pig.dead = true;
                         deadPiggyList.add(pig);
                         Array<Fixture> fixtures = pig.getPiggyBody().getFixtureList();
@@ -191,29 +190,16 @@ public class MercuryLevel  implements Screen, Serializable {
         }
     }
     void fastForward(){
-        float timeStep = 1 / 60f; // Normal time step (60Hz)
+        float timeStep = 1 / 60f;
         int velocityIterations = 6;
         int positionIterations = 2;
-
-// Fast forward time by adjusting the timeStep
-        float fastForwardFactor = 5f; // Adjust this value to control the speed
+        float fastForwardFactor = 5f;
         timeStep = timeStep * (float)fastForwardFactor/2f;
-
-// In your render loop, update the physics world
         world.step(timeStep, velocityIterations, positionIterations);
-
-        // Original deltaTime passed to Box2D
         float deltaTime = Gdx.graphics.getDeltaTime();
-
-// Scale the deltaTime to speed up physics
-        fastForwardFactor = 2f; // Factor by which to speed up
+        fastForwardFactor = 2f;
         deltaTime *= fastForwardFactor;
-
-// Pass the scaled deltaTime to the physics world
         world.step(deltaTime, velocityIterations, positionIterations);
-
-
-
     }
 
 
@@ -237,7 +223,7 @@ public class MercuryLevel  implements Screen, Serializable {
         if (stage == null) stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         if (camera == null) camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.position.set((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2, 0); // Set camera position to center
+        camera.position.set((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2, 0);
         camera.update();
         if (sprite == null) sprite = new Sprite(new Texture("assets/MercuryLevel.png"));
         if (batch == null) batch = new SpriteBatch();
