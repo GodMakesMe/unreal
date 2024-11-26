@@ -9,18 +9,20 @@ import java.io.Serializable;
 
 public class SpeedAbility implements Ability, Serializable {
     Bird bird;
-    int count = 10;
+    int count = 80;
     float velocityx;
     float velocityy;
     @Override
     public void triggerAbility(Bird lovelyBird){
         bird = lovelyBird;
 //        bird.getBirdBody().setGravityScale(0f);
-        velocityx = lovelyBird.getBirdBody().getLinearVelocity().x*5;
-        velocityy = lovelyBird.getBirdBody().getLinearVelocity().y*5;
-        bird.getBirdBody().setLinearVelocity(new Vector2(lovelyBird.getBirdBody().getLinearVelocity().x*5, lovelyBird.getBirdBody().getLinearVelocity().y*5));
-        bird.x_velocity *= 5;
-        bird.y_velocity *= 5;
+        velocityx = lovelyBird.getBirdBody().getLinearVelocity().x*20 + 10;
+        velocityy = lovelyBird.getBirdBody().getLinearVelocity().y*20 + 10;
+        bird.getBirdBody().setLinearVelocity(velocityx, velocityy);
+        bird.x_velocity *= 20;
+        bird.y_velocity *= 20;
+        bird.y_velocity += 10;
+        bird.x_velocity += 10;
         applyUpdate();
 //        bird.getBirdBody().setGravityScale(1f);
 //        lovelyBird.y_velocity *= 20;
@@ -32,9 +34,10 @@ public class SpeedAbility implements Ability, Serializable {
     public void applyUpdate(){
 //        bird.getBirdBody().setGravityScale(0f);
         if (count < 0) return;
-        bird.getBirdBody().setLinearVelocity(new Vector2(velocityx, velocityy));
-        velocityx = bird.getBirdBody().getLinearVelocity().x;
-        velocityy = bird.getBirdBody().getLinearVelocity().y;
+        bird.x_velocity = velocityx;
+        bird.y_velocity = velocityy;
+        bird.getBirdBody().setLinearVelocity(velocityx, velocityy);
+
         count--;
 //        velocityx = bird.x_velocity;
 //        velocityy = bird.y_velocity;

@@ -150,34 +150,7 @@ public class SaturnLevel  implements Screen, Serializable {
     }
 
 
-    //    // Flag to indicate loading state
-//    public void cleanupDestroyedBodies() {
-//        if (!world.isLocked() && !bodiesToDestroy.isEmpty()) {
-//            synchronized (bodiesToDestroy) {
-//                Iterator<Piggy> iterator = bodiesToDestroy.iterator();
-//                while (iterator.hasNext()) {
-//                    Piggy pig = iterator.next();
-//
-//                    // Ensure body is eligible for cleanup
-//                    if (pig.getPiggyBody() != null && pig.getPiggyBody().getUserData() != null) {
-//                        deadPiggyList.add(pig);
-//                        pig.dead = true;
-//                        Array<Fixture> fixtures = pig.getPiggyBody().getFixtureList();
-//                        while (fixtures.size > 0) {
-//                            pig.getPiggyBody().destroyFixture(fixtures.first());
-//                        }
-//
-//                        // Score updates only upon actual destruction
-//                        iterator.remove();
-//                        world.destroyBody(pig.getPiggyBody());
-//                        // If score reaches threshold, trigger level end
-//
-//                    }
-//                }
-//            }
-//        }
-//        bodiesToDestroy.clear();
-//    }
+
     public void updateScore(){
         int scoreToAdd = 0;
         for (Piggy i : deadPiggyList){
@@ -297,8 +270,8 @@ public class SaturnLevel  implements Screen, Serializable {
                 blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1105+21/2f, 720-625-40/2f, 0, 150));
                 blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1105+21/2f, 720-586-40/2f, 0, 150));
                 blockList.add(new Block("Wood","assets/WoodMediumHor.png", 20, 80, world, 7f, 1050+20/2f, 720-586-80/2f, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodLeftTriangle.png", 77, 79, world, 8f, 938+77/2f+1, 720-507-79/2f, 0, 150).setShape(new Vector2[]{new Vector2(-77f/2f,-79f/2f), new Vector2(+77f/2f,+79f/2f), new Vector2(+77f/2f,-79f/2f)}));
-                blockList.add(new Block("Wood","assets/WoodRightTriangle.png", 77, 79, world, 8f, 1116+77/2f-1.5f, 720-507-79/2f, 0, 150).setShape(new Vector2[]{new Vector2(-77f/2f,-79f/2f), new Vector2(-77f/2f,+79f/2f), new Vector2(+77f/2f,-79f/2f)}));
+                blockList.add(new Block("Wood","assets/WoodLeftTriangle.png", 77, 79, world, 8f, 938+77/2f+1, 720-507-79/2f, 0, 150).setShape(new Vector2[]{new Vector2(-77f/2f,-79f/2f), new Vector2(77f/2f,79f/2f), new Vector2(77f/2f,-79f/2f)}));
+                blockList.add(new Block("Wood","assets/WoodRightTriangle.png", 77, 79, world, 8f, 1116+77/2f-1.5f, 720-507-79/2f, 0, 150).setShape(new Vector2[]{new Vector2(-77f/2f,-79f/2f), new Vector2(-77f/2f,79f/2f), new Vector2(77f/2f,-79f/2f)}));
                 blockList.add(new Block("Glass","assets/GlassMediumVer.png", 160, 21, world, 2f, 986+160/2f, 720-488-21/2f, 0, 75));
                 blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1017+21/2f, 720-451-40/2f, 0, 100));
                 blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 1017+21/2f, 720-412-40/2f, 0, 150));
