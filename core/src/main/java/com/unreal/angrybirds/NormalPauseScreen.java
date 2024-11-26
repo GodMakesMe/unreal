@@ -2,13 +2,8 @@ package com.unreal.angrybirds;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -33,12 +28,14 @@ public class NormalPauseScreen  implements Screen {
     private Pixmap backtoMenuPixmap;
     private String Level;
     private Screen PreviousScreen;
+    BitmapFont Scorefont;
 
     public NormalPauseScreen(Main game, Screen PreviousScreen, String Level) {
         this.Game = game;
         this.PreviousScreen = PreviousScreen;
         this.Level = Level;
-
+        Scorefont = new BitmapFont(Gdx.files.internal("angrybirds.fnt"));
+        Scorefont.setColor(Color.BLACK);
 
     }
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
@@ -92,7 +89,18 @@ public class NormalPauseScreen  implements Screen {
         batch.begin();
         sprite.draw(batch);
         batch.end();
+        batch.begin();
+        GlyphLayout ScoreLayout = new GlyphLayout();
+        if (PreviousScreen instanceof NormalLevel1){
+            ScoreLayout = new GlyphLayout(Scorefont,""+String.format("%08d", ((NormalLevel1)PreviousScreen).player.getScore()));
+        }else if (PreviousScreen instanceof NormalLevel2){
+            ScoreLayout = new GlyphLayout(Scorefont,""+String.format("%08d", ((NormalLevel2)PreviousScreen).player.getScore()));
+        }else if (PreviousScreen instanceof NormalLevel3){
+            ScoreLayout = new GlyphLayout(Scorefont,""+String.format("%08d", ((NormalLevel3)PreviousScreen).player.getScore()));
+        }
 
+        Scorefont.draw(batch,ScoreLayout,296,780-125-62);
+        batch.end();
         stage.act(delta);
         stage.draw();
     }

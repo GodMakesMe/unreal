@@ -2,13 +2,8 @@ package com.unreal.angrybirds;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -38,12 +33,16 @@ public class SpacePauseScreen  implements Screen {
     private Pixmap settingsButtonPixmap;
     private ImageButton BacktoMenuButton;
     private Pixmap backtoMenuPixmap;
+    BitmapFont Scorefont;
+
 
     public SpacePauseScreen(Main game,String PlanetPath,String Planet, Screen prevScreen) {
         this.Game = game;
         this.PlanetPath = PlanetPath;
         this.Planet = Planet;
         this.previousScreen = prevScreen;
+        Scorefont = new BitmapFont(Gdx.files.internal("angrybirds.fnt"));
+        Scorefont.setColor(Color.WHITE);
 //        this.previousScreen.pause();
     }
     public ImageButton createButton(String Path,String HoverPath,int X,int Y,int W, int H){
@@ -99,6 +98,30 @@ public class SpacePauseScreen  implements Screen {
         batch.begin();
         sprite.draw(batch);
         planetSprite.draw(batch);
+        batch.end();
+        batch.begin();
+        GlyphLayout ScoreLayout = new GlyphLayout();
+        if (previousScreen instanceof MarsLevel){
+            ScoreLayout = new GlyphLayout(Scorefont,""+String.format("%08d", ((MarsLevel)previousScreen).player.getScore()));
+        }else if (previousScreen instanceof JupiterLevel){
+            ScoreLayout = new GlyphLayout(Scorefont,""+String.format("%08d", ((JupiterLevel)previousScreen).player.getScore()));
+        }else if (previousScreen instanceof MoonLevel){
+            ScoreLayout = new GlyphLayout(Scorefont,""+String.format("%08d", ((MoonLevel)previousScreen).player.getScore()));
+        }else if (previousScreen instanceof EarthLevel){
+            ScoreLayout = new GlyphLayout(Scorefont,""+String.format("%08d", ((EarthLevel)previousScreen).player.getScore()));
+        }else if (previousScreen instanceof SaturnLevel){
+            ScoreLayout = new GlyphLayout(Scorefont,""+String.format("%08d", ((SaturnLevel)previousScreen).player.getScore()));
+        }else if (previousScreen instanceof VenusLevel){
+            ScoreLayout = new GlyphLayout(Scorefont,""+String.format("%08d", ((VenusLevel)previousScreen).player.getScore()));
+        }else if (previousScreen instanceof MercuryLevel){
+            ScoreLayout = new GlyphLayout(Scorefont,""+String.format("%08d", ((MercuryLevel)previousScreen).player.getScore()));
+        }else if (previousScreen instanceof UranusLevel){
+            ScoreLayout = new GlyphLayout(Scorefont,""+String.format("%08d", ((UranusLevel)previousScreen).player.getScore()));
+        }else if (previousScreen instanceof NeptuneLevel){
+            ScoreLayout = new GlyphLayout(Scorefont,""+String.format("%08d", ((NeptuneLevel)previousScreen).player.getScore()));
+        }
+
+        Scorefont.draw(batch,ScoreLayout,296,780-125-62);
         batch.end();
 
         stage.act(delta);
