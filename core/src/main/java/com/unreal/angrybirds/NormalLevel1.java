@@ -336,168 +336,168 @@ public class NormalLevel1 implements Screen, Serializable {
 
         });
 
-        YellowBirdButton= createButton("assets/YellowBird.png","assets/HoverYellowBird.png",220, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
-        yellowBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/YellowBird.png"));
+        YellowBirdButton= createButton("assets/YellowBirdNotAvailable.png","assets/YellowBirdNotAvailable.png",220, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+//        yellowBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/YellowBird.png"));
+//        stage.addActor(YellowBirdButton);
+//        Game.clickHandling(YellowBirdButton, yellowBirdButtonPixmap, null);
+//        YellowBirdButton= createButton("assets/YellowBird.png","assets/HoverYellowBird.png",220, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+//        yellowBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/YellowBird.png"));
         stage.addActor(YellowBirdButton);
-        Game.clickHandling(YellowBirdButton, yellowBirdButtonPixmap, null);
-        YellowBirdButton= createButton("assets/YellowBird.png","assets/HoverYellowBird.png",220, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
-        yellowBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/YellowBird.png"));
-        stage.addActor(YellowBirdButton);
-        Game.clickHandling(YellowBirdButton, yellowBirdButtonPixmap, null);
-        YellowBirdButton.addListener(new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null && SpaceBird.isItLaunched()) {
-//                    world.destroyBody(SpaceBird.getBirdBody());
-                    SpaceBird.selfdestroy();
-                    if (birdsAvailable <= 0) {
-                        flag = true;
-                    }
-                    else {
-                        SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world);
-                        birdsAvailable--;
-                        BirdX  = SpaceBird.getX();
-                        BirdY = SpaceBird.getY();
+//        Game.clickHandling(YellowBirdButton, yellowBirdButtonPixmap, null);
+//        YellowBirdButton.addListener(new InputListener() {
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                if (SpaceBird != null && SpaceBird.isItLaunched()) {
+////                    world.destroyBody(SpaceBird.getBirdBody());
+//                    SpaceBird.selfdestroy();
+//                    if (birdsAvailable <= 0) {
+//                        flag = true;
+//                    }
+//                    else {
+//                        SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world);
+//                        birdsAvailable--;
+//                        BirdX  = SpaceBird.getX();
+//                        BirdY = SpaceBird.getY();
+//
+//                    }
+//                }
+//                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
+//                    SpaceBird.selfdestroy();
+//                    SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world);
+//                    BirdX  = SpaceBird.getX();
+//                    BirdY = SpaceBird.getY();
+//                }
+//                else if (SpaceBird == null && birdsAvailable <= 0) {
+//                    flag = true;
+//                }else {
+//                    SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world);
+////                    else {flag = false; return true;}
+////                    flag = false;
+//                    birdsAvailable--;
+//                    BirdX  = SpaceBird.getX();
+//                    BirdY = SpaceBird.getY();
+//                }
+//                return true;
+//            }
+//        });
 
-                    }
-                }
-                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
-                    SpaceBird.selfdestroy();
-                    SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world);
-                    BirdX  = SpaceBird.getX();
-                    BirdY = SpaceBird.getY();
-                }
-                else if (SpaceBird == null && birdsAvailable <= 0) {
-                    flag = true;
-                }else {
-                    SpaceBird = new Bird("Chuck", 10, new SpeedAbility(), "assets/YellowBirdMain.png",world);
-//                    else {flag = false; return true;}
-//                    flag = false;
-                    birdsAvailable--;
-                    BirdX  = SpaceBird.getX();
-                    BirdY = SpaceBird.getY();
-                }
-                return true;
-            }
-        });
-
-        BlueBirdButton= createButton("assets/BlueBird.png","assets/HoverBlueBird.png",299, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
-        blueBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/BlueBird.png"));
+        BlueBirdButton= createButton("assets/BlueBirdNotAvailable.png","assets/BlueBirdNotAvailable.png",299, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+//        blueBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/BlueBird.png"));
         stage.addActor(BlueBirdButton);
-        Game.clickHandling(BlueBirdButton, blueBirdButtonPixmap, null);
-        BlueBirdButton.addListener(new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null && SpaceBird.isItLaunched()) {
-//                    world.destroyBody(SpaceBird.getBirdBody());
-                    SpaceBird.selfdestroy();
-                    if (birdsAvailable <= 0) {
-                        flag = true;
-                    }
-                    else {
-                        SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world);
-                        birdsAvailable--;
-                        BirdX  = SpaceBird.getX();
-                        BirdY = SpaceBird.getY();
+//        Game.clickHandling(BlueBirdButton, blueBirdButtonPixmap, null);
+//        BlueBirdButton.addListener(new InputListener() {
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                if (SpaceBird != null && SpaceBird.isItLaunched()) {
+////                    world.destroyBody(SpaceBird.getBirdBody());
+//                    SpaceBird.selfdestroy();
+//                    if (birdsAvailable <= 0) {
+//                        flag = true;
+//                    }
+//                    else {
+//                        SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world);
+//                        birdsAvailable--;
+//                        BirdX  = SpaceBird.getX();
+//                        BirdY = SpaceBird.getY();
+//
+//                    }
+//                }
+//                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
+//                    SpaceBird.selfdestroy();
+//                    SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world);
+//                    BirdX  = SpaceBird.getX();
+//                    BirdY = SpaceBird.getY();
+//                }
+//                else if (SpaceBird == null && birdsAvailable <= 0) {
+//                    flag = true;
+//                }else {
+//                    SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world);
+//                    birdsAvailable--;
+//                    BirdX  = SpaceBird.getX();
+//                    BirdY = SpaceBird.getY();
+//                }
+//                return true;
+//            }
+//
+//        });
 
-                    }
-                }
-                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
-                    SpaceBird.selfdestroy();
-                    SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world);
-                    BirdX  = SpaceBird.getX();
-                    BirdY = SpaceBird.getY();
-                }
-                else if (SpaceBird == null && birdsAvailable <= 0) {
-                    flag = true;
-                }else {
-                    SpaceBird = new Bird("Blue", 8, new SplitAbility(), "assets/BlueBirdMain.png",world);
-                    birdsAvailable--;
-                    BirdX  = SpaceBird.getX();
-                    BirdY = SpaceBird.getY();
-                }
-                return true;
-            }
-
-        });
-
-//        BombBirdButton= createButton("assets/BombBirdNotAvailable.png","assets/BombBirdNotAvailable.png",377, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
-//        stage.addActor(BombBirdButton);
-//        WhiteBirdButton= createButton("assets/WhiteBirdNotAvailable.png","assets/WhiteBirdNotAvailable.png",454, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
-//        stage.addActor(WhiteBirdButton);
-        BombBirdButton= createButton("assets/BombBird.png","assets/HoverBombBird.png",377, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
-        bombBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/BombBird.png"));
+        BombBirdButton= createButton("assets/BombBirdNotAvailable.png","assets/BombBirdNotAvailable.png",377, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
         stage.addActor(BombBirdButton);
-        Game.clickHandling(BombBirdButton, bombBirdButtonPixmap, null);
-        BombBirdButton.addListener(new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null && SpaceBird.isItLaunched()) {
-                    SpaceBird.selfdestroy();
-                    if (birdsAvailable <= 0) {
-                        flag = true;
-                    }
-                    else {
-                        SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world);
-                        birdsAvailable--;
-                        BirdX  = SpaceBird.getX();
-                        BirdY = SpaceBird.getY();
-
-                    }
-                }
-                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
-                    SpaceBird.selfdestroy();
-                    SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world);
-                    BirdX  = SpaceBird.getX();
-                    BirdY = SpaceBird.getY();
-                }
-                else if (SpaceBird == null && birdsAvailable <= 0) {
-                    flag = true;
-                }else {
-                    SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world);
-                    birdsAvailable--;
-                    BirdX  = SpaceBird.getX();
-                    BirdY = SpaceBird.getY();
-                }
-                return true;
-            }
-
-        });
-
-        WhiteBirdButton= createButton("assets/WhiteBird.png","assets/HoverWhiteBird.png",454, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
-        whiteBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/WhiteBird.png"));
+        WhiteBirdButton= createButton("assets/WhiteBirdNotAvailable.png","assets/WhiteBirdNotAvailable.png",454, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
         stage.addActor(WhiteBirdButton);
-        Game.clickHandling(WhiteBirdButton, whiteBirdButtonPixmap, null);
-        WhiteBirdButton.addListener(new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (SpaceBird != null && SpaceBird.isItLaunched()) {
-                    SpaceBird.selfdestroy();
-                    if (birdsAvailable <= 0) {
-                        flag = true;
-                    }
-                    else {
-                        SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world);
-                        birdsAvailable--;
-                        BirdX  = SpaceBird.getX();
-                        BirdY = SpaceBird.getY();
-
-                    }
-                }
-                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
-                    SpaceBird.selfdestroy();
-                    SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world);
-                    BirdX  = SpaceBird.getX();
-                    BirdY = SpaceBird.getY();
-                }
-                else if (SpaceBird == null && birdsAvailable <= 0 && allBlockRested()) {
-                    flag = true;
-                }else {
-                    SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world);
-                    birdsAvailable--;
-                    BirdX  = SpaceBird.getX();
-                    BirdY = SpaceBird.getY();
-                }
-                return true;
-            }
-
-        });
+//        BombBirdButton= createButton("assets/BombBird.png","assets/HoverBombBird.png",377, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+//        bombBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/BombBird.png"));
+//        stage.addActor(BombBirdButton);
+//        Game.clickHandling(BombBirdButton, bombBirdButtonPixmap, null);
+//        BombBirdButton.addListener(new InputListener() {
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                if (SpaceBird != null && SpaceBird.isItLaunched()) {
+//                    SpaceBird.selfdestroy();
+//                    if (birdsAvailable <= 0) {
+//                        flag = true;
+//                    }
+//                    else {
+//                        SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world);
+//                        birdsAvailable--;
+//                        BirdX  = SpaceBird.getX();
+//                        BirdY = SpaceBird.getY();
+//
+//                    }
+//                }
+//                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
+//                    SpaceBird.selfdestroy();
+//                    SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world);
+//                    BirdX  = SpaceBird.getX();
+//                    BirdY = SpaceBird.getY();
+//                }
+//                else if (SpaceBird == null && birdsAvailable <= 0) {
+//                    flag = true;
+//                }else {
+//                    SpaceBird = new Bird("Bomb", 8, new ExplodeAbility(), "assets/BombBirdMain.png",world);
+//                    birdsAvailable--;
+//                    BirdX  = SpaceBird.getX();
+//                    BirdY = SpaceBird.getY();
+//                }
+//                return true;
+//            }
+//
+//        });
+//
+//        WhiteBirdButton= createButton("assets/WhiteBird.png","assets/HoverWhiteBird.png",454, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
+//        whiteBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/WhiteBird.png"));
+//        stage.addActor(WhiteBirdButton);
+//        Game.clickHandling(WhiteBirdButton, whiteBirdButtonPixmap, null);
+//        WhiteBirdButton.addListener(new InputListener() {
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                if (SpaceBird != null && SpaceBird.isItLaunched()) {
+//                    SpaceBird.selfdestroy();
+//                    if (birdsAvailable <= 0) {
+//                        flag = true;
+//                    }
+//                    else {
+//                        SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world);
+//                        birdsAvailable--;
+//                        BirdX  = SpaceBird.getX();
+//                        BirdY = SpaceBird.getY();
+//
+//                    }
+//                }
+//                else if (SpaceBird != null && !SpaceBird.isItLaunched()) {
+//                    SpaceBird.selfdestroy();
+//                    SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world);
+//                    BirdX  = SpaceBird.getX();
+//                    BirdY = SpaceBird.getY();
+//                }
+//                else if (SpaceBird == null && birdsAvailable <= 0 && allBlockRested()) {
+//                    flag = true;
+//                }else {
+//                    SpaceBird = new Bird("Matilda", 6, new EggAbility(), "assets/WhiteBirdMain.png",world);
+//                    birdsAvailable--;
+//                    BirdX  = SpaceBird.getX();
+//                    BirdY = SpaceBird.getY();
+//                }
+//                return true;
+//            }
+//
+//        });
         if (bodyDef == null) bodyDef = new BodyDef();
         if (FixtureDef == null) FixtureDef = new FixtureDef();
 
