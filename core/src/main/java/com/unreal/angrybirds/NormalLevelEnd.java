@@ -64,7 +64,13 @@ public class NormalLevelEnd  implements Screen {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0); // Set camera position to center
         camera.update();
-        sprite = new Sprite(new Texture("assets/NormalLevelUp.png"));
+        String path;
+        if(player.hasWin()){
+            path = "NormalLevelUp.png";
+        }else{
+            path = "NormalLevelNotUp.png";
+        }
+        sprite = new Sprite(new Texture(path));
         batch = new SpriteBatch();
 
         sprite.setPosition(0, 0);
@@ -74,7 +80,7 @@ public class NormalLevelEnd  implements Screen {
         replayButtonPixmap = new Pixmap(Gdx.files.internal("assets/Retry.png"));
         stage.addActor(ReplayButton);
         Screen mainScreen = null;
-        System.out.println("Going to Level:\t" + Level);
+        System.out.println("Recent Level:\t" + Level);
         if(Level.equals("level1")){
             mainScreen = new NormalLevel1(Game);
         }else if(Level.equals("level2")){

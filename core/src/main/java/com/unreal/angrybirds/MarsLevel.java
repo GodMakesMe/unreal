@@ -94,6 +94,7 @@ public class MarsLevel  implements Screen, Serializable {
             bodiesToDestroy = level.bodiesToDestroy;
             blockList = level.blockList;
             isSerialized = true;
+            flag = level.flag;
 //            fastforwardSpriteBatch = new Sprite(new Texture("FastForward1.png"));
 //            Game.removeFile("MarsLevel");
 //            SpaceBird.processSerialization(null, world);
@@ -169,9 +170,13 @@ public class MarsLevel  implements Screen, Serializable {
             }
         }
         return true;
+    }public boolean allPigDead(){
+    for (Piggy i : PigList) if (!i.dead) return false;
+    player.pigsDead = initialPiggyCount;
+    return true;
     }
     public void endGame(){
-        if (player.getScore() >= allPigScore && deadPiggyList.size() == initialPiggyCount) {
+        if (player.getScore() >= allPigScore && allPigDead()) {
             if ((SpaceBird == null || !SpaceBird.isItLaunched()) && allBlockRested()) {
                 Player oldRecord = Game.loadGameScore("MarsLevelScore");
                 if (oldRecord == null || oldRecord.getScore() < player.getScore()) {
@@ -232,7 +237,7 @@ public class MarsLevel  implements Screen, Serializable {
                 PigList.add(new Piggy("Third Piggy",7,null,"assets/KingPig.png",world,"Mars",(int) (1038+47/2f), (int) (720-537-47/2f),47,57,20000));
 //                PigList.add(new Piggy("Fourth Piggy",4,null,"assets/CorpPig.png",world,"Mars",(int) (939+47/2f), (int) (720-615-47/2f),47,43,9000));
                 PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Mars",(int) (1129+47/2f), (int) (720-615-47/2f),47,47,20000));
-                initialPiggyCount = PigList.size();
+                initialPiggyCount = PigList.size(); player.initialPigs = PigList.size();
                 AtomicInteger tempScore =  new AtomicInteger();
                 PigList.forEach(pig -> {tempScore.getAndAdd(pig.getScore());});
                 allPigScore = tempScore.get();
@@ -578,7 +583,7 @@ public class MarsLevel  implements Screen, Serializable {
 //                flag = true;
 //            }
         }
-        if (SpaceBird == null && birdsAvailable <= 0 && allBlockRested()) {
+        if (SpaceBird == null && birdsAvailable <= 0 && allBlockRested()) { player.pigsDead = (allPigDead()) ? initialPiggyCount : deadPiggyList.size();
             Game.removeFile("MarsLevel");
 //            Game.removeFile("NeptuneLevelScore");
             Game.setScreen(new SpaceLevelEnd(Game,player,"Mars"));
@@ -601,6 +606,7 @@ public class MarsLevel  implements Screen, Serializable {
         batch.begin();
 
         if (SpaceBird == null && flag){
+            player.pigsDead= deadPiggyList.size();
             Game.removeFile("MarsLevel");
 //            Game.removeFile("NeptuneLevelScore");
             Game.setScreen(new SpaceLevelEnd(Game,player,"Mars"));

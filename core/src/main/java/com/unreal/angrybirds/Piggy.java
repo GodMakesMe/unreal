@@ -135,8 +135,8 @@ public class Piggy implements Serializable {
         return isRemoved;
     }
 
-    public void pigdied(){
-
+    public boolean pigdied(){
+        return dead;
     }
 
     public void setPiggyTexture(Texture piggyTexture) {
@@ -219,6 +219,7 @@ public class Piggy implements Serializable {
         return worldInstance;
     }
     public void selfdestroy(){
+        dead = true;
         getPiggyBody().setUserData(null);
         worldInstance.destroyBody(PiggyBody);
 //        this.PiggyBody = null;

@@ -55,7 +55,7 @@ public class SpaceLevelEnd  implements Screen {
         camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0); // Set camera position to center
         camera.update();
         String path;
-        if(player.getScore()>=player.winScore){
+        if(player.hasWin()){
             path = "SpaceLevelUp3.png";
         }else{
             path = "SpaceNotLevelUp.png";

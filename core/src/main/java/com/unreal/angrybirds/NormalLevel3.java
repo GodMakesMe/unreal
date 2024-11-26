@@ -94,6 +94,7 @@ public class NormalLevel3 implements Screen, Serializable {
             bodiesToDestroy = level.bodiesToDestroy;
             blockList = level.blockList;
             isSerialized = true;
+            flag = level.flag;
 //            Game.removeFile("NormalLevel3");
 //            SpaceBird.processSerialization(null, world);
         }else {
@@ -177,9 +178,13 @@ public class NormalLevel3 implements Screen, Serializable {
         }
         return score;
     }
-
+public boolean allPigDead(){
+    for (Piggy i : PigList) if (!i.dead) return false;
+    player.pigsDead = initialPiggyCount;
+    return true;
+    }
     public void endGame(){
-        if (player.getScore() >= allPigScore && deadPiggyList.size() == initialPiggyCount) {
+        if (player.getScore() >= allPigScore && allPigDead()) {
             if ((SpaceBird == null || !SpaceBird.isItLaunched()) && allBlockRested()) {
                 Player oldRecord = Game.loadGameScore("NormalLevel3Score");
                 if (oldRecord == null || oldRecord.getScore() < player.getScore()) {
@@ -230,7 +235,7 @@ public class NormalLevel3 implements Screen, Serializable {
                 PigList.add(new Piggy("Third Piggy",7,null,"assets/KingPig.png",world,"Earth",(int) (1038+47/2f), (int) (720-537-47/2f+100),47,57,20000));
 //                PigList.add(new Piggy("Fourth Piggy",4,null,"assets/CorpPig.png",world,"Earth",(int) (939+47/2f), (int) (720-615-47/2f),47,43,9000));
                 PigList.add(new Piggy("Fifth Piggy",5,null,"assets/FirstPiggy.png",world,"Earth",(int) (1129+47/2f), (int) (720-615-47/2f+100),47,47,20000));
-                initialPiggyCount = PigList.size();
+                initialPiggyCount = PigList.size(); player.initialPigs = PigList.size();
                 AtomicInteger tempScore =  new AtomicInteger();
                 PigList.forEach(pig -> {tempScore.getAndAdd(pig.getScore());});
                 allPigScore = tempScore.get();
@@ -293,7 +298,7 @@ public class NormalLevel3 implements Screen, Serializable {
         PauseButton = createButton("assets/Pause.png","assets/HoverPause.png",47, (int) (720 -39-78.3), (int) 78.4, (int) 78.4);
         pauseButtonPixmap = new Pixmap(Gdx.files.internal("assets/Pause.png"));
         stage.addActor(PauseButton);
-        Game.clickHandling(PauseButton, pauseButtonPixmap, new NormalPauseScreen(Game, this, "Level1"));
+        Game.clickHandling(PauseButton, pauseButtonPixmap, new NormalPauseScreen(Game, this, "Level2"));
 
         RedBirdButton= createButton("assets/RedBird.png","assets/HoverRedBird.png",141, (int) (720 -39-78.3), (int) 78.3, (int) 78.3);
         redBirdButtonPixmap = new Pixmap(Gdx.files.internal("assets/RedBird.png"));
@@ -564,7 +569,7 @@ public class NormalLevel3 implements Screen, Serializable {
 //                flag = true;
 //            }
         }
-        if (SpaceBird == null && birdsAvailable <= 0 && allBlockRested()) {
+        if (SpaceBird == null && birdsAvailable <= 0 && allBlockRested()) { player.pigsDead = (allPigDead()) ? initialPiggyCount : deadPiggyList.size();
             Game.removeFile("NormalLevel3");
 //            Game.removeFile("NeptuneLevelScore");
             Game.setScreen(new NormalLevelEnd(Game,player,"level3"));
@@ -587,9 +592,10 @@ public class NormalLevel3 implements Screen, Serializable {
         batch.begin();
 
         if (SpaceBird == null && flag){
+            player.pigsDead= deadPiggyList.size();
             Game.removeFile("NormalLevel3");
 //            Game.removeFile("NeptuneLevelScore");
-            Game.setScreen(new NormalLevelEnd(Game,player,"Level1"));
+            Game.setScreen(new NormalLevelEnd(Game,player,"Level3"));
 //            dispose();
         }
 

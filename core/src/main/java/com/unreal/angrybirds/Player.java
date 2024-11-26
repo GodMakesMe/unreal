@@ -8,6 +8,8 @@ public class Player implements Serializable {
     int maxScore;
     int birdsLeft;
     int totalBirds;
+    int initialPigs;
+    int pigsDead;
     public Player() {
         Score = 0;
     }
@@ -21,7 +23,8 @@ public class Player implements Serializable {
         this.winScore = allSumPig;
     }
     public boolean hasWin(){
-        return Score >= winScore;
+        System.out.println(initialPigs + "==" + pigsDead);
+        return initialPigs == pigsDead && pigsDead != 0;
     }
     public void setMaxScore(int allSum){
         this.maxScore = allSum;
