@@ -190,7 +190,7 @@ public class NormalLevel1 implements Screen, Serializable {
         int velocityIterations = 6;
         int positionIterations = 2;
         float fastForwardFactor = 5f;
-        timeStep = timeStep / fastForwardFactor;
+        timeStep = timeStep * (float)fastForwardFactor/2f;
         world.step(timeStep, velocityIterations, positionIterations);
         float deltaTime = Gdx.graphics.getDeltaTime();
         fastForwardFactor = 2f;
@@ -222,8 +222,8 @@ public class NormalLevel1 implements Screen, Serializable {
         if (batch == null) batch = new SpriteBatch();
 
         if (world == null) {
-            world = new World(new Vector2(0, -9.81f), false);
-            world.setGravity(new Vector2(0, -9.81f));
+            world = new World(new Vector2(0, -9.81f*2f), false);
+            world.setGravity(new Vector2(0, -9.81f*2f));
             world.setContactListener(new CollisionDetector());
             if (PigList == null && !isSerialized) {
                 PigList = new ArrayList<Piggy>();
@@ -236,11 +236,11 @@ public class NormalLevel1 implements Screen, Serializable {
             }
             if (blockList == null && !isSerialized) {
                 blockList = new ArrayList<Block>();
-                blockList.add(new Block("Stone","assets/StoneSmallCube.png", 21, 19, world, 1, 801+21/2f, 720-701-19/2f+100, 0, 200));
-                blockList.add(new Block("Stone","assets/StoneSmallCube.png", 21, 19, world, 1, 969+21/2f, 720-701-19/2f+100, 0, 200));
-                blockList.add(new Block("Stone","assets/StoneSmallCube.png", 21, 19, world, 1, 1143+21/2f, 720-701-19/2f+100, 0, 200));
-                blockList.add(new Block("Stone","assets/StoneLongVer.png", 194, 22, world, 2, 785+194/2f, 720-681-22/2f+100, 0, 200));
-                blockList.add(new Block("Stone","assets/StoneLongVer.png", 194, 22, world, 2, 979+194/2f, 720-681-22/2f+100, 0, 200));
+                blockList.add(new Block("Stone","assets/StoneSmallCube.png", 21, 19, world, 1, 801+21/2f, 720-701-19/2f+100, 0, 200*5));
+                blockList.add(new Block("Stone","assets/StoneSmallCube.png", 21, 19, world, 1, 969+21/2f, 720-701-19/2f+100, 0, 200*5));
+                blockList.add(new Block("Stone","assets/StoneSmallCube.png", 21, 19, world, 1, 1143+21/2f, 720-701-19/2f+100, 0, 200*5));
+                blockList.add(new Block("Stone","assets/StoneLongVer.png", 194, 22, world, 10f, 785+194/2f, 720-681-22/2f+100, 0, 200*5));
+                blockList.add(new Block("Stone","assets/StoneLongVer.png", 194, 22, world, 10f, 979+194/2f, 720-681-22/2f+100, 0, 200*5));
                 blockList.add(new Block("Wood","assets/WoodLongHor.png", 20, 159, world, 1f, 883+20/2f, 720-525-159/2f+100, 0, 150));
                 blockList.add(new Block("Wood","assets/WoodLongHor.png", 20, 159, world, 1f, 1055+20/2f, 720-525-159/2f+100, 0, 150));
                 blockList.add(new Block("Wood","assets/WoodXLongVer.png", 193, 19, world, 2, 883+193/2f, 720-507-19/2f+100, 0, 150));
@@ -248,7 +248,7 @@ public class NormalLevel1 implements Screen, Serializable {
                 blockList.add(new Block("Wood","assets/WoodLongHor.png", 20, 159, world, 1f, 1011+20/2f, 720-351-159/2f+100, 0, 150));
                 blockList.add(new Block("Wood","assets/WoodMediumVer.png", 80, 20, world, 2, 939+80/2f, 720-332-20/2f+100, 0, 150));
                 blockList.add(new Block("Wood","assets/WoodSmallVer.png", 40, 20, world, 0.25f, 958+40/2f, 720-486-20/2f+100, 0, 150));
-                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 0.25f, 968+21/2f, 720-293-40/2f+100, 0, 150));
+                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 968+21/2f, 720-293-40/2f+100, 0, 150));
                 blockList.add(new Block("Wood","assets/WoodMediumVer.png", 80, 20, world, 2, 939+80/2f, 720-560-20/2f+100, 0, 150));
                 blockList.add(new Block("Wood","assets/WoodMediumVer.png", 80, 20, world, 2, 939+80/2f, 720-661-20/2f+100, 0, 150));
                 blockList.add(new Block("Glass","assets/GlassMediumHor.png", 20, 80, world, 0.25f, 939+20/2f, 720-580-80/2f+100, 0, 150));

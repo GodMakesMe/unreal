@@ -561,7 +561,7 @@ public Bird(Bird oldBirdInstance, float x, float y, boolean noSound){
                 Frames = 0;
             }
         }
-        if (Frames >= 60) {
+        if (Frames >= 60 || getHealth() < 0) {
             if (!isRemoved) playDeathSound();
             if (BirdAbility instanceof EggAbility){
                 EggAbility eggAbility = (EggAbility)BirdAbility;

@@ -70,7 +70,7 @@ public class Block implements Serializable {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = blockShape;
         fixtureDef.density = 1.0f;
-        fixtureDef.friction = 0.1f;
+        fixtureDef.friction = 0.6f;
         fixtureDef.restitution = 0.1f;
         Fixture fixture = blockBody.createFixture(fixtureDef);
         blockBody.createFixture(fixtureDef);
@@ -181,7 +181,7 @@ public class Block implements Serializable {
             x = blockBody.getPosition().x;
             y = blockBody.getPosition().y;
             if (y < -getblockSprite().getHeight()/2) {selfdestroy(); return;}
-            if (getBlockBody().getLinearVelocity().len() < 0.1f) {
+            if (getBlockBody().getLinearVelocity().len() < 1f) {
                 Frames++;
             } else {
                 Frames = 0;

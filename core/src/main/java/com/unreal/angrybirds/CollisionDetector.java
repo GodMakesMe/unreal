@@ -174,8 +174,8 @@ public class CollisionDetector implements ContactListener {
         }else if (dataB instanceof Block){
             Block b = (Block) dataB;
             b.playDamageSound();
-            b.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), b.getBlockBody())*0.0002F);
-            dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), b.getBlockBody())*0.0002F);
+            b.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), b.getBlockBody())*0.001F);
+            dataA.health -= (int) (getChangeInMomentum(dataA.getBlockBody(), b.getBlockBody())*0.001F);
         }
     }
 }
