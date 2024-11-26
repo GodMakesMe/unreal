@@ -28,7 +28,9 @@ public class NormalLevelEnd  implements Screen {
     private Player player;
     BitmapFont Scorefont;
     private String Level;
-
+    private Sprite star1;
+    private Sprite star2;
+    private Sprite star3;
 //    public NormalLevelEnd(Main Game) {
 //        this.Game = Game;
 //    }
@@ -65,9 +67,13 @@ public class NormalLevelEnd  implements Screen {
         camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0); // Set camera position to center
         camera.update();
         String path;
-        if(player.hasWin()){
-            path = "NormalLevelUp.png";
-        }else{
+        if(player.calculateStar() == 3){
+            path = "NormalLevelUp3.png";
+        }else if (player.calculateStar() == 2){
+            path = "NormalLevelUp2.png";
+        }else if (player.calculateStar() == 1){
+            path = "NormalLevelUp1.png";
+        }else {
             path = "NormalLevelNotUp.png";
         }
         sprite = new Sprite(new Texture(path));
@@ -122,7 +128,6 @@ public class NormalLevelEnd  implements Screen {
         GlyphLayout ScoreLayout = new GlyphLayout(Scorefont,""+String.format("%08d", player.getScore()));
         Scorefont.draw(batch,ScoreLayout,574,780-485-62);
         batch.end();
-
         stage.act(delta);
         stage.draw();
     }

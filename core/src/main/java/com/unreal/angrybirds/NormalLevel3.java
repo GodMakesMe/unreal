@@ -232,6 +232,11 @@ public boolean allPigDead(){
                 PigList = new ArrayList<Piggy>();
                 PigList.add(new Piggy("Small Piggy",1, null,"assets/FirstPiggy.png",world,"Earth", (int) (918+24/2f), (int) (720-696-24/2f+100),24,24,2000));
                 PigList.add(new Piggy("Small Piggy",1, null,"assets/FirstPiggy.png",world,"Earth", (int) (1015+24/2f), (int) (720-696-24/2f+100),24,24,2000));
+                PigList.add(new Piggy("Helmet Piggy",1, null,"assets/CorpPig.png",world,"Earth", (int) (721+41/2f), (int) (720-541-38/2f+100),41,38,4000));
+                PigList.add(new Piggy("Helmet Piggy",1, null,"assets/CorpPig.png",world,"Earth", (int) (1197+41/2f), (int) (720-541-38/2f+100),41,38,4000));
+                PigList.add(new Piggy("Prof Piggy",1, null,"assets/ProfPig.png",world,"Earth", (int) (857+47/2f), (int) (720-632-47/2f+100),47,47,9000));
+                PigList.add(new Piggy("Small Piggy",1, null,"assets/MushPig.png",world,"Earth", (int) (955+47/2f), (int) (720-638-41/2f+100),47,41,5000));
+                PigList.add(new Piggy("Small Piggy",1, null,"assets/KingPig.png",world,"Earth", (int) (1052+47/2f), (int) (720-622-57/2f+100),47,57,6000));
 //                PigList.add(new Piggy("Second Piggy",3,null,"assets/ProfPig.png",world,"Earth",(int) (1042+47/2f), (int) (720-441-47/2f+100),47,47,10000));
 //                PigList.add(new Piggy("Third Piggy",7,null,"assets/KingPig.png",world,"Earth",(int) (1038+47/2f), (int) (720-537-47/2f+100),47,57,20000));
 ////                PigList.add(new Piggy("Fourth Piggy",4,null,"assets/CorpPig.png",world,"Earth",(int) (939+47/2f), (int) (720-615-47/2f),47,43,9000));
@@ -257,8 +262,13 @@ public boolean allPigDead(){
                 blockList.add(new Block("Glass", "assets/GlassWindow.png", 79, 79,world, 3, 1128 + 79f/2, 720-641-79f/2+100,0,100));
                 blockList.add(new Block("Wood", "assets/WoodBrick.png", 80, 40, world, 10, 751+40,720-601-20+100, 0, 100*2));
                 blockList.add(new Block("Wood", "assets/WoodBrick.png", 80, 40, world, 10, 1126+40,720-601-20+100, 0, 100*2));
-
-
+                blockList.add(new Block("Stone", "assets/StoneLongVer.png", 194, 22, world, 10, 723 + 194f/2f, 720-579-11+100, 0, 100*5));
+                blockList.add(new Block("Stone", "assets/StoneLongVer.png", 194, 22, world, 10, 1039 + 194f/2f, 720-579-11+100, 0, 100*5));
+                blockList.add(new Block("Wood","assets/WoodHTriangle.png", 80, 80, world, 10f, 765+40, 720-499-40+100, 0, 50*2).setShape(new Vector2[]{new Vector2(0, 40f),new Vector2(40, -40),new Vector2(-40, -40f)}));
+                blockList.add(new Block("Wood","assets/WoodHTriangle.png", 80, 80, world, 10f, 1113+40, 720-499-40+100, 0, 50*2).setShape(new Vector2[]{new Vector2(0, 40f),new Vector2(40, -40),new Vector2(-40, -40f)}));
+                blockList.add(new Block("Stone", "assets/StoneLongVer.png", 97, 11, world, 6f, 930+97/2f, 720-679-11/2f +100, 0, 80*5));
+                blockList.add(new Block("Glass", "assets/GlassLongVer.png", 97, 11, world, 6f, 833+97/2f, 720-679-11/2f +100, 0, 80));
+                blockList.add(new Block("Wood", "assets/WoodLongVer.png", 97, 11, world, 6f, 1027+97/2f, 720-679-11/2f +100, 0, 80*2));
 //                blockList.add(new Block("Stone","assets/StoneLongVer.png", 194, 22, world, 10f, 866+194/2f, 720-662-22/2f+100, 0, 200*5));
 //                blockList.add(new Block("Stone","assets/StoneLongVer.png", 194, 22, world, 10f, 1059+194/2f, 720-662-22/2f+100, 0, 200*5));
 //                blockList.add(new Block("Wood","assets/WoodSmallHor.png", 21, 40, world, 4f, 927+21/2f, 720-625-40/2f+100, 0, 150));
@@ -282,6 +292,7 @@ public boolean allPigDead(){
 //            world.setGravity(new Vector2(0, 0f));
         }
         world.setGravity(new Vector2(0, -9.81f));
+
         if (isSerialized) {
             if (SpaceBird != null) SpaceBird.processSerialization(null, world);
             assert PigList != null;
@@ -608,7 +619,7 @@ public boolean allPigDead(){
             player.pigsDead= deadPiggyList.size();
             Game.removeFile("NormalLevel3");
 //            Game.removeFile("NeptuneLevelScore");
-            Game.setScreen(new NormalLevelEnd(Game,player,"Level3"));
+            Game.setScreen(new NormalLevelEnd(Game,player,"level3"));
 //            dispose();
         }
 

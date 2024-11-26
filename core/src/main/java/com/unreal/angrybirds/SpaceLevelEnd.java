@@ -54,10 +54,16 @@ public class SpaceLevelEnd  implements Screen {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0); // Set camera position to center
         camera.update();
-        String path;
-        if(player.hasWin()){
+        String path = "";
+        if(!player.hasWin()){
+            path = "SpaceNotLevelUp.png";
+        }else if (player.calculateStar() == 3){
             path = "SpaceLevelUp3.png";
-        }else{
+        }else if (player.calculateStar() == 2){
+            path = "SpaceLevelUp2.png";
+        }else if (player.calculateStar() == 1){
+            path = "SpaceLevelUp1.png";
+        }else if (player.calculateStar() == 0){
             path = "SpaceNotLevelUp.png";
         }
         sprite = new Sprite(new Texture(path));

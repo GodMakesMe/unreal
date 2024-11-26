@@ -23,7 +23,6 @@ public class Player implements Serializable {
         this.winScore = allSumPig;
     }
     public boolean hasWin(){
-        System.out.println(initialPigs + "==" + pigsDead);
         return initialPigs == pigsDead && pigsDead != 0;
     }
     public void setMaxScore(int allSum){
