@@ -34,6 +34,12 @@ public class Player implements Serializable {
     public int calculateStar(){
         if (!hasWin()) return 0;
         int birdValue = (maxScore - winScore)/3;
+        System.out.println("birdValue:\t" + birdValue);
+        System.out.println("maxScore:\t" + maxScore);
+        System.out.println("winScore:\t" + winScore);
+        System.out.println("birdsLeft:\t" + birdsLeft);
+        System.out.println("totalBirds:\t" + totalBirds);
+        System.out.println("getScore:\t" + Score);
         if (getScore() + birdValue*birdsLeft > winScore + birdValue*2){
             return 3;
         }else if (getScore() + birdValue*birdsLeft > winScore + birdValue){

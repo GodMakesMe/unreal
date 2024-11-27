@@ -296,7 +296,7 @@ public class NormalLevel2 implements Screen, Serializable {
                 blockList.add(new Block("Glass","assets/GlassWindow.png", 79,79, world, 4f, 995+79/2f, 720-471-79/2f+100, 0, 150));
 
                 blockList.add(new Block("Glass","assets/GlassHTriangle.png", 80, 81, world, 8f, 898+80/2f, 720-219-81/2f+100, 0, 150).setShape(new Vector2[]{new Vector2(0, 81/2f),new Vector2(40, -81/2f),new Vector2(-40, -81/2f)}));
-
+                player.setMaxScore(getAllBlockScore() + allPigScore);
 
 //                blockList.add(new Block("Wood","assets/WoodLeftTriangle.png", 77, 79, world, 8f, 938+77/2f+1, 720-507-79/2f+100, 0, 150).setShape(new Vector2[]{new Vector2(-77f/2f,-79f/2f), new Vector2(77f/2f,79f/2f), new Vector2(77f/2f,-79f/2f)}));
 //                blockList.add(new Block("Wood","assets/WoodRightTriangle.png", 77, 79, world, 8f, 1116+77/2f-1.5f, 720-507-79/2f+100, 0, 150).setShape(new Vector2[]{new Vector2(-77f/2f,-79f/2f), new Vector2(-77f/2f,79f/2f), new Vector2(77f/2f,-79f/2f)}));
