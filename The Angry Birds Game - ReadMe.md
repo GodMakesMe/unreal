@@ -32,26 +32,26 @@ This is an implementation project for a well-known game, Angry Birds. We have us
 ## **Glance on Some Important Game Screens**
 
 1. Getting Started with the **Homepage**  
-   ![][image1]  
+![The Angry Birds Game - ReadMe_Page2_Image1.jpg](ScreenShots%2FThe%20Angry%20Birds%20Game%20-%20ReadMe_Page2_Image1.jpg)
 2. Select the desired **Season** to Play the game  
-   ![][image2]  
+   ![The Angry Birds Game - ReadMe_Page2_Image2.jpg](ScreenShots%2FThe%20Angry%20Birds%20Game%20-%20ReadMe_Page2_Image2.jpg)  
 3. **Space Level Screen**  
-   ![][image3]  
+   ![The Angry Birds Game - ReadMe_Page3_Image1.jpg](ScreenShots%2FThe%20Angry%20Birds%20Game%20-%20ReadMe_Page3_Image1.jpg)  
 4. **Earth Level Screen** (Not to be Confused by Earth Level in Space)  
-   ![][image4]  
+    ![The Angry Birds Game - ReadMe_Page3_Image2.jpg](ScreenShots%2FThe%20Angry%20Birds%20Game%20-%20ReadMe_Page3_Image2.jpg) 
 5. An **Earth Level (Level 1\)**  
-   ![][image5]  
-   ![][image6]  
+   ![The Angry Birds Game - ReadMe_Page4_Image1.jpg](ScreenShots%2FThe%20Angry%20Birds%20Game%20-%20ReadMe_Page4_Image1.jpg)
+![The Angry Birds Game - ReadMe_Page4_Image2.jpg](ScreenShots%2FThe%20Angry%20Birds%20Game%20-%20ReadMe_Page4_Image2.jpg) 
 6. **Pause Menus**  
-   ![][image7]  
-   ![][image8]  
+   ![The Angry Birds Game - ReadMe_Page5_Image1.jpg](ScreenShots%2FThe%20Angry%20Birds%20Game%20-%20ReadMe_Page5_Image1.jpg)
+![The Angry Birds Game - ReadMe_Page5_Image2.jpg](ScreenShots%2FThe%20Angry%20Birds%20Game%20-%20ReadMe_Page5_Image2.jpg) 
 7. **Level Up Screens**  
-   ![][image9]  
-   ![][image10]  
+   ![The Angry Birds Game - ReadMe_Page6_Image1.jpg](ScreenShots%2FThe%20Angry%20Birds%20Game%20-%20ReadMe_Page6_Image1.jpg)
+![The Angry Birds Game - ReadMe_Page6_Image2.jpg](ScreenShots%2FThe%20Angry%20Birds%20Game%20-%20ReadMe_Page6_Image2.jpg)  
 8. **Level Introduction Page**  
-   ![][image11]  
+![The Angry Birds Game - ReadMe_Page7_Image1.jpg](ScreenShots%2FThe%20Angry%20Birds%20Game%20-%20ReadMe_Page7_Image1.jpg) 
 9. A **Settings** Page  
-   ![][image12]
+   ![The Angry Birds Game - ReadMe_Page7_Image2.jpg](ScreenShots%2FThe%20Angry%20Birds%20Game%20-%20ReadMe_Page7_Image2.jpg)
 
 ## **UML Diagram**
 
