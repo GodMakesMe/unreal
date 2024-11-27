@@ -7,9 +7,9 @@ WOW64:		Yes
 Working dir:	E:\Project\Java\AngryBirds\.
 Requires JDK:	No
 Requires 64-Bit: No
-Java min ver:	
-Java max ver:	
-Substitute:	JAVA_HOME = 
+Java min ver:
+Java max ver:
+Substitute:	JAVA_HOME =
 Substitute:	PATH = C:\Program Files (x86)\VMware\VMware Player\bin\;C:\MinGW\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Java\jdk-20\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\jaype\AppData\Local\Programs\Python\Python312\;C:\Users\jaype\AppData\Local\Programs\Python\Python311\Scripts\;C:\Program Files\Common Files\Autodesk Shared\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\PowerShell\7\;C:\Users\jaype\miniconda3;C:\Users\jaype\miniconda3\Library\mingw-w64\bin;C:\Users\jaype\miniconda3\Library\usr\bin;C:\Users\jaype\miniconda3\Library\bin;C:\Users\jaype\miniconda3\Scripts;C:\Users\jaype\.cargo\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\jaype\AppData\Local\Programs\Python\Python312\;C:\MinGW\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\jaype\AppData\Local\Microsoft\WindowsApps;C:\Users\jaype\.dotnet\tools;E:\Program Files\JetBrains\PyCharm Community Edition 2023.1\bin;;E:\Program Files\Microsoft VS Code\bin;C:\Users\Public\GIMP\gimpenv3\Lib\site-packages\gimpopenvino\plugins;E:\Program Files\IntelliJ IDEA 2024.2.1\bin;;C:\Program Files\Java\jdk-20\bin
 JRE paths:	;C:\Program Files (x86)\VMware\VMware Player\bin\;C:\MinGW\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Java\jdk-20\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\jaype\AppData\Local\Programs\Python\Python312\;C:\Users\jaype\AppData\Local\Programs\Python\Python311\Scripts\;C:\Program Files\Common Files\Autodesk Shared\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\PowerShell\7\;C:\Users\jaype\miniconda3;C:\Users\jaype\miniconda3\Library\mingw-w64\bin;C:\Users\jaype\miniconda3\Library\usr\bin;C:\Users\jaype\miniconda3\Library\bin;C:\Users\jaype\miniconda3\Scripts;C:\Users\jaype\.cargo\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\jaype\AppData\Local\Programs\Python\Python312\;C:\MinGW\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\jaype\AppData\Local\Microsoft\WindowsApps;C:\Users\jaype\.dotnet\tools;E:\Program Files\JetBrains\PyCharm Community Edition 2023.1\bin;;E:\Program Files\Microsoft VS Code\bin;C:\Users\Public\GIMP\gimpenv3\Lib\site-packages\gimpopenvino\plugins;E:\Program Files\IntelliJ IDEA 2024.2.1\bin;;C:\Program Files\Java\jdk-20\bin
 Check launcher:	C:\Program Files (x86)\VMware\VMware Player\bin\bin\javaw.exe (not found)
@@ -40,9 +40,9 @@ WOW64:		Yes
 Working dir:	E:\Project\Java\AngryBirds\.
 Requires JDK:	No
 Requires 64-Bit: No
-Java min ver:	
-Java max ver:	
-Substitute:	JAVA_HOME = 
+Java min ver:
+Java max ver:
+Substitute:	JAVA_HOME =
 Substitute:	PATH = C:\Program Files (x86)\VMware\VMware Player\bin\;C:\MinGW\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Java\jdk-20\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\jaype\AppData\Local\Programs\Python\Python312\;C:\Users\jaype\AppData\Local\Programs\Python\Python311\Scripts\;C:\Program Files\Common Files\Autodesk Shared\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\PowerShell\7\;C:\Users\jaype\miniconda3;C:\Users\jaype\miniconda3\Library\mingw-w64\bin;C:\Users\jaype\miniconda3\Library\usr\bin;C:\Users\jaype\miniconda3\Library\bin;C:\Users\jaype\miniconda3\Scripts;C:\Users\jaype\.cargo\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\jaype\AppData\Local\Programs\Python\Python312\;C:\MinGW\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\jaype\AppData\Local\Microsoft\WindowsApps;C:\Users\jaype\.dotnet\tools;E:\Program Files\JetBrains\PyCharm Community Edition 2023.1\bin;;E:\Program Files\Microsoft VS Code\bin;C:\Users\Public\GIMP\gimpenv3\Lib\site-packages\gimpopenvino\plugins;E:\Program Files\IntelliJ IDEA 2024.2.1\bin;;C:\Program Files\Java\jdk-20\bin
 JRE paths:	;C:\Program Files (x86)\VMware\VMware Player\bin\;C:\MinGW\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Java\jdk-20\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\jaype\AppData\Local\Programs\Python\Python312\;C:\Users\jaype\AppData\Local\Programs\Python\Python311\Scripts\;C:\Program Files\Common Files\Autodesk Shared\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\PowerShell\7\;C:\Users\jaype\miniconda3;C:\Users\jaype\miniconda3\Library\mingw-w64\bin;C:\Users\jaype\miniconda3\Library\usr\bin;C:\Users\jaype\miniconda3\Library\bin;C:\Users\jaype\miniconda3\Scripts;C:\Users\jaype\.cargo\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\jaype\AppData\Local\Programs\Python\Python312\;C:\MinGW\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\jaype\AppData\Local\Microsoft\WindowsApps;C:\Users\jaype\.dotnet\tools;E:\Program Files\JetBrains\PyCharm Community Edition 2023.1\bin;;E:\Program Files\Microsoft VS Code\bin;C:\Users\Public\GIMP\gimpenv3\Lib\site-packages\gimpopenvino\plugins;E:\Program Files\IntelliJ IDEA 2024.2.1\bin;;C:\Program Files\Java\jdk-20\bin
 Check launcher:	C:\Program Files (x86)\VMware\VMware Player\bin\bin\javaw.exe (not found)
@@ -73,9 +73,9 @@ WOW64:		Yes
 Working dir:	E:\Project\Java\AngryBirds\.
 Requires JDK:	No
 Requires 64-Bit: No
-Java min ver:	
-Java max ver:	
-Substitute:	JAVA_HOME = 
+Java min ver:
+Java max ver:
+Substitute:	JAVA_HOME =
 Substitute:	PATH = C:\Program Files (x86)\VMware\VMware Player\bin\;C:\MinGW\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Java\jdk-20\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\jaype\AppData\Local\Programs\Python\Python312\;C:\Users\jaype\AppData\Local\Programs\Python\Python311\Scripts\;C:\Program Files\Common Files\Autodesk Shared\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\PowerShell\7\;C:\Users\jaype\miniconda3;C:\Users\jaype\miniconda3\Library\mingw-w64\bin;C:\Users\jaype\miniconda3\Library\usr\bin;C:\Users\jaype\miniconda3\Library\bin;C:\Users\jaype\miniconda3\Scripts;C:\Users\jaype\.cargo\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\jaype\AppData\Local\Programs\Python\Python312\;C:\MinGW\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\jaype\AppData\Local\Microsoft\WindowsApps;C:\Users\jaype\.dotnet\tools;E:\Program Files\JetBrains\PyCharm Community Edition 2023.1\bin;;E:\Program Files\Microsoft VS Code\bin;C:\Users\Public\GIMP\gimpenv3\Lib\site-packages\gimpopenvino\plugins;E:\Program Files\IntelliJ IDEA 2024.2.1\bin;;C:\Program Files\Java\jdk-20\bin
 JRE paths:	;C:\Program Files (x86)\VMware\VMware Player\bin\;C:\MinGW\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Java\jdk-20\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\jaype\AppData\Local\Programs\Python\Python312\;C:\Users\jaype\AppData\Local\Programs\Python\Python311\Scripts\;C:\Program Files\Common Files\Autodesk Shared\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\PowerShell\7\;C:\Users\jaype\miniconda3;C:\Users\jaype\miniconda3\Library\mingw-w64\bin;C:\Users\jaype\miniconda3\Library\usr\bin;C:\Users\jaype\miniconda3\Library\bin;C:\Users\jaype\miniconda3\Scripts;C:\Users\jaype\.cargo\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\jaype\AppData\Local\Programs\Python\Python312\;C:\MinGW\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\jaype\AppData\Local\Microsoft\WindowsApps;C:\Users\jaype\.dotnet\tools;E:\Program Files\JetBrains\PyCharm Community Edition 2023.1\bin;;E:\Program Files\Microsoft VS Code\bin;C:\Users\Public\GIMP\gimpenv3\Lib\site-packages\gimpopenvino\plugins;E:\Program Files\IntelliJ IDEA 2024.2.1\bin;;C:\Program Files\Java\jdk-20\bin
 Check launcher:	C:\Program Files (x86)\VMware\VMware Player\bin\bin\javaw.exe (not found)
@@ -106,9 +106,9 @@ WOW64:		Yes
 Working dir:	E:\Project\Java\AngryBirds\.
 Requires JDK:	No
 Requires 64-Bit: No
-Java min ver:	
-Java max ver:	
-Substitute:	JAVA_HOME = 
+Java min ver:
+Java max ver:
+Substitute:	JAVA_HOME =
 Substitute:	PATH = C:\Program Files (x86)\VMware\VMware Player\bin\;C:\MinGW\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Java\jdk-20\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\jaype\AppData\Local\Programs\Python\Python312\;C:\Users\jaype\AppData\Local\Programs\Python\Python311\Scripts\;C:\Program Files\Common Files\Autodesk Shared\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\PowerShell\7\;C:\Users\jaype\miniconda3;C:\Users\jaype\miniconda3\Library\mingw-w64\bin;C:\Users\jaype\miniconda3\Library\usr\bin;C:\Users\jaype\miniconda3\Library\bin;C:\Users\jaype\miniconda3\Scripts;C:\Users\jaype\.cargo\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\jaype\AppData\Local\Programs\Python\Python312\;C:\MinGW\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\jaype\AppData\Local\Microsoft\WindowsApps;C:\Users\jaype\.dotnet\tools;E:\Program Files\JetBrains\PyCharm Community Edition 2023.1\bin;;E:\Program Files\Microsoft VS Code\bin;C:\Users\Public\GIMP\gimpenv3\Lib\site-packages\gimpopenvino\plugins;E:\Program Files\IntelliJ IDEA 2024.2.1\bin;;C:\Program Files\Java\jdk-20\bin
 JRE paths:	;C:\Program Files (x86)\VMware\VMware Player\bin\;C:\MinGW\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Java\jdk-20\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\jaype\AppData\Local\Programs\Python\Python312\;C:\Users\jaype\AppData\Local\Programs\Python\Python311\Scripts\;C:\Program Files\Common Files\Autodesk Shared\;C:\Program Files\Git\cmd;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\PowerShell\7\;C:\Users\jaype\miniconda3;C:\Users\jaype\miniconda3\Library\mingw-w64\bin;C:\Users\jaype\miniconda3\Library\usr\bin;C:\Users\jaype\miniconda3\Library\bin;C:\Users\jaype\miniconda3\Scripts;C:\Users\jaype\.cargo\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\jaype\AppData\Local\Programs\Python\Python312\;C:\MinGW\bin;C:\Users\jaype\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\jaype\AppData\Local\Microsoft\WindowsApps;C:\Users\jaype\.dotnet\tools;E:\Program Files\JetBrains\PyCharm Community Edition 2023.1\bin;;E:\Program Files\Microsoft VS Code\bin;C:\Users\Public\GIMP\gimpenv3\Lib\site-packages\gimpopenvino\plugins;E:\Program Files\IntelliJ IDEA 2024.2.1\bin;;C:\Program Files\Java\jdk-20\bin
 Check launcher:	C:\Program Files (x86)\VMware\VMware Player\bin\bin\javaw.exe (not found)
@@ -127,6 +127,289 @@ Check launcher:	C:\Program Files\dotnet\bin\javaw.exe (not found)
 Check launcher:	C:\Program Files\Java\jdk-20\bin\javaw.exe (OK)
 Version string: 1.020.000 / 64-Bit (OK)
 Launcher:	C:\Program Files\Java\jdk-20\bin\javaw.exe
+Launcher args:	-jar "E:\Project\Java\AngryBirds\AngryBirds.exe"
+Args length:	48/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	E:\Project\Java\AngryBirds\AngryBirds.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	E:\Project\Java\AngryBirds\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:
+Java max ver:
+JRE paths:	JavaDependency
+Check launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe (OK)
+Version string: 1.008.000_431 / 64-Bit (OK)
+Launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe
+Launcher args:	-jar "E:\Project\Java\AngryBirds\AngryBirds.exe"
+Args length:	48/32768 chars
+Exit code:	1, restarting the application!
+Exit code:	1, restarting the application!
+Exit code:	1, restarting the application!
+Exit code:	1, restarting the application!
+Exit code:	1, restarting the application!
+Exit code:	1, restarting the application!
+Exit code:	1, restarting the application!
+Exit code:	1, restarting the application!
+Exit code:	1, restarting the application!
+Exit code:	1, restarting the application!
+Exit code:	1, restarting the application!
+Exit code:	1, restarting the application!
+Exit code:	1, restarting the application!
+Exit code:	1, restarting the application!
+Exit code:	1, restarting the application!
+Exit code:	1, restarting the application!
+Exit code:	1, restarting the application!
+Exit code:	1, restarting the application!
+Error msg:	An error occurred while starting the application.
+Error:		The system cannot find the file specified.
+
+
+
+
+Version:	3.50
+CmdLine:	E:\Project\Java\AngryBirds\AngryBirds.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	E:\Project\Java\AngryBirds\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:
+Java max ver:
+JRE paths:	JavaDependency
+Check launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe (not found)
+Error msg:	This application requires a Java Runtime Environment.
+
+
+Version:	3.50
+CmdLine:	E:\Project\Java\AngryBirds\AngryBirds.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	E:\Project\Java\AngryBirds\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:
+Java max ver:
+JRE paths:	JavaDependency
+Check launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe (not found)
+Error msg:	This application requires a Java Runtime Environment.
+
+
+Version:	3.50
+CmdLine:	E:\Project\Java\AngryBirds\AngryBirds.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	E:\Project\Java\AngryBirds\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:
+Java max ver:
+JRE paths:	JavaDependency
+Check launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe (OK)
+Version string: 1.008.000_431 / 64-Bit (OK)
+Launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe
+Launcher args:	-jar "E:\Project\Java\AngryBirds\AngryBirds.exe"
+Args length:	48/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	E:\Project\Java\AngryBirds\AngryBirds.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	E:\Project\Java\AngryBirds\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:
+Java max ver:
+JRE paths:	JavaDependency
+Check launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe (OK)
+Version string: 1.008.000_431 / 64-Bit (OK)
+Launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe
+Launcher args:	-jar "E:\Project\Java\AngryBirds\AngryBirds.exe"
+Args length:	48/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	E:\Project\Java\AngryBirds\AngryBirds.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	E:\Project\Java\AngryBirds\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:
+Java max ver:
+JRE paths:	JavaDependency
+Check launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe (OK)
+Version string: 1.008.000_431 / 64-Bit (OK)
+Launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe
+Launcher args:	-jar "E:\Project\Java\AngryBirds\AngryBirds.exe"
+Args length:	48/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	E:\Project\Java\AngryBirds\AngryBirds.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	E:\Project\Java\AngryBirds\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.011.000
+Java max ver:
+JRE paths:	JavaDependency
+Check launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe (OK)
+Cannot get version string: cannot find quote
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Version string: 1.008.000 / 64-Bit (Ignore)
+Ignore:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_431
+Version string: 1.008.000_431 / 64-Bit (Ignore)
+Ignore:		1.008.000_431
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Check:		SOFTWARE\JavaSoft\JDK\20
+Version string: 1.020.000 / 64-Bit (OK)
+Check launcher:	C:\Program Files\Java\jdk-20\bin\javaw.exe (OK)
+Match:		1.020.000
+Runtime used:	1.020.000 (64-bit)
+Launcher:	C:\Program Files\Java\jdk-20\bin\javaw.exe
+Launcher args:	-jar "E:\Project\Java\AngryBirds\AngryBirds.exe"
+Args length:	48/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	E:\Project\Java\AngryBirds\AngryBirds.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	E:\Project\Java\AngryBirds\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.011.000
+Java max ver:
+JRE paths:	JavaDependency
+Check launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe (OK)
+Cannot get version string: cannot find quote
+64-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8
+Version string: 1.008.000 / 64-Bit (Ignore)
+Ignore:		1.008.000
+Check:		SOFTWARE\JavaSoft\Java Runtime Environment\1.8.0_431
+Version string: 1.008.000_431 / 64-Bit (Ignore)
+Ignore:		1.008.000_431
+32-bit search:	SOFTWARE\JavaSoft\Java Runtime Environment...
+64-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+32-bit search:	SOFTWARE\JavaSoft\Java Development Kit...
+64-bit search:	SOFTWARE\JavaSoft\JRE...
+32-bit search:	SOFTWARE\JavaSoft\JRE...
+64-bit search:	SOFTWARE\JavaSoft\JDK...
+Check:		SOFTWARE\JavaSoft\JDK\20
+Version string: 1.020.000 / 64-Bit (OK)
+Check launcher:	C:\Program Files\Java\jdk-20\bin\javaw.exe (OK)
+Match:		1.020.000
+Runtime used:	1.020.000 (64-bit)
+Launcher:	C:\Program Files\Java\jdk-20\bin\javaw.exe
+Launcher args:	-jar "E:\Project\Java\AngryBirds\AngryBirds.exe"
+Args length:	48/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	E:\Project\Java\AngryBirds\AngryBirds.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	E:\Project\Java\AngryBirds\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:
+Java max ver:
+JRE paths:	JavaDependency
+Check launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe (OK)
+Cannot get version string: cannot find quote
+Error msg:	This application requires a Java Runtime Environment.
+Error:		The pipe has been ended.
+
+
+
+
+Version:	3.50
+CmdLine:	E:\Project\Java\AngryBirds\AngryBirds.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	E:\Project\Java\AngryBirds\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:
+Java max ver:
+JRE paths:	JavaDependency
+Check launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe (OK)
+Cannot get version string: cannot find quote
+Error msg:	This application requires a Java Runtime Environment.
+Error:		The pipe has been ended.
+
+
+
+
+Version:	3.50
+CmdLine:	E:\Project\Java\AngryBirds\AngryBirds.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	E:\Project\Java\AngryBirds\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:
+Java max ver:
+JRE paths:	JavaDependency
+Check launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe (OK)
+Cannot get version string: cannot find quote
+Error msg:	This application requires a Java Runtime Environment.
+Error:		The pipe has been ended.
+
+
+
+
+Version:	3.50
+CmdLine:	E:\Project\Java\AngryBirds\AngryBirds.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	E:\Project\Java\AngryBirds\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:
+Java max ver:
+JRE paths:	JavaDependency
+Check launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe (OK)
+Version string: 1.022.000 / 64-Bit (OK)
+Launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe
+Launcher args:	-jar "E:\Project\Java\AngryBirds\AngryBirds.exe"
+Args length:	48/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	E:\Project\Java\AngryBirds\AngryBirds.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	E:\Project\Java\AngryBirds\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:
+Java max ver:
+JRE paths:	JavaDependency
+Check launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe (OK)
+Version string: 1.022.000 / 64-Bit (OK)
+Launcher:	E:\Project\Java\AngryBirds\JavaDependency\bin\javaw.exe
 Launcher args:	-jar "E:\Project\Java\AngryBirds\AngryBirds.exe"
 Args length:	48/32768 chars
 Exit code:	0
