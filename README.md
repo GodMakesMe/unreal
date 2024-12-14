@@ -2,19 +2,20 @@
 
 ## Malav Mehulkumar Solanki and Krishna Shukla
 
+College Project from IIIT, Delhi, for Course Advanced Programming.
 This is an implementation project for a well-known game, Angry Birds. We have used OOPs concepts and Libgdx Framework to create this game.
 
 ## **Features**
 
 * There are mainly two seasons, Earth mode and Space Mode  
-* The Earth Mode consists of Angrybirds levels on the surface of Earth, while the Spacemode consists of levels constituting each of our planet in the Solar System (Moon not being a planet exists as a level)  
-* For the SpaceMode, for more originality, the player has to deal with the planet's own gravity which may vary with respect to gravity on Earth’s surface  
-* The player can select birds and launch based on the level as each level has its own set of birds.  
-* A player gets total of two birds in each level to to destroy the structure and win the game.  
+* The Earth Mode consists of Angrybirds levels on the surface of Earth, while the Spacemode consists of levels constituting each of our planets in the Solar System the (Moon, not being a plane,t exists as a level)  
+* For the SpaceMode, for more originality, the player has to deal with the planet's own gravity, which may vary with respect to gravity on Earth’s surface  
+* The player can select birds and launch based on the level, as each level has its own set of birds.  
+* A player gets two birds in each level to destroy the structure and win the game.  
 * A variety of 5 birds are implemented and each of them has their own unique ability, which can be triggered upon launching.  
 * Once the Player Kills all the piggies from the structure, Player Wins BUT based on the constraints of destroying blocks the score is updated along with the piggy score, which rates the player's performance in terms of 3 stars..  
-* Background music and interactive sounds are implemented for an immersive experience of the player.  
-* The Player can just pause the level and then leave the game and start from the same instance, as the game is saved. Also the player’s best performance in each level is stored and it reflects in space introduction screen.  
+* Background music and interactive sounds are implemented for an immersive experience for the player.  
+* The Player can just pause the level and then leave the game and start from the same instance, as the game is saved. Also, the player’s best performance in each level is stored and reflected in the space introduction screen.  
 * The player can reset the game, and start the game all over again using settings.
 
 ## **Concepts and Frameworks Used**
